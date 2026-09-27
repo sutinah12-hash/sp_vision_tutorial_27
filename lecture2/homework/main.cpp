@@ -5,23 +5,27 @@
 
 int main()
 {
-    // 初始化相机、yolo类
-    
-    // while (1) {
-        // 调用相机读取图像
+  io::Camera camera("./configs/camera.yaml");
+  auto_aim::YOLO yolo("./configs/yolo.yaml");
 
+  cv::Mat img;
+  std::chrono::steady_clock::time_point timestamp;
 
-        // 调用yolo识别装甲板
+  while (true) {
+    camera.read(img, timestamp);
+    if (img.empty()) continue;
 
+    const auto armors = yolo.detect(img);
+    for (const auto & armor : armors) {
+      if (armor.points.size() == 4) {
+        tools::draw_points(img, armor.points, cv::Scalar(0, 255, 0), 2);
+      }
+    }
 
+    cv::resize(img, img, cv::Size(640, 480));
+    cv::imshow("img", img);
+    if (cv::waitKey(1) == 'q') break;
+  }
 
-        // 显示图像
-        // cv::resize(img, img , cv::Size(640, 480));
-        // cv::imshow("img", img);
-        // if (cv::waitKey(0) == 'q') {
-        //     // break;
-        // }
-    // }
-
-    return 0;
+  return 0;
 }

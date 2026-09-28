@@ -1,0 +1,18 @@
+STRESS_WARNINGS=179
+[INFO] [1790609771.397409745] [sensor_subscriber]: Subscriber on /sensor_data: reliability=reliable, depth=10
+[INFO] [1790609772.397747877] [sensor_subscriber]: 累计: 收到 0 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609772.397845451] [sensor_subscriber]: 最近 1.001 s: 收到 0 条, 实际帧率 0.00 Hz
+[INFO] [1790609773.401186201] [sensor_subscriber]: 累计: 收到 31 条, 丢失 52 条, 丢包率 62.65%
+[INFO] [1790609773.401221403] [sensor_subscriber]: 最近 1.003 s: 收到 31 条, 实际帧率 30.90 Hz
+[INFO] [1790609774.402355447] [sensor_subscriber]: 累计: 收到 64 条, 丢失 119 条, 丢包率 65.03%
+[INFO] [1790609774.402389302] [sensor_subscriber]: 最近 1.001 s: 收到 33 条, 实际帧率 32.96 Hz
+[INFO] [1790609775.403748829] [sensor_subscriber]: 累计: 收到 97 条, 丢失 186 条, 丢包率 65.72%
+[INFO] [1790609775.403824491] [sensor_subscriber]: 最近 1.001 s: 收到 33 条, 实际帧率 32.95 Hz
+[INFO] [1790609776.405130848] [sensor_subscriber]: 累计: 收到 130 条, 丢失 253 条, 丢包率 66.06%
+[INFO] [1790609776.405165762] [sensor_subscriber]: 最近 1.001 s: 收到 33 条, 实际帧率 32.96 Hz
+[INFO] [1790609777.406612567] [sensor_subscriber]: 累计: 收到 163 条, 丢失 320 条, 丢包率 66.25%
+[INFO] [1790609777.406650394] [sensor_subscriber]: 最近 1.001 s: 收到 33 条, 实际帧率 32.95 Hz
+[INFO] [1790609778.396646048] [sensor_subscriber]: 累计: 收到 193 条, 丢失 363 条, 丢包率 65.29%
+[INFO] [1790609778.396824456] [sensor_subscriber]: 最近 0.990 s: 收到 30 条, 实际帧率 30.30 Hz
+[INFO] [1790609779.396597356] [sensor_subscriber]: 累计: 收到 193 条, 丢失 363 条, 丢包率 65.29%
+[INFO] [1790609779.396802963] [sensor_subscriber]: 最近 1.000 s: 收到 0 条, 实际帧率 0.00 Hz

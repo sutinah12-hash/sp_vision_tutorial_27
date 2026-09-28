@@ -1,0 +1,17 @@
+[INFO] [1790609736.892217799] [sensor_subscriber]: Subscriber on /sensor_data: reliability=reliable, depth=10
+[INFO] [1790609737.892298144] [sensor_subscriber]: 累计: 收到 24 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609737.892360464] [sensor_subscriber]: 最近 1.001 s: 收到 24 条, 实际帧率 23.97 Hz
+[INFO] [1790609738.892120055] [sensor_subscriber]: 累计: 收到 124 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609738.892257646] [sensor_subscriber]: 最近 1.000 s: 收到 100 条, 实际帧率 100.01 Hz
+[INFO] [1790609739.891959225] [sensor_subscriber]: 累计: 收到 216 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609739.892088036] [sensor_subscriber]: 最近 1.000 s: 收到 92 条, 实际帧率 92.02 Hz
+[INFO] [1790609740.891787192] [sensor_subscriber]: 累计: 收到 305 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609740.891918339] [sensor_subscriber]: 最近 1.000 s: 收到 89 条, 实际帧率 89.02 Hz
+[INFO] [1790609741.891627433] [sensor_subscriber]: 累计: 收到 405 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609741.891747057] [sensor_subscriber]: 最近 1.000 s: 收到 100 条, 实际帧率 100.02 Hz
+[INFO] [1790609742.891463095] [sensor_subscriber]: 累计: 收到 505 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609742.891602591] [sensor_subscriber]: 最近 1.000 s: 收到 100 条, 实际帧率 100.01 Hz
+[INFO] [1790609743.891460522] [sensor_subscriber]: 累计: 收到 537 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609743.891630409] [sensor_subscriber]: 最近 1.000 s: 收到 32 条, 实际帧率 32.00 Hz
+[INFO] [1790609744.891324618] [sensor_subscriber]: 累计: 收到 537 条, 丢失 0 条, 丢包率 0.00%
+[INFO] [1790609744.891446292] [sensor_subscriber]: 最近 1.000 s: 收到 0 条, 实际帧率 0.00 Hz

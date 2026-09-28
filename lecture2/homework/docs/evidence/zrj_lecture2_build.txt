@@ -1,0 +1,35 @@
+-- Check for working CXX compiler: /usr/bin/clang++-14 - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- --------------------CMAKE_BUILD_TYPE: Debug--------------------
+-- Found OpenCV: /usr (found version "4.5.4") 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/sp_vision_tutorial_27/lecture2/homework/build-evidence
+[  6%] Building CXX object tools/CMakeFiles/tools.dir/img_tools.cpp.o
+[ 13%] Building CXX object tools/CMakeFiles/tools.dir/logger.cpp.o
+[ 13%] Built target tools
+[ 20%] Building CXX object io/CMakeFiles/io.dir/camera.cpp.o
+[ 26%] Building CXX object io/CMakeFiles/io.dir/hikrobot/hikrobot.cpp.o
+[ 33%] Linking CXX static library libio.a
+[ 33%] Built target io
+[ 40%] Building CXX object tasks/CMakeFiles/tasks.dir/armor.cpp.o
+[ 46%] Building CXX object tasks/CMakeFiles/tasks.dir/yolo.cpp.o
+[ 53%] Building CXX object tasks/CMakeFiles/tasks.dir/yolos/yolov5.cpp.o
+[ 60%] Building CXX object tasks/CMakeFiles/tasks.dir/apriltag_detector.cpp.o
+[ 60%] Built target tasks
+[ 66%] Building CXX object CMakeFiles/main.dir/main.cpp.o
+[ 73%] Linking CXX executable main
+[ 73%] Built target main
+[ 80%] Building CXX object CMakeFiles/example.dir/io/example.cpp.o
+[ 86%] Linking CXX executable example
+[ 86%] Built target example
+[ 93%] Building CXX object CMakeFiles/opencv.dir/opencv.cpp.o
+[100%] Linking CXX executable opencv
+[100%] Built target opencv
+RUNTIME_LIBRARY_CHECK=PASSED

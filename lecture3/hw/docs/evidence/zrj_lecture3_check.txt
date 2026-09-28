@@ -1,0 +1,48 @@
+=== Homework Check ===
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/sp_vision_tutorial_27/lecture3/hw/build
+Consolidate compiler generated dependencies of target mini_vision_lib
+[ 13%] Building CXX object CMakeFiles/mini_vision_lib.dir/src/statistics.cpp.o
+[ 13%] Building CXX object CMakeFiles/mini_vision_lib.dir/src/pipeline.cpp.o
+[ 20%] Building CXX object CMakeFiles/mini_vision_lib.dir/src/frame_source.cpp.o
+[ 26%] Linking CXX static library libmini_vision_lib.a
+[ 33%] Built target mini_vision_lib
+Consolidate compiler generated dependencies of target pipeline_test
+Consolidate compiler generated dependencies of target shutdown_test
+Consolidate compiler generated dependencies of target statistics_test
+Consolidate compiler generated dependencies of target mini_vision
+Consolidate compiler generated dependencies of target frame_integrity_test
+[ 40%] Building CXX object CMakeFiles/pipeline_test.dir/tests/test_pipeline.cpp.o
+[ 46%] Building CXX object CMakeFiles/shutdown_test.dir/tests/test_shutdown.cpp.o
+[ 53%] Linking CXX executable frame_integrity_test
+[ 60%] Building CXX object CMakeFiles/statistics_test.dir/tests/test_statistics.cpp.o
+[ 66%] Building CXX object CMakeFiles/mini_vision.dir/src/main.cpp.o
+[ 73%] Built target frame_integrity_test
+[ 80%] Linking CXX executable statistics_test
+[ 80%] Built target statistics_test
+[ 86%] Linking CXX executable mini_vision
+[ 93%] Linking CXX executable shutdown_test
+[100%] Linking CXX executable pipeline_test
+[100%] Built target mini_vision
+[100%] Built target shutdown_test
+[100%] Built target pipeline_test
+Internal ctest changing into directory: /root/sp_vision_tutorial_27/lecture3/hw/build
+Test project /root/sp_vision_tutorial_27/lecture3/hw/build
+    Start 1: frame_integrity_test
+1/4 Test #1: frame_integrity_test .............   Passed    0.18 sec
+    Start 2: statistics_test
+2/4 Test #2: statistics_test ..................   Passed    0.07 sec
+    Start 3: pipeline_test
+3/4 Test #3: pipeline_test ....................   Passed    0.44 sec
+    Start 4: shutdown_test
+4/4 Test #4: shutdown_test ....................   Passed    0.41 sec
+
+100% tests passed, 0 tests failed out of 4
+
+Total Test time (real) =   1.10 sec
+2 workers ............. PASS
+3 workers ............. PASS
+6 workers ............. PASS
+report.md .................. PASS
+ALL TESTS PASSED

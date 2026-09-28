@@ -55,9 +55,9 @@ bool ImageSequenceSource::next(Frame &frame)
     frame.id = static_cast<int>(next_index_++);
     frame.expected_checksum = checksum(buffer_);
 
-    // TODO: The camera will reuse its internal buffer. Make sure this frame
-    // remains valid after the next call to next().
-    frame.image = buffer_;
+    // The source owns and reuses buffer_. Give every queued frame its own
+    // pixel storage so later captures cannot mutate an older frame.
+    frame.image = buffer_.clone();
 
     if (producer_delay_ms_ > 0)
     {

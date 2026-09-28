@@ -37,20 +37,35 @@ Pipeline::Pipeline(std::unique_ptr<FrameSource> source, PipelineConfig config)
 
 Pipeline::~Pipeline()
 {
-    // TODO: Make sure Pipeline never destroys running threads.
+    wait();
 }
 
 void Pipeline::start()
 {
-    std::filesystem::create_directories(config_.output_directory);
-    workers_.reserve(static_cast<std::size_t>(config_.worker_count));
-    for (int i = 0; i < config_.worker_count; ++i)
+    if (started_)
     {
-        workers_.emplace_back([this, i]
-                              { workerLoop(i); });
+        throw std::logic_error("Pipeline::start() may only be called once");
     }
-    producer_ = std::thread([this]
-                            { producerLoop(); });
+    started_ = true;
+
+    try
+    {
+        std::filesystem::create_directories(config_.output_directory);
+        workers_.reserve(static_cast<std::size_t>(config_.worker_count));
+        for (int i = 0; i < config_.worker_count; ++i)
+        {
+            workers_.emplace_back([this, i]
+                                  { workerLoop(i); });
+        }
+        producer_ = std::thread([this]
+                                { producerLoop(); });
+    }
+    catch (...)
+    {
+        queue_.close();
+        wait();
+        throw;
+    }
 }
 
 void Pipeline::wait()
@@ -81,8 +96,7 @@ void Pipeline::producerLoop()
         statistics_.onProduced();
         logLine(std::cout, "[Producer] frame " + std::to_string(frame.id));
 
-        // What's the best way to write this?
-        queue_.push(frame);
+        queue_.push(std::move(frame));
     }
     queue_.close();
 }

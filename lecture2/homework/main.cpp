@@ -19,6 +19,10 @@ int main()
     for (const auto & armor : armors) {
       if (armor.points.size() == 4) {
         tools::draw_points(img, armor.points, cv::Scalar(0, 255, 0), 2);
+        const auto label =
+          auto_aim::COLORS[armor.color] + auto_aim::ARMOR_NAMES[armor.name];
+        const cv::Point label_origin(armor.box.x, armor.box.y - 10);
+        tools::draw_text(img, label, label_origin, cv::Scalar(0, 255, 0), 0.8, 2);
       }
     }
 

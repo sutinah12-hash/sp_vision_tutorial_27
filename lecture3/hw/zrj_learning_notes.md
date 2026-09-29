@@ -72,7 +72,7 @@ mutable std::mutex mutex_;
 
 ```bash
 cd lecture3/hw
-bash zrj验证.sh
+bash zrj_verify.sh
 ```
 
 重新运行结果：
@@ -86,7 +86,7 @@ bash zrj验证.sh
 - 总结果：`ALL TESTS PASSED`。
 
 - [原始自动检查日志](docs/evidence/zrj_lecture3_check.txt)
-- [可复现验证脚本](zrj验证.sh)
+- [可复现验证脚本](zrj_verify.sh)
 
 程序实际生成的20帧结果如下。这是算法输出图片：
 
@@ -99,4 +99,3 @@ bash zrj验证.sh
 - 条件变量解决“什么时候继续”，互斥锁解决“谁能同时访问”；
 - 并发正确性要通过校验和、计数不变量和不同线程数量反复验证；
 - 正确退出与正确处理数据同样重要。
-

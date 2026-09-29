@@ -55,7 +55,7 @@ cv::Scalar(0, 255, 0)
 
 ```bash
 cd lecture2/homework
-bash zrj验证.sh
+bash zrj_verify.sh
 ```
 
 本次在 AutoDL 上重新全量编译，所有目标均构建到 100%，运行时动态库检查没有 `not found`。远程服务器没有连接工业相机，因此真实采集和 GUI 显示仍需在线下硬件上验证。
@@ -63,9 +63,8 @@ bash zrj验证.sh
 过程证据使用真实的 UTF-8 文本日志保存，不使用模拟终端截图：
 
 - [原始构建日志](docs/evidence/zrj_lecture2_build.txt)
-- [可复现验证脚本](zrj验证.sh)
+- [可复现验证脚本](zrj_verify.sh)
 
 ## 5. 我的收获
 
 视觉程序不只是调用检测函数，还涉及硬件资源管理、配置加载、编译链接、异常处理、线程同步和图像显示。接口抽象与 RAII 能让硬件代码更安全，也更容易替换实现。
-

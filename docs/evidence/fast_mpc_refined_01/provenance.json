@@ -1,0 +1,19 @@
+{
+  "git_commit": "1dd5b60d3c2af8fbd23ee72babc5d8cbdf4f52d3",
+  "git_status": "",
+  "arguments": {
+    "controller": "mpc",
+    "no_smoothing": false,
+    "out": "results/fast_mpc_refined_01",
+    "timeout": 240,
+    "headless": true,
+    "auto_goal": true,
+    "fast_mpc": true,
+    "mpc_max_acceleration": 2.0,
+    "mpc_braking_acceleration": 1.0,
+    "mpc_lateral_acceleration": 0.9
+  },
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "started_utc": "2026-10-02T10:42:33Z"
+}

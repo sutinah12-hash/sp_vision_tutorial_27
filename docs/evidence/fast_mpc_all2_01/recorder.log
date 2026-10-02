@@ -1,0 +1,67 @@
+[INFO] [1790937392.556521610] [nav_trial_recorder]: Recorder ready. Click the fixed-goal button in RViz ONCE.
+[INFO] [1790937397.108077696] [nav_trial_recorder]: Goal received: [14.1, 14.1], initial pose: [0.9 0.9]
+[INFO] [1790937402.145918052] [nav_trial_recorder]: Progress: t=5.0s xy=[2.56325879 2.41651092] goal_error=16.420m
+[INFO] [1790937412.160273978] [nav_trial_recorder]: Progress: t=15.1s xy=[8.47420696 0.91064259] goal_error=14.339m
+[INFO] [1790937422.330370427] [nav_trial_recorder]: Progress: t=25.2s xy=[10.69772359  5.64289943] goal_error=9.116m
+[INFO] [1790937432.505805613] [nav_trial_recorder]: Progress: t=35.4s xy=[11.89980285  6.17027021] goal_error=8.229m
+[INFO] [1790937442.524766893] [nav_trial_recorder]: Progress: t=45.4s xy=[9.32680223 5.64549336] goal_error=9.709m
+[INFO] [1790937452.706971687] [nav_trial_recorder]: Progress: t=55.6s xy=[5.32545961 6.37283139] goal_error=11.692m
+[INFO] [1790937462.707766868] [nav_trial_recorder]: Progress: t=65.6s xy=[4.59602208 7.52182342] goal_error=11.558m
+[INFO] [1790937472.905699502] [nav_trial_recorder]: Progress: t=75.8s xy=[ 7.93322273 10.47332319] goal_error=7.154m
+[INFO] [1790937482.907656278] [nav_trial_recorder]: Progress: t=85.8s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937493.106322617] [nav_trial_recorder]: Progress: t=96.0s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937503.305641077] [nav_trial_recorder]: Progress: t=106.2s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937513.308273255] [nav_trial_recorder]: Progress: t=116.2s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937523.319933672] [nav_trial_recorder]: Progress: t=126.2s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937533.505912208] [nav_trial_recorder]: Progress: t=136.4s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937543.506209358] [nav_trial_recorder]: Progress: t=146.4s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+[INFO] [1790937553.506237036] [nav_trial_recorder]: Progress: t=156.4s xy=[ 7.94405337 10.4901067 ] goal_error=7.136m
+{
+  "label": "MPC with smoothed A*",
+  "result": "FAIL",
+  "reason": "interrupted",
+  "trigger": "single_topic_message_test",
+  "goal_messages": 1,
+  "action_status": 6,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    7.944053366033245,
+    10.490106700627447
+  ],
+  "action_time_s": null,
+  "final_error_m": 7.136316178050232,
+  "final_speed_mps": 0.0,
+  "sample_count": 4199,
+  "odom_observed_hz": 26.05180369432033,
+  "controller_mean_ms": 0.22819179985930355,
+  "controller_p95_ms": 0.4126932000000001,
+  "controller_max_ms": 4.734257,
+  "tracking_rmse_m": 0.4660416818856188,
+  "tracking_mean_m": 0.4313943671143576,
+  "tracking_p95_m": 0.5389128305662834,
+  "tracking_max_m": 0.6351952088532197,
+  "raw_path_rmse_m": 0.43184725822354064,
+  "minimum_wall_clearance_m": 0.25,
+  "max_speed_mps": 1.5119507470168978,
+  "distance_travelled_m": 51.860197279606226,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}
+Traceback (most recent call last):
+  File "/home/zrj/nav_final_project/scripts/evaluate_run.py", line 289, in <module>
+    sys.exit(main())
+  File "/home/zrj/nav_final_project/scripts/evaluate_run.py", line 284, in main
+    node.destroy_node(); rclpy.shutdown()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 130, in shutdown
+    _shutdown(context=context)
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/utilities.py", line 58, in shutdown
+    return context.shutdown()
+  File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/context.py", line 102, in shutdown
+    self.__context.shutdown()
+rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241

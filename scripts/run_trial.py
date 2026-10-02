@@ -30,6 +30,9 @@ def main():
     parser.add_argument('--headless', action='store_true')
     parser.add_argument('--auto-goal', action='store_true')
     parser.add_argument('--fast-mpc', action='store_true', help='Experimental MPC speed limit of 2.0 m/s')
+    parser.add_argument('--mpc-max-acceleration', type=float)
+    parser.add_argument('--mpc-braking-acceleration', type=float)
+    parser.add_argument('--mpc-lateral-acceleration', type=float)
     args = parser.parse_args()
     out = Path(args.out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -56,6 +59,17 @@ def main():
         if args.controller != 'mpc':
             parser.error('--fast-mpc requires --controller mpc')
         launch_cmd.append('mpc_max_speed:=2.0')
+    for launch_name, value in [
+        ('mpc_max_acceleration', args.mpc_max_acceleration),
+        ('mpc_braking_acceleration', args.mpc_braking_acceleration),
+        ('mpc_lateral_acceleration', args.mpc_lateral_acceleration),
+    ]:
+        if value is not None:
+            if args.controller != 'mpc':
+                parser.error('MPC acceleration overrides require --controller mpc')
+            if value <= 0.0 or value > 2.0:
+                parser.error(f'{launch_name} must be in (0, 2.0]')
+            launch_cmd.append(f'{launch_name}:={value}')
     label = args.controller.upper() + (' with raw A*' if args.no_smoothing else ' with smoothed A*')
     recorder_cmd = [sys.executable, str(workspace / 'scripts/evaluate_run.py'),
                     '--out', str(out / 'data'), '--label', label, '--timeout', str(args.timeout)]

@@ -11,6 +11,9 @@ def nodes(context):
     params = LaunchConfiguration('params_file').perform(context)
     controller = LaunchConfiguration('controller').perform(context)
     mpc_max_speed = float(LaunchConfiguration('mpc_max_speed').perform(context))
+    mpc_max_acceleration = float(LaunchConfiguration('mpc_max_acceleration').perform(context))
+    mpc_braking_acceleration = float(LaunchConfiguration('mpc_braking_acceleration').perform(context))
+    mpc_lateral_acceleration = float(LaunchConfiguration('mpc_lateral_acceleration').perform(context))
     if controller not in ('mpc', 'pid', 'sampling'):
         raise ValueError('controller must be mpc, pid or sampling')
     smooth = LaunchConfiguration('smoothing').perform(context).lower() == 'true'
@@ -25,7 +28,10 @@ def nodes(context):
         ('sp_global_planner', 'planner_server', 'planner_server', {'AStar.smoothing_enabled': smooth}),
         ('sp_controller_server', 'controller_node', 'controller_server',
          {'plugin_name': selected[0], 'plugin_type': selected[1],
-          'MpcController.max_speed': mpc_max_speed}),
+          'MpcController.max_speed': mpc_max_speed,
+          'MpcController.max_acceleration': mpc_max_acceleration,
+          'MpcController.braking_acceleration': mpc_braking_acceleration,
+          'MpcController.lateral_acceleration': mpc_lateral_acceleration}),
         ('sp_decision', 'sp_decision_node', 'sp_decision', {}),
         ('sp_nav_bt', 'nav_interface_node', 'nav_interface_node', {}),
     ]:
@@ -45,5 +51,8 @@ def generate_launch_description():
         DeclareLaunchArgument('smoothing', default_value='true', choices=['true', 'false']),
         DeclareLaunchArgument('rviz', default_value='true', choices=['true', 'false']),
         DeclareLaunchArgument('mpc_max_speed', default_value='1.25'),
+        DeclareLaunchArgument('mpc_max_acceleration', default_value='1.7'),
+        DeclareLaunchArgument('mpc_braking_acceleration', default_value='0.8'),
+        DeclareLaunchArgument('mpc_lateral_acceleration', default_value='0.8'),
         OpaqueFunction(function=nodes),
     ])

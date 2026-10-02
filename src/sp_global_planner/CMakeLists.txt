@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(sp_global_planner)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -43,4 +45,11 @@ install(DIRECTORY launch
 install(FILES plugin_description.xml
   DESTINATION share/${PROJECT_NAME}
 )
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(test_astar_smoothing tests/test_astar_smoothing.cpp)
+  target_include_directories(test_astar_smoothing PRIVATE plugins)
+  target_link_libraries(test_astar_smoothing sp_global_planner_plugins)
+  ament_target_dependencies(test_astar_smoothing rclcpp nav_msgs geometry_msgs pluginlib)
+endif()
 ament_package()

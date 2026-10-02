@@ -108,6 +108,11 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
       }
       prediction_pub_->publish(predicted);
     }
+  } else if (distance<0.70) {
+    // The path's square-root braking profile is too aggressive near the endpoint
+    // for a delayed PID plant. Use a damped, zero-feedforward terminal regulator.
+    integral_.setZero();
+    command=1.0*(path_.points.back()-p)-0.60*v;
   } else {
     const double s=path_.nearest(p);
     // Feedback corrects cross-track error without an artificial forward position

@@ -200,6 +200,7 @@ class Recorder(Node):
             'goal_xy': self.goal.tolist(), 'final_xy': data[-1, 1:3].tolist(),
             'action_time_s': self.action_success_time, 'final_error_m': end_error,
             'final_speed_mps': final_speed, 'sample_count': len(data),
+            'odom_observed_hz': float((len(data) - 1) / (data[-1, 0] - data[0, 0])),
             'tracking_rmse_m': float(np.sqrt(np.nanmean(tracking ** 2))),
             'tracking_mean_m': float(np.nanmean(tracking)),
             'tracking_p95_m': float(np.nanpercentile(tracking, 95)),
@@ -234,9 +235,11 @@ class Recorder(Node):
         ax.plot(data[:, 0], np.linalg.norm(data[:, 3:5], axis=1), label='Measured speed [m/s]', alpha=.8)
         ax.set(xlabel='Wall-clock time after goal [s]', title='Tracking error and speed')
         ax.grid(alpha=.2); ax.legend()
+        action_time = summary['action_time_s']
+        action_text = f'{action_time:.2f}' if action_time is not None else 'not reached'
         fig.suptitle(f"{summary['result']} | final error {summary['final_error_m']:.4f} m | "
                      f"tracking RMSE {summary['tracking_rmse_m']:.4f} m | "
-                     f"action time {summary['action_time_s']} s")
+                     f"action time {action_text} s")
         fig.tight_layout()
         fig.savefig(out / 'trajectory.png', dpi=160)
         plt.close(fig)

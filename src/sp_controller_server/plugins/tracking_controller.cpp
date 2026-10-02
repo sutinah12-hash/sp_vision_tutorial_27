@@ -110,9 +110,11 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
     }
   } else {
     const double s=path_.nearest(p);
-    const double lookahead=std::min(0.12,path_.length()-s);
-    const Vec2 error=path_.at(s+lookahead)-p;
-    const Vec2 feedforward=path_.tangent(s)*path_.speed(s);
+    // Feedback corrects cross-track error without an artificial forward position
+    // bias. A short tangent preview anticipates bends in the delayed plant.
+    const Vec2 error=path_.at(s)-p;
+    const double preview=std::min(0.20,path_.length()-s);
+    const Vec2 feedforward=path_.tangent(s+preview)*path_.speed(s);
     integral_=bounded(integral_+error*dt,0.25);
     command=feedforward+kp_*error+ki_*integral_+kd_*(feedforward-v);
   }

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>sp_nav_tools</name><version>1.0.0</version>
+  <description>Exact one-click goal panel and navigation evaluation support.</description>
+  <maintainer email="sutinah12@madrasah.kemenag.go.id">zrj</maintainer>
+  <license>Apache-2.0</license>
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <depend>rclcpp</depend><depend>geometry_msgs</depend><depend>nav_msgs</depend>
+  <depend>rviz_common</depend><depend>pluginlib</depend>
+  <export><build_type>ament_cmake</build_type></export>
+</package>

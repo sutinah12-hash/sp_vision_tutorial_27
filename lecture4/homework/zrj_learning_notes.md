@@ -99,7 +99,7 @@ ros2 run qos_debugger qos_debugger_sub --ros-args -p callback_delay_ms:=30
 
 ```bash
 cd lecture4/homework
-bash zrj验证.sh
+bash zrj_verify.sh
 ```
 
 ## 6. 我的收获

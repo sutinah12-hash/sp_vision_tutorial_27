@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.8)
 project(sp_controller_server)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+find_package(Eigen3 REQUIRED)
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -27,7 +30,9 @@ ament_target_dependencies(controller_server_core
 )
 add_library(controller_plugins SHARED
   plugins/pid_controller.cpp
+  plugins/tracking_controller.cpp
 )
+target_link_libraries(controller_plugins Eigen3::Eigen)
 target_include_directories(controller_plugins PRIVATE include)
 ament_target_dependencies(controller_plugins
   rclcpp
@@ -53,4 +58,10 @@ install(TARGETS
 install(DIRECTORY include/ DESTINATION include)
 install(DIRECTORY launch/ DESTINATION share/${PROJECT_NAME})
 install(FILES plugin_description.xml DESTINATION share/${PROJECT_NAME})
+if(BUILD_TESTING)
+  find_package(ament_cmake_gtest REQUIRED)
+  ament_add_gtest(test_tracking_math tests/test_tracking_math.cpp)
+  target_include_directories(test_tracking_math PRIVATE plugins)
+  target_link_libraries(test_tracking_math Eigen3::Eigen)
+endif()
 ament_package()

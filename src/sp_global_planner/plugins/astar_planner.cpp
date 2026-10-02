@@ -40,6 +40,10 @@ void AStarPlanner::configure(const rclcpp::Node::SharedPtr& node, const std::str
 
   lethal_cost_  = require_param<int>(node, plugin_name + ".lethal_cost");
   cost_weight_  = require_param<double>(node, plugin_name + ".cost_weight");
+  smoothing_enabled_ = node->declare_parameter<bool>(plugin_name + ".smoothing_enabled", true);
+  smoothing_iterations_ = node->declare_parameter<int>(plugin_name + ".smoothing_iterations", 120);
+  smoothing_max_cost_ = node->declare_parameter<int>(plugin_name + ".smoothing_max_cost", 85);
+  raw_path_pub_ = node->create_publisher<nav_msgs::msg::Path>("/global_path_raw",10);
 
   RCLCPP_INFO(logger_, "AStarPlanner configured: lethal_cost=%d cost_weight=%.3f",
               lethal_cost_, cost_weight_);
@@ -160,6 +164,9 @@ nav_msgs::msg::Path AStarPlanner::createPlan(
 
       int8_t c = map.data[ni];
       if (isBlocked(c)) continue;
+      // Diagonal moves must not pass between two blocked corner cells.
+      if (k >= 4 && (isBlocked(map.data[idx(cx+dxs[k],cy)]) ||
+                     isBlocked(map.data[idx(cx,cy+dys[k])]))) continue;
 
       double step = (k < 4) ? 1.0 : std::sqrt(2.0);
 
@@ -210,7 +217,65 @@ nav_msgs::msg::Path AStarPlanner::createPlan(
     path.poses.push_back(ps);
   }
 
-  return path;
+  // Preserve the requested coordinates instead of stopping at the grid-cell centre.
+  if (path.poses.size()>1) {
+    if (safeSegment(start.pose.position,path.poses[1].pose.position)) path.poses.front()=start;
+    if (safeSegment(path.poses[path.poses.size()-2].pose.position,goal.pose.position))
+      path.poses.back()=goal;
+  }
+  else if (path.poses.size()==1) path.poses.front()=goal;
+  raw_path_pub_->publish(path);
+  return smoothing_enabled_ ? smoothPlan(path) : path;
+}
+
+bool AStarPlanner::safeSegment(const geometry_msgs::msg::Point & a,
+                             const geometry_msgs::msg::Point & b) const {
+  if (!map_) return false;
+  const auto & map=*map_;
+  const double distance=std::hypot(a.x-b.x,a.y-b.y);
+  const int count=std::max(1,static_cast<int>(std::ceil(distance/(map.info.resolution*0.25))));
+  for (int i=0;i<=count;++i) {
+    const double t=static_cast<double>(i)/count;
+    GridIndex cell;
+    if (!worldToGrid(map,a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,cell)) return false;
+    const int cost=map.data[toIndex(map,cell.x,cell.y)];
+    if (cost<0 || cost>=std::min(lethal_cost_,smoothing_max_cost_)) return false;
+  }
+  return true;
+}
+
+nav_msgs::msg::Path AStarPlanner::smoothPlan(const nav_msgs::msg::Path & raw) const {
+  if (raw.poses.size()<3) return raw;
+  auto smooth=raw;
+  // Elastic-band relaxation: retain the A* homotopy and fixed endpoints.
+  // Each accepted update collision-checks both adjoining segments on the inflated map.
+  for (int iteration=0;iteration<smoothing_iterations_;++iteration) {
+    double movement=0.0;
+    for (std::size_t i=1;i+1<smooth.poses.size();++i) {
+      const auto original=raw.poses[i].pose.position;
+      const auto current=smooth.poses[i].pose.position;
+      const auto before=smooth.poses[i-1].pose.position;
+      const auto after=smooth.poses[i+1].pose.position;
+      auto candidate=current;
+      candidate.x+=0.08*(original.x-current.x)+0.35*(before.x+after.x-2.0*current.x);
+      candidate.y+=0.08*(original.y-current.y)+0.35*(before.y+after.y-2.0*current.y);
+      if (std::hypot(candidate.x-original.x,candidate.y-original.y)>0.20) continue;
+      if (safeSegment(before,candidate) && safeSegment(candidate,after)) {
+        movement+=std::hypot(candidate.x-current.x,candidate.y-current.y);
+        smooth.poses[i].pose.position=candidate;
+      }
+    }
+    if (movement<1e-5) break;
+  }
+  for (std::size_t i=0;i+1<smooth.poses.size();++i) {
+    if (!safeSegment(smooth.poses[i].pose.position,smooth.poses[i+1].pose.position)) return raw;
+    const auto & a=smooth.poses[i].pose.position;
+    const auto & b=smooth.poses[i+1].pose.position;
+    const double yaw=std::atan2(b.y-a.y,b.x-a.x);
+    smooth.poses[i].pose.orientation.z=std::sin(yaw*0.5);
+    smooth.poses[i].pose.orientation.w=std::cos(yaw*0.5);
+  }
+  return smooth;
 }
 
 }

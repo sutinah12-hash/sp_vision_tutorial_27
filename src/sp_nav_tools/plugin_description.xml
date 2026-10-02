@@ -1,0 +1,5 @@
+<library path="fixed_goal_panel">
+  <class name="sp_nav_tools/FixedGoal" type="sp_nav_tools::FixedGoalPanel" base_class_type="rviz_common::Panel">
+    <description>Publish exactly one map-frame goal at (14.100, 14.100) from RViz.</description>
+  </class>
+</library>

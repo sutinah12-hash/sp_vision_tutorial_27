@@ -25,6 +25,14 @@ private:
 
   int lethal_cost_{100};
   double cost_weight_{2.0};
+  bool smoothing_enabled_{true};
+  int smoothing_iterations_{120};
+  int smoothing_max_cost_{85};
+  rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr raw_path_pub_;
+
+  bool safeSegment(const geometry_msgs::msg::Point & a,
+                   const geometry_msgs::msg::Point & b) const;
+  nav_msgs::msg::Path smoothPlan(const nav_msgs::msg::Path & raw) const;
 
   bool isBlocked(int8_t c) const;
   double cellCostFactor(int8_t c) const;

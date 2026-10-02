@@ -1,56 +1,43 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
+from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
-def generate_launch_description():
-    bringup_share = get_package_share_directory('sp_nav_bringup')
-    params_file = os.path.join(bringup_share, 'config', 'nav_params.yaml')
-    rviz_config = os.path.join(bringup_share, 'rviz', 'rviz.rviz')
+def nodes(context):
+    share = get_package_share_directory('sp_nav_bringup')
+    params = LaunchConfiguration('params_file').perform(context)
+    controller = LaunchConfiguration('controller').perform(context)
+    if controller not in ('mpc', 'pid'):
+        raise ValueError('controller must be mpc or pid')
+    smooth = LaunchConfiguration('smoothing').perform(context).lower() == 'true'
+    selected = ('MpcController', 'nav_tracking::MpcController') if controller == 'mpc' else (
+        'PidController', 'pid_controller::PidController')
+    result = []
+    for package, executable, name, overrides in [
+        ('sp_map_server', 'esdf_map_publisher', 'esdf_map_publisher', {}),
+        ('sp_global_planner', 'planner_server', 'planner_server', {'AStar.smoothing_enabled': smooth}),
+        ('sp_controller_server', 'controller_node', 'controller_server',
+         {'plugin_name': selected[0], 'plugin_type': selected[1]}),
+        ('sp_decision', 'sp_decision_node', 'sp_decision', {}),
+        ('sp_nav_bt', 'nav_interface_node', 'nav_interface_node', {}),
+    ]:
+        result.append(Node(package=package, executable=executable, name=name,
+                           output='screen', parameters=[params, overrides]))
+    if LaunchConfiguration('rviz').perform(context).lower() == 'true':
+        result.append(Node(package='rviz2', executable='rviz2', name='rviz2', output='screen',
+                           arguments=['-d', os.path.join(share, 'rviz', 'rviz.rviz')]))
+    return result
 
+
+def generate_launch_description():
+    share = get_package_share_directory('sp_nav_bringup')
     return LaunchDescription([
-        Node(
-            package='sp_map_server',
-            executable='esdf_map_publisher',
-            name='esdf_map_publisher',
-            output='screen',
-            parameters=[params_file],
-        ),
-        Node(
-            package='sp_global_planner',
-            executable='planner_server',
-            name='planner_server',
-            output='screen',
-            parameters=[params_file],
-        ),
-        Node(
-            package='sp_controller_server',
-            executable='controller_node',
-            name='controller_server',
-            output='screen',
-            parameters=[params_file],
-        ),
-        Node(
-            package='sp_decision',
-            executable='sp_decision_node',
-            name='sp_decision',
-            output='screen',
-            parameters=[params_file],
-        ),
-        Node(
-            package='sp_nav_bt',
-            executable='nav_interface_node',
-            name='nav_interface_node',
-            output='screen',
-            parameters=[params_file],
-        ),
-        Node(
-            package='rviz2',
-            executable='rviz2',
-            name='rviz2',
-            output='screen',
-            arguments=['-d', rviz_config],
-        ),
+        DeclareLaunchArgument('params_file', default_value=os.path.join(share, 'config', 'nav_params.yaml')),
+        DeclareLaunchArgument('controller', default_value='mpc', choices=['mpc', 'pid']),
+        DeclareLaunchArgument('smoothing', default_value='true', choices=['true', 'false']),
+        DeclareLaunchArgument('rviz', default_value='true', choices=['true', 'false']),
+        OpaqueFunction(function=nodes),
     ])

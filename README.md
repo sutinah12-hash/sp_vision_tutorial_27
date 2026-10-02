@@ -78,7 +78,7 @@ p[k+1] = p[k] + dt*v[k+1]
 
 从课程原版动力学的固定朝向阶跃响应拟合得到延迟约 0.2147 s、时间常数约 0.3145 s。使用 28 步、0.07 s 预测间隔，前 3 步由已发送命令固定，滚动优化剩余指令。位置、速度、指令变化和幅度构成凸二次代价；输入合速度圆盘约束通过投影加速梯度求解，最多 100 次迭代。严格说这是带二次约束的凸优化，并非完整非线性 MPC。
 
-**Smooth sampling predictive (experimental)**：同样的参考路径和延迟队列，评估 257 条平滑扰动序列、3 轮加权更新，并在预测中考虑速度与加速度限幅。它是受 MPPI 启发的实验实现，不冒称完整 Nav2 MPPI / SVG-MPPI，不静默回退 MPC。原始论文与实现差别见 [controller methods](docs/controller_methods.md)。
+**Smooth sampling predictive (experimental)**：同样的参考路径和延迟队列，评估 257 条平滑扰动序列、3 轮加权更新，并在预测中考虑速度与加速度限幅。它是受 MPPI 启发的实验实现，与 Nav2 MPPI / SVG-MPPI 的差异见 [controller methods](docs/controller_methods.md)，运行时不会回退到 MPC。
 
 三者共同的指令速度上限为 1.25 m/s，最终指令变化限幅为 1.7 m/s²。这些是学生控制器配置，未改原版仿真器的物理上限。MPC 的最终变化限幅未完整建模到优化约束中，是已知近似。
 

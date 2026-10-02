@@ -36,9 +36,10 @@ Visualization Manager:
       Value: true
     - Class: rviz_default_plugins/Path
       Name: Raw A-star path
-      Enabled: false
-      Color: 230; 170; 60
-      Line Style: Lines
+      Enabled: true
+      Color: 255; 190; 50
+      Line Style: Billboards
+      Line Width: 0.025
       Pose Style: None
       Topic:
         Value: /global_path_raw
@@ -60,7 +61,7 @@ Visualization Manager:
         Depth: 5
       Value: true
     - Class: rviz_default_plugins/Path
-      Name: MPC prediction
+      Name: Controller prediction
       Enabled: true
       Color: 255; 80; 190
       Line Style: Billboards

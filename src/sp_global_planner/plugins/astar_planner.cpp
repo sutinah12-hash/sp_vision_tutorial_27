@@ -232,14 +232,33 @@ bool AStarPlanner::safeSegment(const geometry_msgs::msg::Point & a,
                              const geometry_msgs::msg::Point & b) const {
   if (!map_) return false;
   const auto & map=*map_;
-  const double distance=std::hypot(a.x-b.x,a.y-b.y);
-  const int count=std::max(1,static_cast<int>(std::ceil(distance/(map.info.resolution*0.25))));
-  for (int i=0;i<=count;++i) {
-    const double t=static_cast<double>(i)/count;
-    GridIndex cell;
-    if (!worldToGrid(map,a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t,cell)) return false;
-    const int cost=map.data[toIndex(map,cell.x,cell.y)];
-    if (cost<0 || cost>=std::min(lethal_cost_,smoothing_max_cost_)) return false;
+  GridIndex start,end;
+  if (!worldToGrid(map,a.x,a.y,start) || !worldToGrid(map,b.x,b.y,end)) return false;
+  // Exact segment/AABB intersection avoids missing arbitrarily short corner
+  // crossings between samples. Closed cell boxes conservatively include touches.
+  const int xmin=std::max(0,std::min(start.x,end.x)-1);
+  const int ymin=std::max(0,std::min(start.y,end.y)-1);
+  const int xmax=std::max(start.x,end.x), ymax=std::max(start.y,end.y);
+  for (int y=ymin;y<=ymax;++y) for (int x=xmin;x<=xmax;++x) {
+    const int cost=map.data[toIndex(map,x,y)];
+    if (cost>=0 && cost<std::min(lethal_cost_,smoothing_max_cost_)) continue;
+    const double lower[2]={map.info.origin.position.x+x*map.info.resolution,
+                           map.info.origin.position.y+y*map.info.resolution};
+    const double origin[2]={a.x,a.y}, delta[2]={b.x-a.x,b.y-a.y};
+    double first=0.0,last=1.0; bool intersects=true;
+    for (int axis=0;axis<2;++axis) {
+      const double upper=lower[axis]+map.info.resolution;
+      if (std::abs(delta[axis])<1e-14) {
+        if (origin[axis]<lower[axis] || origin[axis]>upper) {intersects=false;break;}
+      } else {
+        double t0=(lower[axis]-origin[axis])/delta[axis];
+        double t1=(upper-origin[axis])/delta[axis];
+        if (t0>t1) std::swap(t0,t1);
+        first=std::max(first,t0); last=std::min(last,t1);
+        if (first>last+1e-12) {intersects=false;break;}
+      }
+    }
+    if (intersects) return false;
   }
   return true;
 }

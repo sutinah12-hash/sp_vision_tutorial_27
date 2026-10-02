@@ -12,6 +12,8 @@ Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。保留课程�
 
 [最新采样控制器录像：同时显示原始 A* 和平滑路径](docs/evidence/final_sampling_rviz_06/rviz_one_click.mp4)，橙黄色为原始折线、绿色为平滑路径、蓝色为实际轨迹。导航 98.75 秒，视频 107.3 秒；仅调整显示，不修改算法或仿真参数。
 
+[高速 MPC 实验录像](docs/evidence/fast_mpc_03/rviz_one_click.mp4)：将 MPC 速度上限临时提高到 2.0 m/s 后，实际到达 **95.07 秒**，最终误差 0.78 cm，实测最高速度 1.19 m/s。该实验没有修改仿真器物理参数；正式基线仍为 1.25 m/s。
+
 ## 1. Task and compliance
 
 固定起点 `(0.900, 0.900)`，固定终点 `(14.100, 14.100)`。一次目标通过上层 `click_nav.xml` 触发导航 action，再由下层 `default_nav_with_fallback.xml` 调用 A* 和控制器。没有绕过双层行为树，没有人工发布速度，没有拖动机器人或途中改目标。

@@ -56,6 +56,7 @@ class Recorder(Node):
         self.success = False
         self.auto_sent = False
         self.born = time.monotonic()
+        self.last_progress = self.born
         self.sent_trajectory = RosPath()
         self.sent_trajectory.header.frame_id = 'map'
         self.trajectory_pub = self.create_publisher(RosPath, '/executed_path', 10)
@@ -158,6 +159,10 @@ class Recorder(Node):
         if self.start is None:
             return
         elapsed = time.monotonic() - self.start
+        if time.monotonic() - self.last_progress > 10:
+            self.last_progress = time.monotonic()
+            error = float(np.linalg.norm(self.xy - self.goal)) if self.xy is not None else -1
+            self.get_logger().info(f'Progress: t={elapsed:.1f}s xy={self.xy} goal_error={error:.3f}m')
         if self.action_success_time is not None and elapsed > self.action_success_time + 4.0:
             self.finish('action_completed')
         elif elapsed > self.args.timeout:

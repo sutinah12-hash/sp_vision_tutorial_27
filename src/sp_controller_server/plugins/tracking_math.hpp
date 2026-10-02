@@ -142,9 +142,10 @@ class VelocityMpc {
   Vec2 solve(const Vec2 & position, const Vec2 & velocity, const Vec2 & previous,
              const Eigen::MatrixXd & pos_ref, const Eigen::MatrixXd & vel_ref,
              const Eigen::MatrixXd & pending=Eigen::MatrixXd()) {
-    if (!position.allFinite() || !velocity.allFinite() || !pos_ref.allFinite() ||
+    if (!position.allFinite() || !velocity.allFinite() || !previous.allFinite() || !pos_ref.allFinite() ||
         !vel_ref.allFinite() || pos_ref.rows()!=horizon || vel_ref.rows()!=horizon ||
-        pending.rows()>=horizon || !pending.allFinite())
+        pos_ref.cols()!=2 || vel_ref.cols()!=2 ||
+        pending.rows()>=horizon || (pending.rows()>0 && pending.cols()!=2) || !pending.allFinite())
       return Vec2::Zero();
     Eigen::MatrixXd free_p(horizon,2), free_v(horizon,2);
     for (int i=0; i<horizon; ++i) {

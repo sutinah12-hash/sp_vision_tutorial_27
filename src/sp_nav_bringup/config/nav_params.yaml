@@ -44,9 +44,10 @@ controller_server:
       max_acceleration: 1.7
       braking_acceleration: 0.8
       lateral_acceleration: 0.8
-      horizon: 24
-      prediction_dt: 0.08
-      velocity_time_constant: 0.23
+      horizon: 28
+      prediction_dt: 0.07
+      velocity_time_constant: 0.315
+      delay_steps: 3
       solver_iterations: 100
       position_weight: 24.0
       velocity_weight: 1.5

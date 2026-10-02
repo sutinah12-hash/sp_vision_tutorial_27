@@ -41,7 +41,7 @@ BT::NodeStatus NavStateTrack::onStart()
 
 BT::NodeStatus NavStateTrack::onRunning()
 {
-  RCLCPP_INFO(node_->get_logger(), "[NavStateTrack] onRunning() ticked.");
+  RCLCPP_DEBUG(node_->get_logger(), "[NavStateTrack] onRunning() ticked.");
 
   geometry_msgs::msg::PoseStamped goal_pose;
   if (!getInput<geometry_msgs::msg::PoseStamped>("goal_pose", goal_pose)) {
@@ -87,7 +87,7 @@ BT::NodeStatus NavStateTrack::onRunning()
   double tolerance = 0.2;
   getInput<double>("goal_tolerance", tolerance);
 
-  RCLCPP_INFO(node_->get_logger(),
+  RCLCPP_DEBUG(node_->get_logger(),
     "[NavStateTrack] goal=(%.2f, %.2f) current=(%.2f, %.2f) remaining=%.3f tol=%.3f",
     goal_pose.pose.position.x, goal_pose.pose.position.y,
     current_x, current_y,
@@ -99,7 +99,7 @@ BT::NodeStatus NavStateTrack::onRunning()
     return BT::NodeStatus::SUCCESS;
   }
 
-  RCLCPP_INFO(node_->get_logger(),
+  RCLCPP_DEBUG(node_->get_logger(),
     "[NavStateTrack] Goal not reached yet, returning RUNNING.");
 
   return BT::NodeStatus::RUNNING;

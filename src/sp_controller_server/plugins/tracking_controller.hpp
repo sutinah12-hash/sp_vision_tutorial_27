@@ -1,6 +1,7 @@
 #pragma once
 #include "tracking_math.hpp"
 #include "sp_controller_server/controller_plugin.hpp"
+#include <deque>
 
 namespace nav_tracking {
 class TrackingController : public sp_controller_server::ControllerPlugin {
@@ -23,6 +24,8 @@ class TrackingController : public sp_controller_server::ControllerPlugin {
   double kp_=1.8, ki_=0.05, kd_=0.2, last_time_=0.0, plan_time_=0.0;
   rclcpp::Publisher<nav_msgs::msg::Path>::SharedPtr prediction_pub_;
   std::size_t calls_=0;
+  int delay_steps_=3;
+  std::deque<std::pair<double,Vec2>> command_history_;
 };
 class MpcController : public TrackingController {
  public:

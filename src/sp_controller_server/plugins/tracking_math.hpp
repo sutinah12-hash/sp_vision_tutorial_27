@@ -140,9 +140,11 @@ class VelocityMpc {
   void reset() { u_.setZero(); }
 
   Vec2 solve(const Vec2 & position, const Vec2 & velocity, const Vec2 & previous,
-             const Eigen::MatrixXd & pos_ref, const Eigen::MatrixXd & vel_ref) {
+             const Eigen::MatrixXd & pos_ref, const Eigen::MatrixXd & vel_ref,
+             const Eigen::MatrixXd & pending=Eigen::MatrixXd()) {
     if (!position.allFinite() || !velocity.allFinite() || !pos_ref.allFinite() ||
-        !vel_ref.allFinite() || pos_ref.rows()!=horizon || vel_ref.rows()!=horizon)
+        !vel_ref.allFinite() || pos_ref.rows()!=horizon || vel_ref.rows()!=horizon ||
+        pending.rows()>=horizon || !pending.allFinite())
       return Vec2::Zero();
     Eigen::MatrixXd free_p(horizon,2), free_v(horizon,2);
     for (int i=0; i<horizon; ++i) {
@@ -158,13 +160,15 @@ class VelocityMpc {
       Eigen::MatrixXd next=y-step_*(h_*y+f);
       for (int i=0; i<horizon; ++i)
         next.row(i)=bounded(Vec2(next.row(i).transpose()),speed_limit).transpose();
+      // Commands already in the actuator delay queue are fixed, not decision variables.
+      for (int i=0; i<pending.rows(); ++i) next.row(i)=pending.row(i);
       const double new_t=(1.0+std::sqrt(1.0+4.0*t*t))*0.5;
       y=next+((t-1.0)/new_t)*(next-u_);
       const double change=(next-u_).norm(); u_=next; t=new_t;
       if (change<1e-5) break;
     }
     prediction=free_p+p_*u_;
-    return Vec2(u_.row(0).transpose());
+    return Vec2(u_.row(pending.rows()).transpose());
   }
 
  private:

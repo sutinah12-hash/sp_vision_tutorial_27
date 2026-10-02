@@ -50,3 +50,18 @@ TEST(Mpc, ClosedLoopConvergesToGoal) {
 TEST(Mpc, RejectInvalidConfiguration) {
   VelocityMpc m; m.horizon=0; EXPECT_THROW(m.initialize(),std::invalid_argument);
 }
+TEST(Mpc, DelayedCommandsAreFixedAndLoopConverges) {
+  VelocityMpc m; m.horizon=28; m.dt=0.07; m.tau=0.315; m.initialize();
+  Vec2 pos=Vec2::Zero(),vel=Vec2::Zero(),last=Vec2::Zero(),goal(1.0,0.4);
+  Eigen::MatrixXd p(m.horizon,2),v=Eigen::MatrixXd::Zero(m.horizon,2);
+  Eigen::MatrixXd queue=Eigen::MatrixXd::Zero(3,2);
+  for (int i=0;i<m.horizon;++i) p.row(i)=goal.transpose();
+  for (int i=0;i<240;++i) {
+    last=m.solve(pos,vel,last,p,v,queue);
+    EXPECT_TRUE(last.allFinite()); EXPECT_LE(last.norm(),m.speed_limit+1e-9);
+    const double a=std::exp(-m.dt/m.tau);
+    vel=a*vel+(1-a)*queue.row(0).transpose(); pos+=m.dt*vel;
+    queue.topRows(2)=queue.bottomRows(2).eval(); queue.row(2)=last.transpose();
+  }
+  EXPECT_LT((pos-goal).norm(),0.015); EXPECT_LT(vel.norm(),0.02);
+}

@@ -26,15 +26,16 @@ void TrackingController::configure(const rclcpp::Node::SharedPtr & node,
   kp_=parameter(node,key("kp"),1.8);
   ki_=parameter(node,key("ki"),0.05);
   kd_=parameter(node,key("kd"),0.2);
-  mpc_.horizon=parameter(node,key("horizon"),24);
-  mpc_.dt=parameter(node,key("prediction_dt"),0.08);
-  mpc_.tau=parameter(node,key("velocity_time_constant"),0.23);
+  mpc_.horizon=parameter(node,key("horizon"),28);
+  mpc_.dt=parameter(node,key("prediction_dt"),0.07);
+  mpc_.tau=parameter(node,key("velocity_time_constant"),0.315);
+  delay_steps_=parameter(node,key("delay_steps"),3);
   mpc_.iterations=parameter(node,key("solver_iterations"),100);
   mpc_.position_weight=parameter(node,key("position_weight"),24.0);
   mpc_.velocity_weight=parameter(node,key("velocity_weight"),1.5);
   mpc_.change_weight=parameter(node,key("command_change_weight"),0.7);
   if (!std::isfinite(cruise_) || cruise_<=0 || cruise_>2.0 ||
-      acceleration_<=0 || braking_<=0 || lateral_<=0)
+      acceleration_<=0 || braking_<=0 || lateral_<=0 || delay_steps_<0 || delay_steps_>=mpc_.horizon)
     throw std::invalid_argument("Invalid controller speed or acceleration limits");
   mpc_.speed_limit=cruise_;
   mpc_.initialize();
@@ -74,10 +75,10 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
   const Vec2 v(velocity.linear.x,velocity.linear.y); // Server explicitly supplies map-frame velocity.
   if (path_.points.empty() || pose.header.frame_id!=map_frame_ ||
       !p.allFinite() || !v.allFinite() || now-plan_time_>2.0 || cruise_<=0) {
-    previous_.setZero(); integral_.setZero(); mpc_.reset(); return result;
+    previous_.setZero(); integral_.setZero(); command_history_.clear(); mpc_.reset(); return result;
   }
   if (new_goal_) {
-    integral_.setZero(); previous_=bounded(v,cruise_); mpc_.reset(); new_goal_=false;
+    integral_.setZero(); previous_=bounded(v,cruise_); command_history_.clear(); mpc_.reset(); new_goal_=false;
   }
   Vec2 command;
   const double distance=(path_.points.back()-p).norm();
@@ -86,7 +87,15 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
   } else if (use_mpc_) {
     Eigen::MatrixXd ref_p,ref_v;
     path_.preview(p,v,mpc_.horizon,mpc_.dt,ref_p,ref_v);
-    command=mpc_.solve(p,v,previous_,ref_p,ref_v);
+    Eigen::MatrixXd pending=Eigen::MatrixXd::Zero(delay_steps_,2);
+    for (int i=0;i<delay_steps_;++i) {
+      const double time=now-(delay_steps_-i)*mpc_.dt;
+      for (const auto & sample:command_history_) {
+        if (sample.first>time) break;
+        pending.row(i)=sample.second.transpose();
+      }
+    }
+    command=mpc_.solve(p,v,previous_,ref_p,ref_v,pending);
     if (++calls_%5==0) {
       nav_msgs::msg::Path predicted;
       predicted.header.stamp=result.header.stamp; predicted.header.frame_id=map_frame_;
@@ -111,6 +120,9 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
   command=bounded(command,cruise_);
   command=previous_+bounded(command-previous_,acceleration_*dt);
   previous_=command;
+  command_history_.emplace_back(now,command);
+  while (!command_history_.empty() && command_history_.front().first<now-2.0)
+    command_history_.pop_front();
   const auto & q=pose.pose.orientation;
   const double yaw=std::atan2(2.0*(q.w*q.z+q.x*q.y),1.0-2.0*(q.y*q.y+q.z*q.z));
   const Vec2 body=worldToBody(command,yaw);

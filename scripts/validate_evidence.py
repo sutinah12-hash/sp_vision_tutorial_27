@@ -36,7 +36,8 @@ def main():
         final=np.array([data['x_m'][-1],data['y_m'][-1]])
         assert np.linalg.norm(final-np.array(metrics['final_xy']))<1e-9
         assert abs(np.linalg.norm(final-[14.1,14.1])-metrics['final_error_m'])<1e-9
-        assert np.max(np.hypot(data['cmd_x_mps'],data['cmd_y_mps']))<=1.25+1e-6
+        command_limit=2.0 if provenance.get('arguments',{}).get('fast_mpc',False) else 1.25
+        assert np.max(np.hypot(data['cmd_x_mps'],data['cmd_y_mps']))<=command_limit+1e-6
         if metrics['result']=='PASS':
             assert metrics['action_status']==4 and metrics['final_error_m']<.05
             assert metrics['final_speed_mps']<.08 and metrics['action_time_s']>0

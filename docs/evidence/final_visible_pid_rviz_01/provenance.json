@@ -1,0 +1,19 @@
+{
+  "git_commit": "3b9ea6c47160198a47a0bef13029f879ade71af8",
+  "git_status": "",
+  "arguments": {
+    "controller": "pid",
+    "no_smoothing": false,
+    "out": "results/final_visible_pid_rviz_01",
+    "timeout": 240.0,
+    "headless": false,
+    "auto_goal": false,
+    "fast_mpc": false,
+    "mpc_max_acceleration": null,
+    "mpc_braking_acceleration": null,
+    "mpc_lateral_acceleration": null
+  },
+  "platform": "Linux-6.8.0-40-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "started_utc": "2026-10-02T15:07:34Z"
+}

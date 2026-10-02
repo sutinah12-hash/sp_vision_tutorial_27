@@ -38,4 +38,4 @@
 
 9 个包编译通过，`colcon test-result` 汇总 21 项检查，0 errors、0 failures、0 skipped。覆盖控制器数学、采样收敛、坐标转换和 A* 平滑安全性；这不等于全部实际场景的安全证明。
 
-真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。主办方配置对齐后的四轮 GUI 汇总位于 `evidence/final_aligned_comparison/summary.json`；早期无界面对照仍保存在 `evidence/comparison/summary.json`。自动单目标回归与 RViz 单次点击验收通过每次 `metrics.json` 的 `trigger` 字段区分。
+真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。三机器人清晰显示后的四轮 GUI 汇总位于 `evidence/final_visible_comparison/summary.json`；早期无界面对照仍保存在 `evidence/comparison/summary.json`。自动单目标回归与 RViz 单次点击验收通过每次 `metrics.json` 的 `trigger` 字段区分。

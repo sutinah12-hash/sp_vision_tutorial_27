@@ -1,0 +1,42 @@
+{
+  "Default MPC": {
+    "result": "PASS",
+    "trigger": "rviz_click",
+    "action_time_s": 96.37885624699993,
+    "time_or_timeout_s": 96.37885624699993,
+    "final_error_cm": 0.8383017184520589,
+    "tracking_rmse_cm": 10.596545840413157,
+    "minimum_wall_clearance_m": 0.6000000000000001,
+    "max_speed_mps": 1.2096895323171257
+  },
+  "PID": {
+    "result": "FAIL",
+    "trigger": "rviz_click",
+    "action_time_s": null,
+    "time_or_timeout_s": 240.0,
+    "final_error_cm": 824.3163426238473,
+    "tracking_rmse_cm": 35.932929466551975,
+    "minimum_wall_clearance_m": 0.35000000000000003,
+    "max_speed_mps": 1.2026465333767615
+  },
+  "Sampling": {
+    "result": "PASS",
+    "trigger": "rviz_click",
+    "action_time_s": 97.58035312999709,
+    "time_or_timeout_s": 97.58035312999709,
+    "final_error_cm": 2.778062636567635,
+    "tracking_rmse_cm": 12.648899738630304,
+    "minimum_wall_clearance_m": 0.5,
+    "max_speed_mps": 1.2174587048769805
+  },
+  "Fast MPC": {
+    "result": "PASS",
+    "trigger": "rviz_click",
+    "action_time_s": 90.36656733199925,
+    "time_or_timeout_s": 90.36656733199925,
+    "final_error_cm": 0.9145832544636057,
+    "tracking_rmse_cm": 11.179606843334668,
+    "minimum_wall_clearance_m": 0.55,
+    "max_speed_mps": 1.341337679736251
+  }
+}

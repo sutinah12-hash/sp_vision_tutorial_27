@@ -6,11 +6,11 @@ Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。保留课程�
 
 [原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md) · [架构与面试讲解](docs/architecture_guide.md) · [MPC 详细讲解](docs/mpc_explained.md) · [三种控制方法](docs/controller_methods.md) · [开发与失败记录](docs/implementation_status.md)
 
-**主办方配置对齐后的四段实录：**[默认 MPC](docs/evidence/final_aligned_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_aligned_pid_rviz_01/rviz_one_click.mp4) · [Sampling](docs/evidence/final_aligned_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_aligned_fast_mpc_rviz_01/rviz_one_click.mp4)。四段均在 VMware 的真实 RViz 窗口连续录制，通过同一个精确目标按钮只发布一次 `(14.1, 14.1)`。
+**当前四段实录：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_01/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段均在 VMware 的真实 RViz 窗口连续录制，通过同一个精确目标按钮只发布一次 `(14.1, 14.1)`；画面中可直接看到 R1、R2、R3 的彩色车体、朝向和标签。
 
 [四种控制配置的录像与指标](docs/video_comparison.md)：地图、三台机器人、代价地图参数、起终点和 RViz 显示完全一致。
 
-**快速 MPC 参数实验：**速度上限 2.0 m/s、最大加速度 2.0 m/s²、制动加速度 1.2 m/s²、横向加速度 1.0 m/s²。完整 RViz 单击试验用时 **89.92 s**，终点误差 **0.83 cm**，最小墙距 **0.50 m**。它只改学生控制器参数，作为速度优先实验单独保留。
+**快速 MPC 参数实验：**速度上限 2.0 m/s、最大加速度 2.0 m/s²、制动加速度 1.2 m/s²、横向加速度 1.0 m/s²。完整 RViz 单击试验用时 **90.37 s**，终点误差 **0.91 cm**，最小墙距 **0.55 m**。它只改学生控制器参数，作为速度优先实验单独保留。
 
 ## 1. Task and compliance
 
@@ -48,7 +48,7 @@ colcon test-result --verbose
 `RViz 单次目标 → 上层决策 BT → NavigateToPose action → 下层导航 BT → A* / controller plugin → 仿真反馈`
 
 - `/global_costmap`：地图服务器发布的全局膨胀代价地图。
-- `/local_costmap/costmap` 与 `/dynamic_obstacles/markers`：包含附近动态占据与另外两台机器人的局部信息。
+- `/local_costmap/costmap`：包含附近动态占据；`/robots → robot_marker_publisher → /dynamic_obstacles/markers` 把三台机器人的实测位姿显示为 R1、R2、R3。该支路只负责显示，不参与规划或控制。
 - `/global_path_raw` / `/global_path`：原始 A* / 安全平滑后的路径。
 - `/Odometry` 和 TF：定位与速度反馈；固定 `map → lidar_odom` 平移由原版仿真提供。
 - `/sentry/cmd_vel`：控制器转换到旋转的 `base_link` 后输出的速度。
@@ -120,20 +120,22 @@ p[k+1] = p[k] + dt*v[k+1]
 
 MPC 关闭平滑的单轮也通过：123.87 s、终点误差 7.32 mm、跟踪 RMSE 6.78 cm。平滑后的两轮更快，但相对各自参考线的误差反而更大，因此不能宣传平滑让所有指标都同时改善。该消融只有一轮，受速度剖面和 VM 调度影响。
 
-### Organizer-aligned RViz runs
+### Current RViz runs
 
-四轮都在完整主办方 RViz 配置上运行：Grid、全局/局部代价地图、Path、LocalPath、规划标记、TF、动态障碍、点云和原控制器标记均保留；原始 A*、执行轨迹、预测轨迹、机器人坐标轴和目标箭头作为附加显示。仿真日志均启动 `robots=[1, 2, 3]`。
+四轮都在完整主办方 RViz 配置上运行：Grid、全局/局部代价地图、Path、LocalPath、规划标记、TF、动态障碍、点云和原控制器标记均保留；原始 A*、执行轨迹、预测轨迹、机器人坐标轴和目标箭头作为附加显示。仿真日志均启动 `robots=[1, 2, 3]`。`robot_marker_publisher` 订阅主办方已有的 `/robots`，仅把三台机器人的位姿画成青色 R1、绿色 R2、红色 R3，并不改变仿真状态、代价地图或控制结果。
 
 |配置|结果|Action 时间|终点误差|跟踪 RMSE|最小墙距|视频长度|
 |---|---:|---:|---:|---:|---:|---:|
-|默认 MPC|PASS|99.84 s|0.55 cm|10.68 cm|0.55 m|110.3 s|
-|PID|FAIL|240 s 超时|830.10 cm|34.94 cm|0.40 m|200.0 s|
-|Sampling|PASS|97.24 s|0.79 cm|12.47 cm|0.55 m|107.3 s|
-|Fast MPC|PASS|89.92 s|0.83 cm|11.09 cm|0.50 m|98.5 s|
+|默认 MPC|PASS|96.38 s|0.84 cm|10.60 cm|0.60 m|104.9 s|
+|PID|FAIL|240 s 超时|824.32 cm|35.93 cm|0.35 m|245.7 s|
+|Sampling|PASS|97.58 s|2.78 cm|12.65 cm|0.50 m|107.4 s|
+|Fast MPC|PASS|90.37 s|0.91 cm|11.18 cm|0.55 m|100.0 s|
 
-四轮都来自干净提交 `bd08c60`，`metrics.json` 记录 `trigger=rviz_click`、`goal_messages=1`、起点 `(0.9, 0.9)` 和终点 `(14.1, 14.1)`。三轮成功的 `action_status=4`；PID 在同一位置卡住并以 `action_status=2` 记录至 240 秒超时。视频均为 1600×1016、H.264、10 fps 的原速连续窗口捕获，并已用 `ffprobe` 检查时长、帧数和编码。
+四轮都来自干净提交 `3b9ea6c`，`metrics.json` 记录 `trigger=rviz_click`、`goal_messages=1`、起点 `(0.9, 0.9)` 和终点 `(14.1, 14.1)`。三轮成功的 `action_status=4`；PID 在同一路段停止并以 `action_status=2` 记录至 240 秒超时。视频均为 1600×1016、H.264、10 fps 的原速连续窗口捕获，已完整解码检查；每个目录另存视频 20 秒处的实际画面。
 
-![Organizer-aligned controller comparison](docs/evidence/final_aligned_comparison/comparison.png)
+![Current controller comparison](docs/evidence/final_visible_comparison/comparison.png)
+
+![R1, R2 and R3 visible in RViz](docs/evidence/final_visible_mpc_rviz_01/video_20s.png)
 
 旧版录屏和早期失败轮仍保存在 `docs/evidence/`，用于回看调试过程；上表四轮是当前配置的最终对照。
 

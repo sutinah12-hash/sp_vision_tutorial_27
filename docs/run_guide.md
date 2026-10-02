@@ -15,9 +15,9 @@ python3 scripts/run_trial.py --controller mpc --out results/my_mpc_01
 
 等待 RViz 左侧 `One-click navigation` 面板的按钮就绪，再点击一次 `Navigate once: (14.100, 14.100)`。主办方原有的 `2D Goal Pose` 工具没有删除，固定实验使用按钮只是为了让每轮目标坐标完全一致。不要拖动机器人、使用 `2D Pose Estimate`、手动发布速度或重复发目标。程序完成后会停止自己启动的节点，结果保存在 `results/my_mpc_01/data/`。同名目录不可重复使用，这是为防止覆盖上次记录；下一次用 `my_mpc_02`。
 
-主办方 RViz 原有的 Grid、全局/局部 Map、Path、LocalPath、规划 Marker、TF、动态障碍 MarkerArray、PointCloud2 和控制器 Marker 都已保留。附加显示中，橙黄色线是原始 A*，绿色线是平滑参考路径，蓝色线是实测执行轨迹，粉色线是预测轨迹，红绿坐标轴是本车姿态，红色箭头是目标。
+主办方 RViz 原有的 Grid、全局/局部 Map、Path、LocalPath、规划 Marker、TF、动态障碍 MarkerArray、PointCloud2 和控制器 Marker 都已保留。附加显示中，橙黄色线是原始 A*，绿色线是平滑参考路径，蓝色线是实测执行轨迹，粉色线是预测轨迹，青色 R1、绿色 R2、红色 R3 是三台机器人的实时车体和朝向，红绿坐标轴是本车姿态，红色箭头是目标。
 
-仿真应同时存在机器人 1、2、3；在启动日志中可看到 `robots=[1, 2, 3]`。代价地图参数与仿真配置一致：机器人半径 0.25 m、余量 0.05 m、安全距离 0.70 m、代价权重 12.0。
+仿真应同时存在机器人 1、2、3；在启动日志中可看到 `robots=[1, 2, 3]`，RViz 的 `Robots R1-R3` 显示应为 OK 并出现三个标签。代价地图参数与仿真配置一致：机器人半径 0.25 m、余量 0.05 m、安全距离 0.70 m、代价权重 12.0。
 
 `source /opt/ros/humble/setup.bash` 给当前终端添加 ROS 命令/库路径；第二条 `source` 添加本项目编译安装的包和插件路径。启动的新进程会继承这些环境变量，新的终端则需要重新执行。`build/` 是中间编译文件，`install/` 是运行时包布局；二者不提交 Git。
 

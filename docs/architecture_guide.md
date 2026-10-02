@@ -27,6 +27,12 @@ controller plugin ------------+
 sp_nav_sim: motion, collision and three robots
     |
     +---- /Odometry, TF, /local_costmap/costmap, /robots
+                                             |
+                                             v
+                                  robot_marker_publisher
+                                             |
+                                             v
+                              /dynamic_obstacles/markers -> RViz
 ```
 
 它是一个闭环：控制器根据当前位置算速度，仿真器执行速度并产生新的位置，下一次控制周期再用新位置修正指令。只有 `RViz → 行为树 → 规划器 → 控制器 → 仿真器 → 反馈` 全链路接通，机器人才能到达。
@@ -37,7 +43,7 @@ sp_nav_sim: motion, collision and three robots
 
 RViz 负责显示，不负责规划或控制。`2D Goal Pose` 和左侧的精确目标按钮最终都只发布一条 `/goal_pose`。精确目标按钮固定发布 `(14.1, 14.1)`，便于四组实验使用完全相同的终点；标准 RViz 工具仍然保留。
 
-RViz 配置以主办方文件为基础，保留 Grid、全局代价地图、全局路径、LocalPath、规划标记、TF、局部代价地图、动态障碍、点云和原控制器标记。在这些显示项之后附加原始 A*、执行轨迹、预测轨迹、机器人坐标轴和目标箭头。
+RViz 配置以主办方文件为基础，保留 Grid、全局代价地图、全局路径、LocalPath、规划标记、TF、局部代价地图、动态障碍、点云和原控制器标记。在这些显示项之后附加原始 A*、执行轨迹、预测轨迹、三机器人标签、机器人坐标轴和目标箭头。
 
 ### Upper behavior tree
 
@@ -89,6 +95,8 @@ pluginlib 的意义是服务器只依赖统一接口。替换规划算法时，�
 
 `sp_nav_sim` 同时创建机器人 `1、2、3`。机器人 1 是受 `/sentry/cmd_vel` 控制的本车，发布 `/Odometry` 和 `base_link`；机器人 2、3 使用 `base_link_2`、`base_link_3`，作为场景中的其他机器人参与动态障碍和可视化。它们没有被删除。
 
+仿真器把三台机器人的状态一起发布到 `/robots`。`robot_marker_publisher` 只读这个话题，再向 `/dynamic_obstacles/markers` 发布车体、朝向箭头和 `R1/R2/R3` 标签。它没有控制输出，也不写代价地图，所以增加或关闭该显示不会改变轨迹。颜色分别为 R1 青色、R2 绿色、R3 红色。
+
 仿真器仍使用主办方参数：`v_max=2.0 m/s`、`a_max=2.0 m/s²`、30 Hz 仿真与发布频率、相同地图和初始位置。代码中的批量栅格计算与回调分组只解决虚拟机调度过慢，不改变这些参数、机器人数量、碰撞模型或消息接口。
 
 ## 3. How to read an RViz run
@@ -96,7 +104,7 @@ pluginlib 的意义是服务器只依赖统一接口。替换规划算法时，�
 先看左侧状态是否为 OK，再按下面顺序观察：
 
 1. 全局代价地图是否覆盖静态迷宫；
-2. TF 中是否有 `base_link`、`base_link_2`、`base_link_3`；
+2. 是否能看到 R1、R2、R3 三个彩色车体，TF 中是否有 `base_link`、`base_link_2`、`base_link_3`；
 3. 点击目标后是否出现原始 A* 与平滑路径；
 4. 实际轨迹是否贴近参考路径且没有穿入高代价区；
 5. 预测轨迹是否随机器人向前滚动；
@@ -140,7 +148,7 @@ PID 只根据当前误差反馈，计算量小；它不显式预测惯性和延�
 
 ### How do the other two robots enter the system?
 
-仿真器从 `robot_ids: "2,3"` 创建它们，发布对应 TF 和动态障碍信息。RViz 的 TF 与 MarkerArray 用于观察它们，局部地图用于让规划与控制感知附近动态占据。
+仿真器从 `robot_ids: "2,3"` 创建它们，并把三台机器人放进 `/robots`，同时发布对应 TF。只读标记节点把 `/robots` 转成 RViz MarkerArray；局部地图则直接使用仿真状态构建动态占据。显示支路和避障支路相互独立。
 
 ### Which result should be recommended?
 

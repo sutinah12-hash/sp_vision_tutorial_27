@@ -38,6 +38,8 @@ def nodes(context):
         result.append(Node(package=package, executable=executable, name=name,
                            output='screen', parameters=[params, overrides]))
     if LaunchConfiguration('rviz').perform(context).lower() == 'true':
+        result.append(Node(package='sp_nav_tools', executable='robot_marker_publisher',
+                           name='robot_marker_publisher', output='screen'))
         result.append(Node(package='rviz2', executable='rviz2', name='rviz2', output='screen',
                            arguments=['-d', os.path.join(share, 'rviz', 'rviz.rviz')]))
     return result

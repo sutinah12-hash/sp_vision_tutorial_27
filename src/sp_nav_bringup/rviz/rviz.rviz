@@ -38,8 +38,13 @@ Visualization Manager:
       Name: Raw A-star path
       Enabled: true
       Color: 255; 190; 50
+      Alpha: 1
       Line Style: Billboards
-      Line Width: 0.025
+      Line Width: 0.04
+      Offset:
+        X: 0
+        Y: 0
+        Z: 0.03
       Pose Style: None
       Topic:
         Value: /global_path_raw

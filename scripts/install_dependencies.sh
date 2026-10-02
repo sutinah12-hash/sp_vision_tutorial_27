@@ -28,5 +28,5 @@ apt-get "${apt_options[@]}" --no-remove install -y \
   ros-humble-behaviortree-cpp-v3 ros-humble-ament-cmake-gtest \
   qtbase5-dev libopencv-dev libyaml-cpp-dev libeigen3-dev \
   python3-pygame python3-numpy python3-pil python3-opencv python3-scipy python3-matplotlib \
-  xdotool wmctrl
+  xdotool wmctrl x11-apps gnome-screenshot ffmpeg
 echo 'Navigation dependencies installed. Source /opt/ros/humble/setup.bash to use ROS2.'

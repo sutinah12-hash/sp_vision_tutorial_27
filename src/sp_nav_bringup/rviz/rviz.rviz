@@ -14,7 +14,7 @@ Visualization Manager:
       Name: Global costmap
       Enabled: true
       Alpha: 0.9
-      Color Scheme: costmap
+      Color Scheme: map
       Topic:
         Value: /global_costmap
         Durability Policy: Volatile

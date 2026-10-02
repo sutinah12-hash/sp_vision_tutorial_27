@@ -57,6 +57,8 @@ def main():
             while recorder.poll() is None:
                 if launch.poll() is not None:
                     raise RuntimeError('Navigation launch exited; inspect launch.log')
+                if 'process has died' in (out / 'launch.log').read_text(errors='replace'):
+                    raise RuntimeError('A navigation node died; inspect launch.log')
                 if time.monotonic() > deadline:
                     raise RuntimeError('Trial deadline exceeded; inspect launch.log and recorder.log')
                 time.sleep(1)

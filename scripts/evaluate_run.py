@@ -145,7 +145,7 @@ class Recorder(Node):
         if self.finished:
             return
         if self.args.send_goal and not self.auto_sent and self.xy is not None:
-            if time.monotonic() - self.born > 5 and self.goal_pub.get_subscription_count() >= 3:
+            if time.monotonic() - self.born > 5 and self.goal_pub.get_subscription_count() >= 2:
                 if np.linalg.norm(self.xy - [0.9, 0.9]) > 0.03:
                     raise RuntimeError('Auto test refused: robot is not at the fixed start.')
                 msg = PoseStamped()

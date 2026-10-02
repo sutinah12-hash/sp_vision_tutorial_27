@@ -13,8 +13,9 @@ def nodes(context):
     if controller not in ('mpc', 'pid'):
         raise ValueError('controller must be mpc or pid')
     smooth = LaunchConfiguration('smoothing').perform(context).lower() == 'true'
-    selected = ('MpcController', 'nav_tracking::MpcController') if controller == 'mpc' else (
-        'PidController', 'pid_controller::PidController')
+    # pluginlib looks up the XML class name, not its C++ type string.
+    selected = ('MpcController', 'MpcController') if controller == 'mpc' else (
+        'PidController', 'PidController')
     result = []
     for package, executable, name, overrides in [
         ('sp_map_server', 'esdf_map_publisher', 'esdf_map_publisher', {}),

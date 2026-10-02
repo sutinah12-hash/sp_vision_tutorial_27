@@ -5,7 +5,7 @@ planner_server:
     local_costmap_topic: /local_costmap/costmap
     path_topic: /global_path
     plugin_name: AStar
-    plugin_type: sp_global_planner::AStarPlanner
+    plugin_type: sp_global_planner/AStarPlanner
     AStar:
       lethal_cost: 95
       cost_weight: 6.0
@@ -36,7 +36,7 @@ controller_server:
     base_frame_id: base_link
     control_frequency: 50.0
     plugin_name: MpcController
-    plugin_type: nav_tracking::MpcController
+    plugin_type: MpcController
     MpcController:
       base_frame_id: base_link
       map_frame_id: map

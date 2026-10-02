@@ -1,6 +1,6 @@
 # Evidence index
 
-所有图表来自实际记录的数据；所有 RViz 截图和视频来自虚拟机实际窗口。不含 AI 生成或重绘的终端/桌面画面。
+所有图表来自实际记录的数据；RViz 截图和视频来自虚拟机实际窗口。
 
 ## Controller comparison
 
@@ -29,9 +29,9 @@ python3 scripts/validate_evidence.py
 - `final_pid_rviz_01/rviz_one_click.mp4`：PID，单次真实点击，PASS；导航 103.70 s，视频 112.6 s，最终误差 1.06 cm，跟踪 RMSE 16.41 cm。
 - `final_sampling_rviz_01/rviz_one_click.mp4`：平滑采样实验控制器，单次真实点击，PASS；导航 102.01 s，视频 110.1 s，最终误差 0.56 cm，跟踪 RMSE 10.10 cm。不是完整标准 MPPI。
 
-上述两轮均运行干净源码 `b4caec9`，其 `src/` 与 MPC 录像源码 `8872af1` 完全相同。每轮保留完整日志、CSV、配置来源和视频抽帧；此前 PID 的失败轮仍然保留。
+上述两轮均运行源码 `b4caec9`，其 `src/` 与 MPC 录像源码 `8872af1` 完全相同。每轮保留完整日志、CSV、配置来源和视频抽帧；此前 PID 的失败轮仍然保留。
 
-- `final_mpc_rviz_04/rviz_one_click.mp4`：推荐查看的最终录像，107.5 s，1280×850，10 fps，1075 帧，H.264。实际点击前约 2 s 开始，完整原速录下行驶、action 成功和停车。鼠标事件通过真实 RViz 按钮发目标，不是旁路话题发布。
+- `final_mpc_rviz_04/rviz_one_click.mp4`：最终录像，107.5 s，1280×850，10 fps，1075 帧，H.264。实际点击前约 2 s 开始，完整原速录下行驶、action 成功和停车。鼠标事件通过 RViz 按钮发目标。
 - `final_mpc_rviz_04/video_before_click.png`、`video_midpoint.png`、`video_arrival.png`：直接解码同一视频的 1 s、50 s 和倒数 2 s 帧。末帧显示 Action SUCCEEDED、ONE goal、误差约 0.012 m、速度约 0.000 m/s。
 - `final_mpc_rviz_02`：先前完整成功录像，125.1 s；画面为旧提示面板，未显示实时数值。数值验收由该轮日志和 CSV 支持。
 - `final_mpc_rviz_03`：导航成功，新增面板已显示实测数值。录制时工具连接停顿，所得 0.9 s 片段没覆盖行驶过程，因此不把那段片段作为成功录像提交。保留该轮真实导航数据和窗口截图。

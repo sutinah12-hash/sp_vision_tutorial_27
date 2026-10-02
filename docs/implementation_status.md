@@ -1,13 +1,13 @@
 # Implementation and validation history
 
-2026-10-02。正式使用说明见根目录 README 和 [run guide](run_guide.md)。这里保留开发过程，失败记录不冒充成功验收。
+正式使用说明见根目录 README 和 [run guide](run_guide.md)。本页记录开发过程和失败试验。
 
 ## Protected scope and authorization
 
 - 官方来源：`TongjiSuperPower/sp_vision_tutorial_27:final_project_nav`，基线 `05c33fc8aa6695e76bcff310b42f8fdfe276e1cb`。
 - 独立 VMware 工作目录：`/home/zrj/nav_final_project`，Ubuntu 22.04 / ROS 2 Humble。
-- 用户旧 `nav` 历史通过合并保留；此前课程目录及 `main` 不覆盖。
-- 用户明确转达管理员同意：允许仿真器实现优化，但不得修改仿真参数。仅修改 `sim_robot_node.py` 的采样与回调分组，见 [optimization record](simulator_optimization.md)。
+- 旧 `nav` 历史通过合并保留；此前课程目录及 `main` 不覆盖。
+- 仿真器优化仅涉及 `sim_robot_node.py` 的采样与回调分组，仿真参数保持不变，详见 [optimization record](simulator_optimization.md)。
 - 动力学库、运动与碰撞实现、地图、仿真 YAML/launch、控制器接口均与官方基线逐字节一致；哈希及逐格比较结果见 `evidence/final_equivalence/verification.json`。
 - 不发布人工速度、不拖动起点、不二次更换目标；正式 GUI 试验一次点击，自动回归明确另行标注。
 

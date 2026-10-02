@@ -1,0 +1,63 @@
+[INFO] [1790927464.018841143] [nav_trial_recorder]: Recorder ready. Click the fixed-goal button in RViz ONCE.
+[INFO] [1790927468.970140501] [nav_trial_recorder]: Goal received: [14.1, 14.1], initial pose: [0.9 0.9]
+[INFO] [1790927474.046891078] [nav_trial_recorder]: Progress: t=5.1s xy=[2.46246566 1.35429673] goal_error=17.259m
+[INFO] [1790927484.087163219] [nav_trial_recorder]: Progress: t=15.1s xy=[6.08534852 2.17060265] goal_error=14.372m
+[INFO] [1790927494.202580887] [nav_trial_recorder]: Progress: t=25.2s xy=[9.16830964 2.15230167] goal_error=12.926m
+[INFO] [1790927504.368802111] [nav_trial_recorder]: Progress: t=35.4s xy=[11.45279012  6.23853287] goal_error=8.295m
+[INFO] [1790927514.570051583] [nav_trial_recorder]: Progress: t=45.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927524.573033682] [nav_trial_recorder]: Progress: t=55.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927534.769186105] [nav_trial_recorder]: Progress: t=65.8s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927544.970827353] [nav_trial_recorder]: Progress: t=76.0s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927555.169954899] [nav_trial_recorder]: Progress: t=86.2s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927565.391878127] [nav_trial_recorder]: Progress: t=96.4s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927575.568831211] [nav_trial_recorder]: Progress: t=106.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927585.568663265] [nav_trial_recorder]: Progress: t=116.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927595.569464221] [nav_trial_recorder]: Progress: t=126.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927605.571033334] [nav_trial_recorder]: Progress: t=136.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927615.770974169] [nav_trial_recorder]: Progress: t=146.8s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927626.003379883] [nav_trial_recorder]: Progress: t=157.0s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927636.170951682] [nav_trial_recorder]: Progress: t=167.2s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927646.368860774] [nav_trial_recorder]: Progress: t=177.4s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927656.368817418] [nav_trial_recorder]: Progress: t=187.4s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927666.393085178] [nav_trial_recorder]: Progress: t=197.4s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927676.568257355] [nav_trial_recorder]: Progress: t=207.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927686.569055971] [nav_trial_recorder]: Progress: t=217.6s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927696.793776988] [nav_trial_recorder]: Progress: t=227.8s xy=[11.43308099  6.24281902] goal_error=8.297m
+[INFO] [1790927706.797322389] [nav_trial_recorder]: Progress: t=237.8s xy=[11.43308099  6.24281902] goal_error=8.297m
+{
+  "label": "PID with smoothed A*",
+  "result": "FAIL",
+  "reason": "timeout",
+  "trigger": "single_topic_message_test",
+  "goal_messages": 1,
+  "action_status": 6,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    11.433080985370344,
+    6.242819017373383
+  ],
+  "action_time_s": null,
+  "final_error_m": 8.297454430386622,
+  "final_speed_mps": 0.0,
+  "sample_count": 6533,
+  "odom_observed_hz": 27.19783441921877,
+  "controller_mean_ms": 0.02701942555685815,
+  "controller_p95_ms": 0.06087039999999998,
+  "controller_max_ms": 0.443114,
+  "tracking_rmse_m": 0.3764972602057959,
+  "tracking_mean_m": 0.37006645707415653,
+  "tracking_p95_m": 0.3867394667360286,
+  "tracking_max_m": 0.38958956187297733,
+  "raw_path_rmse_m": 0.3581269010587235,
+  "minimum_wall_clearance_m": 0.4,
+  "max_speed_mps": 1.177841688261939,
+  "distance_travelled_m": 17.63092402926627,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}

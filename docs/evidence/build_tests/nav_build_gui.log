@@ -1,0 +1,7 @@
+Starting >>> sp_nav_tools
+Starting >>> sp_nav_bringup
+Finished <<< sp_nav_bringup [0.59s]
+[Processing: sp_nav_tools]
+Finished <<< sp_nav_tools [57.4s]
+
+Summary: 2 packages finished [58.4s]

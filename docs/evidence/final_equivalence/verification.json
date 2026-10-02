@@ -1,0 +1,39 @@
+{
+  "result": "PASS",
+  "baseline": "05c33fc8aa6695e76bcff310b42f8fdfe276e1cb",
+  "cases": 190,
+  "cells_compared": 506861,
+  "timing": {
+    "58": {
+      "original_ms": 34.7123189985723,
+      "optimized_ms": 0.1307340007770108,
+      "speedup": 265.51867756101257
+    },
+    "80": {
+      "original_ms": 65.97895699997025,
+      "optimized_ms": 0.1595679987076437,
+      "speedup": 413.48489380289317
+    }
+  },
+  "unchanged_file_sha256": {
+    "src/sp_controller_server/include/sp_controller_server/controller_plugin.hpp": "377cf90c36c6c7e323679f6d2fb767d6744345687443cf16ebf8adee68dbab04",
+    "src/sp_nav_bringup/map/maze_map.pgm": "57b5505824dfbd01fdd538d6f7572bf05bf8f68e1387be685e54116a878c3945",
+    "src/sp_nav_bringup/map/maze_map.yaml": "598585a9bf9a53b504b9f61eef061e2f1ed6be3aefdda322100b2b15fba08e00",
+    "src/sp_nav_bringup/map/rmuc_map.pgm": "096e53add5c5b045bbab96a27ce3de1bf5040f4e780069d61649ba0206e6a338",
+    "src/sp_nav_bringup/map/rmuc_map.yaml": "f0ae0ed5462ed1bc70333877ea626d5772b08b859e3ac5bbb4182975deca9bef",
+    "src/sp_nav_sim/config/sim_robot.yaml": "f5d5dccc44bf0cf46e6073faf7d2e5f8563f73d2473c66189569551839e49b1b",
+    "src/sp_nav_sim/launch/sim_robot.launch.py": "2bab6322ed31b14961486cbf6c47b3698df5e25125386e5712e386af6b75dd6d",
+    "src/sp_nav_sim/package.xml": "4d34690a265a900bb6644bcb9ab8c10d6971bd5db13c3672a3c979e8f1f15f68",
+    "src/sp_nav_sim/resource/sp_nav_sim": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/sp_nav_sim/setup.cfg": "508026a4c7a695c52e8ab7e616e6e63999de427be2fd50cf9c722589ee74cbc3",
+    "src/sp_nav_sim/setup.py": "f038e49599529773d716df0d588a4c28df556769bace740a1abb73508e71c22e",
+    "src/sp_nav_sim/sp_nav_sim/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/sp_nav_sim/sp_nav_sim/sim/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/sp_nav_sim/sp_nav_sim/sim/_dyn.py": "3d44a88095d4ee83bc4a7dac2d1bb51339779e37f77c918b7d2d0f227ebb656e",
+    "src/sp_nav_sim/sp_nav_sim/sim/_dyn_core.cpython-310-x86_64-linux-gnu.so": "2530c270339829135d2a5eac7316d37ae356d92e3acf97e8a3ba02f801b36cbc",
+    "src/sp_nav_sim/sp_nav_sim/sim/sim_gui.py": "f508d2ae69d203670eb9e5f036d8df51db55a29b0ae17113c80401041262934a",
+    "src/sp_nav_sim/sp_nav_sim/sim/sim_map.py": "71a05e3e6ae846b9ba2f8a359c8f6a260b0be8281f69c4a4e1ac8a40e306ecca",
+    "src/sp_nav_sim/sp_nav_sim/sim/sim_robot.py": "48de6b7d5282a310b21023a11868c03431ff360cc4ba51acbef4dac547452187"
+  },
+  "note": "Static occupancy sampling is vectorized; state/command callbacks use a separate mutually exclusive group. No caching. Simulator parameters and dynamics are byte-identical to upstream."
+}

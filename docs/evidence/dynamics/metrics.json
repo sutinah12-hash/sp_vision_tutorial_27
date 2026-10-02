@@ -1,0 +1,8 @@
+{
+  "delay_s": 0.21471106771140142,
+  "tau_s": 0.31450973305941565,
+  "fit_rmse_mps": 0.0031669845063893175,
+  "command_mps": 0.5,
+  "sample_rate_hz": 30,
+  "note": "Offline step-response fit, fixed yaw. Full rotating-base navigation is tested separately."
+}

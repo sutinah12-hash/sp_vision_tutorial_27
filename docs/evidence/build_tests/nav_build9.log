@@ -1,0 +1,20 @@
+Starting >>> robot_msg
+Finished <<< robot_msg [0.99s]
+Starting >>> sp_controller_server
+Finished <<< sp_controller_server [0.41s]
+Starting >>> sp_global_planner
+Finished <<< sp_global_planner [12.8s]
+Starting >>> sp_map_server
+Finished <<< sp_map_server [0.29s]
+Starting >>> sp_nav_tools
+Finished <<< sp_nav_tools [0.46s]
+Starting >>> sp_decision
+Finished <<< sp_decision [1.10s]
+Starting >>> sp_nav_bt
+Finished <<< sp_nav_bt [0.42s]
+Starting >>> sp_nav_bringup
+Finished <<< sp_nav_bringup [0.25s]
+Starting >>> sp_nav_sim
+Finished <<< sp_nav_sim [2.32s]
+
+Summary: 9 packages finished [19.6s]

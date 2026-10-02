@@ -1,0 +1,28 @@
+Starting >>> robot_msg
+Finished <<< robot_msg [4.12s]
+Starting >>> sp_controller_server
+Finished <<< sp_controller_server [0.51s]
+Starting >>> sp_global_planner
+Finished <<< sp_global_planner [0.49s]
+Starting >>> sp_map_server
+Finished <<< sp_map_server [0.05s]
+Starting >>> sp_nav_tools
+Finished <<< sp_nav_tools [0.05s]
+Starting >>> sp_decision
+Finished <<< sp_decision [0.06s]
+Starting >>> sp_nav_bt
+Finished <<< sp_nav_bt [0.07s]
+Starting >>> sp_nav_bringup
+Finished <<< sp_nav_bringup [0.08s]
+Starting >>> sp_nav_sim
+--- stderr: sp_nav_sim
+
+----------------------------------------------------------------------
+Ran 0 tests in 0.000s
+
+OK
+---
+Finished <<< sp_nav_sim [0.60s]
+
+Summary: 9 packages finished [7.16s]
+  1 package had stderr output: sp_nav_sim

@@ -1,0 +1,13 @@
+{
+  "captured_utc": "2026-10-02T08:17:18Z",
+  "window": "0x01400106  0 zrj-virtual-machine /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/rviz/rviz.rviz* - RViz",
+  "geometry": {
+    "WINDOW": "20971782",
+    "X": "80",
+    "Y": "122",
+    "WIDTH": "1280",
+    "HEIGHT": "850",
+    "SCREEN": "0"
+  },
+  "method": "Native XWD capture of RViz window, lossless PNG conversion; no synthetic content"
+}

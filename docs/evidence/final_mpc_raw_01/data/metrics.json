@@ -1,0 +1,37 @@
+{
+  "label": "MPC with raw A*",
+  "result": "PASS",
+  "reason": "action_completed",
+  "trigger": "single_topic_message_test",
+  "goal_messages": 1,
+  "action_status": 4,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    14.103256905987099,
+    14.09344835572366
+  ],
+  "action_time_s": 123.86616242699893,
+  "final_error_m": 0.007316520985583662,
+  "final_speed_mps": 1.897239710061626e-05,
+  "sample_count": 2567,
+  "odom_observed_hz": 20.05062584896048,
+  "controller_mean_ms": 0.1950201542972329,
+  "controller_p95_ms": 0.31522619999999996,
+  "controller_max_ms": 0.948509,
+  "tracking_rmse_m": 0.06780858179303152,
+  "tracking_mean_m": 0.05452006964360767,
+  "tracking_p95_m": 0.13522611948431962,
+  "tracking_max_m": 0.1718872996970822,
+  "raw_path_rmse_m": 0.06780858179303152,
+  "minimum_wall_clearance_m": 0.6000000000000001,
+  "max_speed_mps": 1.0644909195536334,
+  "distance_travelled_m": 52.145957065819076,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}

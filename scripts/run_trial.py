@@ -29,6 +29,7 @@ def main():
     parser.add_argument('--timeout', type=float, default=240)
     parser.add_argument('--headless', action='store_true')
     parser.add_argument('--auto-goal', action='store_true')
+    parser.add_argument('--fast-mpc', action='store_true', help='Experimental MPC speed limit of 2.0 m/s')
     args = parser.parse_args()
     out = Path(args.out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -51,6 +52,10 @@ def main():
                   'controller:=' + args.controller,
                   'smoothing:=' + ('false' if args.no_smoothing else 'true'),
                   'rviz:=' + ('false' if args.headless else 'true')]
+    if args.fast_mpc:
+        if args.controller != 'mpc':
+            parser.error('--fast-mpc requires --controller mpc')
+        launch_cmd.append('mpc_max_speed:=2.0')
     label = args.controller.upper() + (' with raw A*' if args.no_smoothing else ' with smoothed A*')
     recorder_cmd = [sys.executable, str(workspace / 'scripts/evaluate_run.py'),
                     '--out', str(out / 'data'), '--label', label, '--timeout', str(args.timeout)]

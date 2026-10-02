@@ -186,6 +186,8 @@ class Recorder(Node):
                    'current_path_error_m', 'wall_clearance_m']
         with (out / 'samples.csv').open('w', newline='') as stream:
             writer = csv.writer(stream); writer.writerow(columns); writer.writerows(self.rows)
+        np.savetxt(out / 'controller_compute_ms.csv', np.asarray(self.compute_times),
+                   delimiter=',', header='compute_ms', comments='')
         data = np.asarray(self.rows)
         if len(data) == 0:
             raise RuntimeError('No odometry samples were recorded.')
@@ -221,6 +223,10 @@ class Recorder(Node):
             'distance_travelled_m': float(np.linalg.norm(np.diff(data[:, 1:3], axis=0), axis=1).sum()),
             'notes': 'Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event.',
         }
+        # A failed trial may never receive a reference path. Preserve that failure
+        # with null metrics instead of losing the report to non-standard JSON NaN.
+        summary = {key: (None if isinstance(value, float) and not math.isfinite(value) else value)
+                   for key, value in summary.items()}
         (out / 'metrics.json').write_text(json.dumps(summary, indent=2, allow_nan=False) + '\n')
         self.plot(out, data, summary)
         print(json.dumps(summary, indent=2), flush=True)
@@ -247,8 +253,10 @@ class Recorder(Node):
         ax.grid(alpha=.2); ax.legend()
         action_time = summary['action_time_s']
         action_text = f'{action_time:.2f}' if action_time is not None else 'not reached'
+        rmse = summary['tracking_rmse_m']
+        rmse_text = f'{rmse:.4f}' if rmse is not None else 'unavailable'
         fig.suptitle(f"{summary['result']} | final error {summary['final_error_m']:.4f} m | "
-                     f"tracking RMSE {summary['tracking_rmse_m']:.4f} m | "
+                     f"tracking RMSE {rmse_text} m | "
                      f"action time {action_text} s")
         fig.tight_layout()
         fig.savefig(out / 'trajectory.png', dpi=160)

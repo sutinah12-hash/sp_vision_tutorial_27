@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Launch a fresh official simulator, record one trial, then stop only our child processes."""
 import argparse
+import json
 import os
+import platform
 from pathlib import Path
 import signal
 import subprocess
@@ -31,6 +33,13 @@ def main():
     out = Path(args.out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)
     workspace = Path(__file__).resolve().parents[1]
+    provenance = {
+        'git_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=workspace, text=True).strip(),
+        'git_status': subprocess.check_output(['git', 'status', '--porcelain'], cwd=workspace, text=True),
+        'arguments': vars(args), 'platform': platform.platform(),
+        'python': sys.version, 'started_utc': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+    }
+    (out / 'provenance.json').write_text(json.dumps(provenance, indent=2) + '\n')
     env = os.environ.copy()
     env['ROS_DOMAIN_ID'] = env.get('ROS_DOMAIN_ID', '27')
     if args.headless:

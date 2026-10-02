@@ -239,15 +239,16 @@ bool AStarPlanner::safeSegment(const geometry_msgs::msg::Point & a,
   const int xmin=std::max(0,std::min(start.x,end.x)-1);
   const int ymin=std::max(0,std::min(start.y,end.y)-1);
   const int xmax=std::max(start.x,end.x), ymax=std::max(start.y,end.y);
+  const double resolution=map.info.resolution;
   for (int y=ymin;y<=ymax;++y) for (int x=xmin;x<=xmax;++x) {
     const int cost=map.data[toIndex(map,x,y)];
     if (cost>=0 && cost<std::min(lethal_cost_,smoothing_max_cost_)) continue;
-    const double lower[2]={map.info.origin.position.x+x*map.info.resolution,
-                           map.info.origin.position.y+y*map.info.resolution};
+    const double lower[2]={map.info.origin.position.x+x*resolution,
+                           map.info.origin.position.y+y*resolution};
     const double origin[2]={a.x,a.y}, delta[2]={b.x-a.x,b.y-a.y};
     double first=0.0,last=1.0; bool intersects=true;
     for (int axis=0;axis<2;++axis) {
-      const double upper=lower[axis]+map.info.resolution;
+      const double upper=lower[axis]+resolution;
       if (std::abs(delta[axis])<1e-14) {
         if (origin[axis]<lower[axis] || origin[axis]>upper) {intersects=false;break;}
       } else {

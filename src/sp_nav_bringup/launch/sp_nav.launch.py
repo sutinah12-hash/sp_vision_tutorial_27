@@ -10,12 +10,14 @@ def nodes(context):
     share = get_package_share_directory('sp_nav_bringup')
     params = LaunchConfiguration('params_file').perform(context)
     controller = LaunchConfiguration('controller').perform(context)
-    if controller not in ('mpc', 'pid'):
-        raise ValueError('controller must be mpc or pid')
+    if controller not in ('mpc', 'pid', 'sampling'):
+        raise ValueError('controller must be mpc, pid or sampling')
     smooth = LaunchConfiguration('smoothing').perform(context).lower() == 'true'
     # pluginlib looks up the XML class name, not its C++ type string.
     selected = ('MpcController', 'MpcController') if controller == 'mpc' else (
         'PidController', 'PidController')
+    if controller == 'sampling':
+        selected = ('SamplingController', 'SamplingController')
     result = []
     for package, executable, name, overrides in [
         ('sp_map_server', 'esdf_map_publisher', 'esdf_map_publisher', {}),
@@ -37,7 +39,7 @@ def generate_launch_description():
     share = get_package_share_directory('sp_nav_bringup')
     return LaunchDescription([
         DeclareLaunchArgument('params_file', default_value=os.path.join(share, 'config', 'nav_params.yaml')),
-        DeclareLaunchArgument('controller', default_value='mpc', choices=['mpc', 'pid']),
+        DeclareLaunchArgument('controller', default_value='mpc', choices=['mpc', 'pid', 'sampling']),
         DeclareLaunchArgument('smoothing', default_value='true', choices=['true', 'false']),
         DeclareLaunchArgument('rviz', default_value='true', choices=['true', 'false']),
         OpaqueFunction(function=nodes),

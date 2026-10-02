@@ -14,6 +14,7 @@ find_package(pluginlib REQUIRED)
 find_package(tf2_ros REQUIRED)
 find_package(tf2_geometry_msgs REQUIRED)
 find_package(std_srvs REQUIRED)
+find_package(std_msgs REQUIRED)
 include_directories(include)
 add_library(controller_server_core SHARED
   src/controller_server.cpp
@@ -36,6 +37,7 @@ target_link_libraries(controller_plugins Eigen3::Eigen)
 target_include_directories(controller_plugins PRIVATE include)
 ament_target_dependencies(controller_plugins
   rclcpp
+  std_msgs
   nav_msgs
   geometry_msgs
   pluginlib
@@ -63,5 +65,8 @@ if(BUILD_TESTING)
   ament_add_gtest(test_tracking_math tests/test_tracking_math.cpp)
   target_include_directories(test_tracking_math PRIVATE plugins)
   target_link_libraries(test_tracking_math Eigen3::Eigen)
+  ament_add_gtest(test_sampling_predictive tests/test_sampling_predictive.cpp)
+  target_include_directories(test_sampling_predictive PRIVATE plugins)
+  target_link_libraries(test_sampling_predictive Eigen3::Eigen)
 endif()
 ament_package()

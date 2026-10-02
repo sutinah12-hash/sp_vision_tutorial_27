@@ -21,7 +21,7 @@ def stop(process):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--controller', choices=['mpc', 'pid'], default='mpc')
+    parser.add_argument('--controller', choices=['mpc', 'pid', 'sampling'], default='mpc')
     parser.add_argument('--no-smoothing', action='store_true')
     parser.add_argument('--out', required=True)
     parser.add_argument('--timeout', type=float, default=240)

@@ -2,6 +2,7 @@
 #include <pluginlib/class_list_macros.hpp>
 #include <tf2/utils.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.hpp>
+#include <chrono>
 
 namespace nav_tracking {
 namespace {
@@ -39,9 +40,19 @@ void TrackingController::configure(const rclcpp::Node::SharedPtr & node,
     throw std::invalid_argument("Invalid controller speed or acceleration limits");
   mpc_.speed_limit=cruise_;
   mpc_.initialize();
+  if (use_sampling_) {
+    sampling_.horizon=mpc_.horizon; sampling_.dt=mpc_.dt; sampling_.tau=mpc_.tau;
+    sampling_.speed_limit=cruise_; sampling_.command_acceleration=acceleration_;
+    sampling_.samples=parameter(node,key("sample_count"),257);
+    sampling_.iterations=parameter(node,key("sampling_iterations"),3);
+    sampling_.temperature=parameter(node,key("temperature"),0.04);
+    sampling_.noise_sigma=parameter(node,key("noise_sigma"),0.35);
+    sampling_.initialize();
+  }
   prediction_pub_=node_->create_publisher<nav_msgs::msg::Path>("/mpc_prediction",10);
+  timing_pub_=node_->create_publisher<std_msgs::msg::Float64>("/controller_compute_ms",10);
   RCLCPP_INFO(node_->get_logger(),"%s configured: max_speed=%.2f m/s horizon=%d dt=%.3f s",
-              use_mpc_ ? "MPC" : "PID",cruise_,mpc_.horizon,mpc_.dt);
+              use_sampling_ ? "Smooth sampling" : (use_mpc_ ? "MPC" : "PID"),cruise_,mpc_.horizon,mpc_.dt);
 }
 
 void TrackingController::setPlan(const nav_msgs::msg::Path & plan) {
@@ -59,6 +70,7 @@ void TrackingController::setPlan(const nav_msgs::msg::Path & plan) {
 void TrackingController::setSpeedLimit(double limit) {
   if (!std::isfinite(limit) || limit<0) throw std::invalid_argument("Invalid speed limit");
   cruise_=std::min(limit,2.0); mpc_.speed_limit=cruise_;
+  sampling_.speed_limit=cruise_;
   const auto copy=path_.points;
   path_.set(copy,cruise_,braking_,lateral_);
 }
@@ -66,6 +78,7 @@ void TrackingController::setSpeedLimit(double limit) {
 geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
     const geometry_msgs::msg::PoseStamped & pose, const geometry_msgs::msg::Twist & velocity) {
   if (!node_) throw std::runtime_error("Controller is not configured");
+  const auto compute_start=std::chrono::steady_clock::now();
   geometry_msgs::msg::TwistStamped result;
   result.header.stamp=node_->now(); result.header.frame_id=base_frame_;
   const double now=node_->now().seconds();
@@ -75,15 +88,17 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
   const Vec2 v(velocity.linear.x,velocity.linear.y); // Server explicitly supplies map-frame velocity.
   if (path_.points.empty() || pose.header.frame_id!=map_frame_ ||
       !p.allFinite() || !v.allFinite() || now-plan_time_>2.0 || cruise_<=0) {
-    previous_.setZero(); integral_.setZero(); command_history_.clear(); mpc_.reset(); return result;
+    previous_.setZero(); integral_.setZero(); command_history_.clear(); mpc_.reset();
+    sampling_.reset(); return result;
   }
   if (new_goal_) {
-    integral_.setZero(); previous_=bounded(v,cruise_); command_history_.clear(); mpc_.reset(); new_goal_=false;
+    integral_.setZero(); previous_=bounded(v,cruise_); command_history_.clear();
+    mpc_.reset(); sampling_.reset(); new_goal_=false;
   }
   Vec2 command;
   const double distance=(path_.points.back()-p).norm();
   if (distance<0.018 && v.norm()<0.04) {
-    command.setZero(); integral_.setZero(); mpc_.reset();
+    command.setZero(); integral_.setZero(); mpc_.reset(); sampling_.reset();
   } else if (use_mpc_) {
     Eigen::MatrixXd ref_p,ref_v;
     path_.preview(p,v,mpc_.horizon,mpc_.dt,ref_p,ref_v);
@@ -95,15 +110,19 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
         pending.row(i)=sample.second.transpose();
       }
     }
-    command=mpc_.solve(p,v,previous_,ref_p,ref_v,pending);
+    if (use_sampling_) {
+      sampling_.update_dt=dt;
+      command=sampling_.solve(p,v,previous_,ref_p,ref_v,pending);
+    } else command=mpc_.solve(p,v,previous_,ref_p,ref_v,pending);
     if (++calls_%5==0) {
       nav_msgs::msg::Path predicted;
       predicted.header.stamp=result.header.stamp; predicted.header.frame_id=map_frame_;
-      for (int i=0;i<mpc_.prediction.rows();++i) {
+      const auto & trajectory=use_sampling_ ? sampling_.prediction : mpc_.prediction;
+      for (int i=0;i<trajectory.rows();++i) {
         geometry_msgs::msg::PoseStamped point;
         point.header=predicted.header; point.pose.orientation.w=1.0;
-        point.pose.position.x=mpc_.prediction(i,0);
-        point.pose.position.y=mpc_.prediction(i,1);
+        point.pose.position.x=trajectory(i,0);
+        point.pose.position.y=trajectory(i,1);
         predicted.poses.push_back(point);
       }
       prediction_pub_->publish(predicted);
@@ -134,7 +153,11 @@ geometry_msgs::msg::TwistStamped TrackingController::computeVelocityCommands(
   const double yaw=std::atan2(2.0*(q.w*q.z+q.x*q.y),1.0-2.0*(q.y*q.y+q.z*q.z));
   const Vec2 body=worldToBody(command,yaw);
   result.twist.linear.x=body.x(); result.twist.linear.y=body.y();
+  std_msgs::msg::Float64 timing;
+  timing.data=std::chrono::duration<double,std::milli>(std::chrono::steady_clock::now()-compute_start).count();
+  timing_pub_->publish(timing);
   return result;
 }
 }  // namespace nav_tracking
 PLUGINLIB_EXPORT_CLASS(nav_tracking::MpcController,sp_controller_server::ControllerPlugin)
+PLUGINLIB_EXPORT_CLASS(nav_tracking::SamplingController,sp_controller_server::ControllerPlugin)

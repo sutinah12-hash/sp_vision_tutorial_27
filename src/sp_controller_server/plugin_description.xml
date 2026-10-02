@@ -9,4 +9,8 @@
          base_class_type="sp_controller_server::ControllerPlugin">
     <description>Constrained receding-horizon velocity MPC for a holonomic robot.</description>
   </class>
+  <class name="SamplingController" type="nav_tracking::SamplingController"
+         base_class_type="sp_controller_server::ControllerPlugin">
+    <description>Experimental smooth MPPI-inspired sampled predictive tracking.</description>
+  </class>
 </library>

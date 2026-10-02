@@ -15,6 +15,7 @@ from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy
 from geometry_msgs.msg import PoseStamped, Twist
 from nav_msgs.msg import Odometry, Path as RosPath
 from action_msgs.msg import GoalStatusArray
+from std_msgs.msg import Float64
 from PIL import Image
 from scipy.ndimage import distance_transform_edt
 from ament_index_python.packages import get_package_share_directory
@@ -50,6 +51,7 @@ class Recorder(Node):
         self.cmd = np.zeros(2)
         self.ref = self.raw_ref = self.latest_ref = None
         self.rows = []
+        self.compute_times = []
         self.action_success_time = None
         self.action_status = 0
         self.finished = False
@@ -66,6 +68,7 @@ class Recorder(Node):
         self.create_subscription(RosPath, '/global_path_raw', self.on_raw, 10)
         self.create_subscription(Odometry, '/Odometry', self.on_odom, 10)
         self.create_subscription(Twist, '/sentry/cmd_vel', self.on_command, 10)
+        self.create_subscription(Float64, '/controller_compute_ms', self.on_compute_time, 10)
         qos = QoSProfile(depth=10, reliability=ReliabilityPolicy.RELIABLE,
                          durability=DurabilityPolicy.TRANSIENT_LOCAL)
         self.create_subscription(GoalStatusArray, '/navigate_to_pose/_action/status', self.on_status, qos)
@@ -74,6 +77,10 @@ class Recorder(Node):
         self.clearance = distance_transform_edt(self.map_image > 128) * 0.05
         self.timer = self.create_timer(0.2, self.tick)
         self.get_logger().info('Recorder ready. Click the fixed-goal button in RViz ONCE.')
+
+    def on_compute_time(self, message):
+        if self.start is not None and not self.finished:
+            self.compute_times.append(message.data)
 
     def on_goal(self, message):
         self.goal_count += 1
@@ -201,6 +208,9 @@ class Recorder(Node):
             'action_time_s': self.action_success_time, 'final_error_m': end_error,
             'final_speed_mps': final_speed, 'sample_count': len(data),
             'odom_observed_hz': float((len(data) - 1) / (data[-1, 0] - data[0, 0])),
+            'controller_mean_ms': float(np.mean(self.compute_times)) if self.compute_times else None,
+            'controller_p95_ms': float(np.percentile(self.compute_times, 95)) if self.compute_times else None,
+            'controller_max_ms': float(np.max(self.compute_times)) if self.compute_times else None,
             'tracking_rmse_m': float(np.sqrt(np.nanmean(tracking ** 2))),
             'tracking_mean_m': float(np.nanmean(tracking)),
             'tracking_p95_m': float(np.nanpercentile(tracking, 95)),

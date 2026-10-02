@@ -103,7 +103,7 @@ def main():
         hashes[name] = hashlib.sha256(after).hexdigest()
     report = dict(result='PASS', baseline=BASELINE, cases=len(cases) + 60,
                   cells_compared=cells, timing=timing, unchanged_file_sha256=hashes,
-                  note='Only static occupancy sampling is vectorized. No caching or callback scheduling changes. Simulator parameters and dynamics are byte-identical to upstream.')
+                  note='Static occupancy sampling is vectorized; state/command callbacks use a separate mutually exclusive group. No caching. Simulator parameters and dynamics are byte-identical to upstream.')
     (out / 'verification.json').write_text(json.dumps(report, indent=2) + '\n')
     print(json.dumps(report, indent=2))
 

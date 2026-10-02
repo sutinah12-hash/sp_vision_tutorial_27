@@ -1,0 +1,6 @@
+build
+hw/build
+.vscode
+hw/.vscode
+hw/test-output
+hw/output

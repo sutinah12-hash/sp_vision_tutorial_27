@@ -34,7 +34,3 @@ python3 scripts/run_trial.py --controller mpc --fast-mpc \
   --mpc-lateral-acceleration 1.0 \
   --headless --auto-goal --out results/fast_mpc_balanced_new
 ```
-
-## Recorded result
-
-The successful recorded trial `fast_mpc_03` reached the goal in **95.07 s**, with final error **0.78 cm**, tracking RMSE **8.45 cm**, minimum wall clearance **0.55 m**, and measured maximum speed **1.19 m/s**. The native RViz video is stored at `docs/evidence/fast_mpc_03/rviz_one_click.mp4` (104.2 s including pre-click and post-arrival frames). It is currently the fastest recorded run in this repository, but it is a separate speed-limit experiment rather than the formal 1.25 m/s baseline.

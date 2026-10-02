@@ -1,4 +1,3 @@
-# Simulator parameters/dynamics are unchanged; see docs/simulator_optimization.md.
 planner_server:
   ros__parameters:
     costmap_topic: /global_costmap
@@ -18,11 +17,12 @@ esdf_map_publisher:
     map_yaml: sp_nav_bringup/map/maze_map.yaml
     frame_id: map
     publish_rate_hz: 1.0
-    unknown_as_obstacle: true
-    robot_radius: 0.36
-    margin: 0.09
-    d_safe: 0.75
-    w: 5.0
+    # Keep the navigation costmap consistent with sp_nav_sim/config/sim_robot.yaml.
+    unknown_as_obstacle: false
+    robot_radius: 0.25
+    margin: 0.05
+    d_safe: 0.70
+    w: 12.0
     unknown_cost: 100
     visualize_esdf: false
 

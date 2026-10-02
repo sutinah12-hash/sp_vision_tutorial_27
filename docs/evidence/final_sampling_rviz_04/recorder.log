@@ -1,0 +1,51 @@
+[INFO] [1790933183.558382047] [nav_trial_recorder]: Recorder ready. Click the fixed-goal button in RViz ONCE.
+[INFO] [1790933275.329519253] [nav_trial_recorder]: Goal received: [14.1, 14.1], initial pose: [0.9 0.9]
+[INFO] [1790933275.516897236] [nav_trial_recorder]: Progress: t=0.2s xy=[0.9 0.9] goal_error=18.668m
+[INFO] [1790933285.532408250] [nav_trial_recorder]: Progress: t=10.2s xy=[4.55222692 2.61379119] goal_error=14.936m
+[INFO] [1790933295.710451694] [nav_trial_recorder]: Progress: t=20.4s xy=[8.32319646 0.9952541 ] goal_error=14.322m
+[INFO] [1790933305.713707761] [nav_trial_recorder]: Progress: t=30.4s xy=[10.68602264  4.67715529] goal_error=10.022m
+[INFO] [1790933315.930939199] [nav_trial_recorder]: Progress: t=40.6s xy=[11.06242825  7.36843706] goal_error=7.385m
+[INFO] [1790933326.122449403] [nav_trial_recorder]: Progress: t=50.8s xy=[8.42563003 4.11985048] goal_error=11.480m
+[INFO] [1790933336.308644101] [nav_trial_recorder]: Progress: t=61.0s xy=[5.44022172 7.30325113] goal_error=11.009m
+[INFO] [1790933346.314938217] [nav_trial_recorder]: Progress: t=71.0s xy=[ 5.45361174 10.94285222] goal_error=9.205m
+[INFO] [1790933356.502813031] [nav_trial_recorder]: Progress: t=81.2s xy=[ 9.11709399 10.05139114] goal_error=6.420m
+[INFO] [1790933366.502944942] [nav_trial_recorder]: Progress: t=91.2s xy=[11.72310525 14.14197872] goal_error=2.377m
+[INFO] [1790933376.503540223] [nav_trial_recorder]: Progress: t=101.2s xy=[14.06286471 14.14413454] goal_error=0.058m
+[INFO] [1790933377.810476829] [nav_trial_recorder]: Action SUCCEEDED after 102.482 seconds.
+{
+  "label": "SAMPLING with smoothed A*",
+  "result": "PASS",
+  "reason": "action_completed",
+  "trigger": "rviz_click",
+  "goal_messages": 1,
+  "action_status": 4,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    14.104414220960807,
+    14.120940858725795
+  ],
+  "action_time_s": 102.48199484900033,
+  "final_error_m": 0.021401049293540947,
+  "final_speed_mps": 0.000754988772418924,
+  "sample_count": 2320,
+  "odom_observed_hz": 21.766960517324886,
+  "controller_mean_ms": 1.0905354574000001,
+  "controller_p95_ms": 1.4330355500000005,
+  "controller_max_ms": 5.139,
+  "tracking_rmse_m": 0.10278523280186777,
+  "tracking_mean_m": 0.08810932780361302,
+  "tracking_p95_m": 0.17908440057076866,
+  "tracking_max_m": 0.22305825365051868,
+  "raw_path_rmse_m": 0.09797829889229576,
+  "minimum_wall_clearance_m": 0.55,
+  "max_speed_mps": 1.120742047074173,
+  "distance_travelled_m": 51.317610793653344,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}

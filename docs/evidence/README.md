@@ -21,7 +21,18 @@ python3 scripts/validate_evidence.py
 
 ## GUI and video
 
-[三种控制器录像与计时说明](../video_comparison.md) 汇总同显示条件下的实际结果；不将 GUI 录像混入无界面对照均值。
+[四种控制配置录像与计时说明](../video_comparison.md) 汇总主办方配置对齐后的最终结果：
+
+- `final_aligned_mpc_rviz_01`：默认 MPC，PASS，99.84 s，终点误差 0.55 cm，最小墙距 0.55 m，视频 110.3 s。
+- `final_aligned_pid_rviz_01`：PID，FAIL，在固定路段停止，240 s 超时，视频连续记录前 200.0 s。
+- `final_aligned_sampling_rviz_01`：Sampling，PASS，97.24 s，终点误差 0.79 cm，最小墙距 0.55 m，视频 107.3 s。
+- `final_aligned_fast_mpc_rviz_01`：Fast MPC，PASS，89.92 s，终点误差 0.83 cm，最小墙距 0.50 m，视频 98.5 s。
+
+四轮均来自干净提交 `bd08c60`，为 `trigger=rviz_click`、一条精确目标、相同起终点、三台机器人和完整主办方 RViz 显示。`final_aligned_comparison/` 保存由四轮 `metrics.json` 生成的汇总图与 JSON；PID 失败没有从对比中删除。
+
+### Historical recordings
+
+下面是对齐 RViz 和代价地图之前的调试记录，继续保留以便复盘，但不作为当前配置的最终对照。
 
 - `final_sampling_rviz_06/rviz_one_click.mp4`：推荐的橙黄色原始 A* / 绿色平滑路径对照录像。PASS，导航 98.75 s，视频 107.3 s，最终误差 1.38 cm，RMSE 9.68 cm。源码 `8cf53c5` 仅更新 RViz 显示；发目标前重置了 RViz 显示缓存。单次真实点击、未改仿真或控制参数。
 - `final_sampling_rviz_02` 至 `_05`：显示排查记录，导航均 PASS，但分别存在原始路径不明显或动态图形刷新异常；`_05` 途中操作显示开关和显示缓存重置。完整过程保留，不作为推荐演示，不混入无界面对照均值。详情见上方计时说明。

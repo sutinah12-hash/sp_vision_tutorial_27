@@ -1,0 +1,1981 @@
+[INFO] [launch]: All log files can be found below /home/zrj/.ros/log/2026-10-02-10-12-05-485123-zrj-virtual-machine-185806
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [sim_robot-2]: process started with pid [185817]
+[INFO] [static_transform_publisher-1]: process started with pid [185815]
+[INFO] [esdf_map_publisher-3]: process started with pid [185821]
+[INFO] [planner_server-4]: process started with pid [185823]
+[INFO] [controller_node-5]: process started with pid [185825]
+[INFO] [sp_decision_node-6]: process started with pid [185827]
+[INFO] [nav_interface_node-7]: process started with pid [185829]
+[INFO] [rviz2-8]: process started with pid [185831]
+[static_transform_publisher-1] [WARN] [1790950325.625989051] []: Old-style arguments are deprecated; see --help for new-style arguments
+[static_transform_publisher-1] [INFO] [1790950325.684417738] [static_transform_publisher_Ai5zZU090CZ9LF3u]: Spinning until stopped - publishing transform
+[static_transform_publisher-1] translation: ('0.000000', '0.150000', '0.000000')
+[static_transform_publisher-1] rotation: ('0.000000', '0.000000', '0.000000', '1.000000')
+[static_transform_publisher-1] from 'base_link' to 'livox_frame'
+[controller_node-5] [INFO] [1790950325.734293918] [controller_server]: MPC configured: max_speed=2.00 m/s horizon=28 dt=0.070 s
+[controller_node-5] [INFO] [1790950325.734672186] [controller_server]: Loaded controller plugin: MpcController (MpcController)
+[planner_server-4] [INFO] [1790950325.739188679] [planner_server]: PlannerServer ready. costmap_topic=/global_costmap local_costmap_topic=/local_costmap/costmap path_topic=/global_path service=make_plan plugin=AStar (sp_global_planner/AStarPlanner)
+[planner_server-4] [INFO] [1790950325.741435133] [planner_server]: AStarPlanner configured: lethal_cost=95 cost_weight=6.000
+[planner_server-4] [INFO] [1790950325.741474377] [planner_server]: PlannerServer ready. costmap_topic=/global_costmap local_costmap_topic=/local_costmap/costmap path_topic=/global_path service=make_plan plugin=AStar (sp_global_planner/AStarPlanner)
+[nav_interface_node-7] [INFO] [1790950325.841800300] [nav_interface_node]: Loading plugin: nav_compute_path_service
+[nav_interface_node-7] [INFO] [1790950325.847614832] [nav_interface_node]: Loading plugin: nav_state_track
+[nav_interface_node-7] [INFO] [1790950325.848524345] [nav_interface_node]: Loading plugin: nav_rate_control
+[nav_interface_node-7] [INFO] [1790950325.848873979] [nav_interface_node]: Loading plugin: nav_repeat_sequence
+[nav_interface_node-7] [INFO] [1790950325.860858559] [nav_interface_node]: Loading plugin: nav_get_pose
+[nav_interface_node-7] [INFO] [1790950325.862073933] [nav_interface_node]: Loading plugin: nav_set_control_enable
+[nav_interface_node-7] [INFO] [1790950325.863920760] [nav_interface_node]: Initializing BT from: /home/zrj/nav_final_project/install/sp_nav_bt/share/sp_nav_bt/nav_bt/default_nav_with_fallback.xml
+[sp_decision_node-6] [WARN] [1790950325.938228699] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[nav_interface_node-7] [INFO] [1790950325.943061409] [nav_interface_node]: Navigation Interface Node initialized.
+[nav_interface_node-7] [INFO] [1790950325.949969212] [nav_interface_node]: Restart-task service ready at /nav_interface/restart_task
+[sp_decision_node-6] [INFO] [1790950326.006207915] [sp_decision]: [BlackboardBridge] Initialized (goal_pose only).
+[sim_robot-2] pygame 2.1.2 (SDL 2.0.20, Python 3.10.12)
+[sim_robot-2] Hello from the pygame community. https://www.pygame.org/contribute.html
+[esdf_map_publisher-3] [INFO] [1790950326.181132003] [esdf_map_publisher]: Loaded map: /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/map/maze_map.pgm  size=300x300  res=0.050 m/cell  origin=[0.000, 0.000, 0.000]  negate=0  unknown_as_obstacle=false
+[sp_decision_node-6] [INFO] [1790950326.246624249] [sp_decision]: [BtEngine] Loading plugin: nav_to_pose_bt_node
+[sp_decision_node-6] [INFO] [1790950326.251705379] [sp_decision]: [BtEngine] Loading plugin: condition_judge_bt_node
+[sp_decision_node-6] [INFO] [1790950326.326542043] [sp_decision]: [BtEngine] Loading plugin: wait_duration_bt_node
+[sp_decision_node-6] [INFO] [1790950326.328059103] [sp_decision]: [BtEngine] Loading plugin: gimbal_control_bt_node
+[sp_decision_node-6] [INFO] [1790950326.329691688] [sp_decision]: [BtEngine] Loading plugin: chassis_mode_bt_node
+[sp_decision_node-6] [INFO] [1790950326.330906802] [sp_decision]: [BtEngine] Loading plugin: set_double_bt_node
+[sp_decision_node-6] [INFO] [1790950326.331553583] [sp_decision]: [BtEngine] Initialising tree from: /home/zrj/nav_final_project/install/sp_decision/share/sp_decision/decision_trees/click_nav.xml
+[sp_decision_node-6] [WARN] [1790950326.333952793] [rcl.logging_rosout]: Publisher already registered for provided node name. If this is due to multiple nodes with the same name then all logs for that logger name will go out over the existing publisher. As soon as any node with that name is destructed it will unregister the publisher, preventing any further logs for that name from being published on the rosout topic.
+[rviz2-8] [INFO] [1790950326.355651113] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] [INFO] [1790950326.355903164] [rviz2]: OpenGl version: 4.3 (GLSL 4.3)
+[sp_decision_node-6] [INFO] [1790950326.364718543] [sp_decision]: [NavToPose] BT node 'NavToPose' initialised (ros node: nav_to_pose_0).
+[sp_decision_node-6] [INFO] [1790950326.366812241] [sp_decision]: [ChassisMode] BT node initialised.
+[sp_decision_node-6] [INFO] [1790950326.369022598] [sp_decision]: [GimbalControl] BT node initialised.
+[sp_decision_node-6] [INFO] [1790950326.369079955] [sp_decision]: [WaitDuration] BT node initialised.
+[sp_decision_node-6] [INFO] [1790950326.369398101] [sp_decision]: [DecisionEngine] Started with tree: /home/zrj/nav_final_project/install/sp_decision/share/sp_decision/decision_trees/click_nav.xml
+[sp_decision_node-6] [INFO] [1790950326.369548812] [sp_decision]: [DecisionEngine] Started: /home/zrj/nav_final_project/install/sp_decision/share/sp_decision/decision_trees/click_nav.xml
+[sp_decision_node-6] [INFO] [1790950326.370196049] [ConditionJudge]: [ConditionJudge] Initialised: 2 variables, 3 conditions, 3 children.
+[sp_decision_node-6] [INFO] [1790950326.370274796] [sp_decision]: [WaitDuration] duration < 0 – blocking forever (RUNNING).
+[rviz2-8] [INFO] [1790950326.422512314] [rviz2]: Stereo is NOT SUPPORTED
+[rviz2-8] [INFO] [1790950327.205233221] [rviz2]: Trying to create a map of size 300 x 300 using 1 swatches
+[rviz2-8] [ERROR] [1790950327.400161077] [rviz2]: Vertex Program:rviz/glsl120/indexed_8bit_image.vert Fragment Program:rviz/glsl120/indexed_8bit_image.frag GLSL link result : 
+[rviz2-8] active samplers with a different type refer to the same texture image unit
+[sim_robot-2] [0m[INFO] [1790950328.173304363] [sim_robot_node]: SimRobotNode ready | map=/home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/map/maze_map.pgm | robots=[1, 2, 3] | sim=30.0Hz pub=30.0Hz odom=30.0Hz[0m
+[sim_robot-2] [0m[INFO] [1790950328.175677174] [sim_robot_node]: map->lidar_odom origin=(0.900, 0.900) | start: base_link ≡ lidar_odom[0m
+[sim_robot-2] [0m[INFO] [1790950328.176676233] [sim_robot_node]: gimbal_topic=/gimbal/control scan_speed=1.0 rad/s | chassis_topic=/chassis/mode[0m
+[sim_robot-2] [0m[INFO] [1790950328.177568083] [sim_robot_node]: local_costmap_topic=/local_costmap/costmap frame=map window=4.00x4.00m[0m
+[rviz2-8] [INFO] [1790950328.772851250] [rviz2]: Trying to create a map of size 58 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950370.657818935] [planner_server]: Received goal from /goal_pose: (14.100, 14.100) frame=map
+[sp_decision_node-6] [INFO] [1790950370.658082639] [sp_decision]: [BlackboardBridge] New goal_pose  x=14.100  y=14.100
+[sp_decision_node-6] [INFO] [1790950370.670320606] [ConditionJudge]: [ConditionJudge] Switching child 2 -> 0, halting previous.
+[sp_decision_node-6] [INFO] [1790950370.670362564] [sp_decision]: [WaitDuration] Halted – timer cleared.
+[sp_decision_node-6] [INFO] [1790950370.670817806] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950370.770274543] [sp_decision]: [NavToPose] Using blackboard PoseStamped  x=14.100  y=14.100  frame='map'
+[sp_decision_node-6] [INFO] [1790950370.770824672] [sp_decision]: [NavToPose] Sending goal  x=14.100  y=14.100  frame='map'
+[nav_interface_node-7] [INFO] [1790950370.772187924] [nav_interface_node]: Received goal request: Go to (14.10, 14.10)
+[nav_interface_node-7] [INFO] [1790950370.773610337] [nav_interface_node]: BT goal_pose set to ORIGINAL action goal: (14.100, 14.100)
+[nav_interface_node-7] [INFO] [1790950370.773692861] [nav_interface_node]: Executing Static BT for goal...
+[nav_interface_node-7] [INFO] [1790950370.773772320] [nav_interface_node]: Running Behavior Tree...
+[planner_server-4] [INFO] [1790950370.801568467] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950370.802035150] [planner_server]: Plan computed: 889 poses
+[controller_node-5] [INFO] [1790950370.805530833] [controller_server]: Control enabled
+[nav_interface_node-7] [INFO] [1790950370.814601692] [nav_interface_node]: [SetControlEnable] Control enabled
+[nav_interface_node-7] [INFO] [1790950370.815604890] [nav_interface_node]: [NavStateTrack] Task started, monitoring navigation progress.
+[nav_interface_node-7] [INFO] [1790950370.815914068] [nav_interface_node]: [NavStateTrack] onStart() entered.
+[controller_node-5] [WARN] [1790950370.818377534] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950370.820075452] [controller_server]: Computed velocity commands: linear.x=-0.04, linear.y=0.01, angular.z=0.00
+[planner_server-4] [INFO] [1790950370.950387958] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950370.952259048] [planner_server]: Plan computed: 889 poses
+[sp_decision_node-6] [INFO] [1790950370.970731515] [sp_decision]: [NavToPose] Goal ACCEPTED – robot is navigating.
+[planner_server-4] [INFO] [1790950371.078139145] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950371.079232521] [planner_server]: Plan computed: 889 poses
+[planner_server-4] [INFO] [1790950371.206772293] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950371.207380962] [planner_server]: Plan computed: 888 poses
+[planner_server-4] [INFO] [1790950371.338119020] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950371.338786209] [planner_server]: Plan computed: 888 poses
+[planner_server-4] [INFO] [1790950371.468487530] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950371.469621728] [planner_server]: Plan computed: 888 poses
+[planner_server-4] [INFO] [1790950371.597646727] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950371.598146703] [planner_server]: Plan computed: 888 poses
+[planner_server-4] [INFO] [1790950371.732760044] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950371.733269538] [planner_server]: Plan computed: 888 poses
+[rviz2-8] [INFO] [1790950371.751901712] [rviz2]: Trying to create a map of size 59 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950371.866538953] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950371.867053376] [planner_server]: Plan computed: 887 poses
+[planner_server-4] [INFO] [1790950372.000909190] [planner_server]: Planning took 25 ms
+[planner_server-4] [INFO] [1790950372.001349914] [planner_server]: Plan computed: 886 poses
+[rviz2-8] [INFO] [1790950372.006807109] [rviz2]: Trying to create a map of size 60 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950372.137512982] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950372.137975157] [planner_server]: Plan computed: 886 poses
+[rviz2-8] [INFO] [1790950372.165461595] [rviz2]: Trying to create a map of size 61 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950372.271894505] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950372.272429526] [planner_server]: Plan computed: 884 poses
+[rviz2-8] [INFO] [1790950372.294143529] [rviz2]: Trying to create a map of size 62 x 59 using 1 swatches
+[rviz2-8] [INFO] [1790950372.389923384] [rviz2]: Trying to create a map of size 63 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950372.407536111] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950372.408052297] [planner_server]: Plan computed: 883 poses
+[rviz2-8] [INFO] [1790950372.485469952] [rviz2]: Trying to create a map of size 64 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950372.539078324] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950372.539440181] [planner_server]: Plan computed: 882 poses
+[rviz2-8] [INFO] [1790950372.583224233] [rviz2]: Trying to create a map of size 65 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950372.671463565] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950372.671861170] [planner_server]: Plan computed: 881 poses
+[rviz2-8] [INFO] [1790950372.712642777] [rviz2]: Trying to create a map of size 66 x 59 using 1 swatches
+[rviz2-8] [INFO] [1790950372.775956059] [rviz2]: Trying to create a map of size 67 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950372.800838712] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950372.801615356] [planner_server]: Plan computed: 880 poses
+[controller_node-5] [WARN] [1790950372.819954432] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950372.820531222] [controller_server]: Computed velocity commands: linear.x=0.43, linear.y=0.67, angular.z=0.00
+[planner_server-4] [INFO] [1790950372.935328543] [planner_server]: Planning took 29 ms
+[planner_server-4] [INFO] [1790950372.936505376] [planner_server]: Plan computed: 879 poses
+[rviz2-8] [INFO] [1790950372.969444483] [rviz2]: Trying to create a map of size 68 x 60 using 1 swatches
+[rviz2-8] [INFO] [1790950373.030206510] [rviz2]: Trying to create a map of size 69 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.068013325] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950373.068519332] [planner_server]: Plan computed: 878 poses
+[planner_server-4] [INFO] [1790950373.196200134] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950373.196572341] [planner_server]: Plan computed: 878 poses
+[rviz2-8] [INFO] [1790950373.230222247] [rviz2]: Trying to create a map of size 70 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.328175814] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950373.328559081] [planner_server]: Plan computed: 875 poses
+[rviz2-8] [INFO] [1790950373.352997624] [rviz2]: Trying to create a map of size 72 x 60 using 1 swatches
+[rviz2-8] [INFO] [1790950373.413693256] [rviz2]: Trying to create a map of size 74 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.457963013] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950373.458493255] [planner_server]: Plan computed: 873 poses
+[rviz2-8] [INFO] [1790950373.514729125] [rviz2]: Trying to create a map of size 75 x 60 using 1 swatches
+[rviz2-8] [INFO] [1790950373.574360119] [rviz2]: Trying to create a map of size 76 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.588736708] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950373.589430116] [planner_server]: Plan computed: 871 poses
+[planner_server-4] [INFO] [1790950373.716782748] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950373.717813177] [planner_server]: Plan computed: 870 poses
+[rviz2-8] [INFO] [1790950373.735616721] [rviz2]: Trying to create a map of size 77 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.846182087] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950373.846728469] [planner_server]: Plan computed: 869 poses
+[rviz2-8] [INFO] [1790950373.894610237] [rviz2]: Trying to create a map of size 78 x 60 using 1 swatches
+[rviz2-8] [INFO] [1790950373.960212238] [rviz2]: Trying to create a map of size 79 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950373.977899464] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950373.978537047] [planner_server]: Plan computed: 869 poses
+[rviz2-8] [INFO] [1790950374.085457736] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950374.107551279] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950374.108137887] [planner_server]: Plan computed: 867 poses
+[planner_server-4] [INFO] [1790950374.237355661] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950374.237716496] [planner_server]: Plan computed: 866 poses
+[planner_server-4] [INFO] [1790950374.368371630] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950374.369650233] [planner_server]: Plan computed: 866 poses
+[rviz2-8] [INFO] [1790950374.470497424] [rviz2]: Trying to create a map of size 80 x 61 using 1 swatches
+[planner_server-4] [INFO] [1790950374.497037841] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950374.497692626] [planner_server]: Plan computed: 865 poses
+[planner_server-4] [INFO] [1790950374.627129901] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950374.627636780] [planner_server]: Plan computed: 865 poses
+[rviz2-8] [INFO] [1790950374.663538449] [rviz2]: Trying to create a map of size 80 x 62 using 1 swatches
+[planner_server-4] [INFO] [1790950374.756224980] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950374.756894804] [planner_server]: Plan computed: 864 poses
+[controller_node-5] [WARN] [1790950374.838360262] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950374.839007804] [controller_server]: Computed velocity commands: linear.x=0.39, linear.y=0.74, angular.z=0.00
+[planner_server-4] [INFO] [1790950374.892300370] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950374.892763817] [planner_server]: Plan computed: 863 poses
+[rviz2-8] [INFO] [1790950374.918346637] [rviz2]: Trying to create a map of size 80 x 63 using 1 swatches
+[rviz2-8] [INFO] [1790950375.013559407] [rviz2]: Trying to create a map of size 80 x 64 using 1 swatches
+[planner_server-4] [INFO] [1790950375.025797398] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950375.026174444] [planner_server]: Plan computed: 862 poses
+[rviz2-8] [INFO] [1790950375.142542356] [rviz2]: Trying to create a map of size 80 x 65 using 1 swatches
+[planner_server-4] [INFO] [1790950375.157889938] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950375.158453994] [planner_server]: Plan computed: 861 poses
+[rviz2-8] [INFO] [1790950375.237209565] [rviz2]: Trying to create a map of size 80 x 66 using 1 swatches
+[rviz2-8] [INFO] [1790950375.268871563] [rviz2]: Trying to create a map of size 80 x 67 using 1 swatches
+[planner_server-4] [INFO] [1790950375.287346789] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950375.287634869] [planner_server]: Plan computed: 859 poses
+[rviz2-8] [INFO] [1790950375.336321338] [rviz2]: Trying to create a map of size 80 x 68 using 1 swatches
+[rviz2-8] [INFO] [1790950375.398055364] [rviz2]: Trying to create a map of size 80 x 69 using 1 swatches
+[planner_server-4] [INFO] [1790950375.418092268] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950375.418482578] [planner_server]: Plan computed: 858 poses
+[rviz2-8] [INFO] [1790950375.526132312] [rviz2]: Trying to create a map of size 80 x 70 using 1 swatches
+[planner_server-4] [INFO] [1790950375.547990926] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950375.549646005] [planner_server]: Plan computed: 857 poses
+[rviz2-8] [INFO] [1790950375.589779003] [rviz2]: Trying to create a map of size 80 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950375.676875517] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950375.677472063] [planner_server]: Plan computed: 855 poses
+[rviz2-8] [INFO] [1790950375.816867868] [rviz2]: Trying to create a map of size 80 x 72 using 1 swatches
+[planner_server-4] [INFO] [1790950375.818018923] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950375.818868353] [planner_server]: Plan computed: 854 poses
+[rviz2-8] [INFO] [1790950375.878545073] [rviz2]: Trying to create a map of size 80 x 73 using 1 swatches
+[planner_server-4] [INFO] [1790950375.948723990] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950375.949383154] [planner_server]: Plan computed: 853 poses
+[rviz2-8] [INFO] [1790950375.973573694] [rviz2]: Trying to create a map of size 80 x 74 using 1 swatches
+[planner_server-4] [INFO] [1790950376.077146757] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950376.078174128] [planner_server]: Plan computed: 852 poses
+[rviz2-8] [INFO] [1790950376.105697387] [rviz2]: Trying to create a map of size 80 x 75 using 1 swatches
+[planner_server-4] [INFO] [1790950376.211332175] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950376.211758713] [planner_server]: Plan computed: 850 poses
+[rviz2-8] [INFO] [1790950376.231799931] [rviz2]: Trying to create a map of size 80 x 76 using 1 swatches
+[rviz2-8] [INFO] [1790950376.296197926] [rviz2]: Trying to create a map of size 80 x 77 using 1 swatches
+[planner_server-4] [INFO] [1790950376.339502685] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950376.340269340] [planner_server]: Plan computed: 849 poses
+[planner_server-4] [INFO] [1790950376.466511846] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950376.467032741] [planner_server]: Plan computed: 849 poses
+[planner_server-4] [INFO] [1790950376.597498992] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950376.598104315] [planner_server]: Plan computed: 847 poses
+[rviz2-8] [INFO] [1790950376.614674288] [rviz2]: Trying to create a map of size 80 x 78 using 1 swatches
+[rviz2-8] [INFO] [1790950376.646455727] [rviz2]: Trying to create a map of size 80 x 79 using 1 swatches
+[rviz2-8] [INFO] [1790950376.711867137] [rviz2]: Trying to create a map of size 80 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950376.726751613] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950376.727324665] [planner_server]: Plan computed: 846 poses
+[controller_node-5] [WARN] [1790950376.838888235] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950376.839440479] [controller_server]: Computed velocity commands: linear.x=1.00, linear.y=-0.61, angular.z=0.00
+[planner_server-4] [INFO] [1790950376.859074869] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950376.860262673] [planner_server]: Plan computed: 845 poses
+[planner_server-4] [INFO] [1790950376.989533237] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950376.989899442] [planner_server]: Plan computed: 845 poses
+[planner_server-4] [INFO] [1790950377.122344838] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950377.122791564] [planner_server]: Plan computed: 844 poses
+[planner_server-4] [INFO] [1790950377.249504061] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950377.250059180] [planner_server]: Plan computed: 843 poses
+[planner_server-4] [INFO] [1790950377.377386677] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950377.378043406] [planner_server]: Plan computed: 843 poses
+[planner_server-4] [INFO] [1790950377.518395802] [planner_server]: Planning took 27 ms
+[planner_server-4] [INFO] [1790950377.519025791] [planner_server]: Plan computed: 842 poses
+[planner_server-4] [INFO] [1790950377.646624446] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950377.647766143] [planner_server]: Plan computed: 841 poses
+[planner_server-4] [INFO] [1790950377.778226013] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950377.778712413] [planner_server]: Plan computed: 841 poses
+[planner_server-4] [INFO] [1790950377.906019904] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950377.906557039] [planner_server]: Plan computed: 840 poses
+[planner_server-4] [INFO] [1790950378.037986455] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950378.038694370] [planner_server]: Plan computed: 838 poses
+[planner_server-4] [INFO] [1790950378.166696089] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950378.167438548] [planner_server]: Plan computed: 837 poses
+[planner_server-4] [INFO] [1790950378.296880484] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950378.297506315] [planner_server]: Plan computed: 836 poses
+[planner_server-4] [INFO] [1790950378.430382760] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950378.431016356] [planner_server]: Plan computed: 833 poses
+[planner_server-4] [INFO] [1790950378.559048753] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950378.559619962] [planner_server]: Plan computed: 832 poses
+[planner_server-4] [INFO] [1790950378.686001810] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950378.686764492] [planner_server]: Plan computed: 831 poses
+[planner_server-4] [INFO] [1790950378.817850659] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950378.818505125] [planner_server]: Plan computed: 829 poses
+[controller_node-5] [WARN] [1790950378.858149069] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950378.858650477] [controller_server]: Computed velocity commands: linear.x=-0.69, linear.y=-1.65, angular.z=0.00
+[planner_server-4] [INFO] [1790950378.949366878] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950378.949789560] [planner_server]: Plan computed: 827 poses
+[planner_server-4] [INFO] [1790950379.077423871] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950379.077851612] [planner_server]: Plan computed: 825 poses
+[planner_server-4] [INFO] [1790950379.205741713] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950379.206581585] [planner_server]: Plan computed: 823 poses
+[planner_server-4] [INFO] [1790950379.337116647] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950379.338310191] [planner_server]: Plan computed: 821 poses
+[planner_server-4] [INFO] [1790950379.471295597] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950379.471763293] [planner_server]: Plan computed: 820 poses
+[planner_server-4] [INFO] [1790950379.597712043] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950379.598664415] [planner_server]: Plan computed: 818 poses
+[planner_server-4] [INFO] [1790950379.730666354] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950379.731282477] [planner_server]: Plan computed: 814 poses
+[planner_server-4] [INFO] [1790950379.859012107] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950379.860097338] [planner_server]: Plan computed: 812 poses
+[planner_server-4] [INFO] [1790950379.988665509] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950379.989393642] [planner_server]: Plan computed: 811 poses
+[planner_server-4] [INFO] [1790950380.121377467] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950380.121723925] [planner_server]: Plan computed: 808 poses
+[planner_server-4] [INFO] [1790950380.245519363] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950380.246476524] [planner_server]: Plan computed: 806 poses
+[planner_server-4] [INFO] [1790950380.380028544] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950380.380670475] [planner_server]: Plan computed: 806 poses
+[planner_server-4] [INFO] [1790950380.506525388] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950380.507704713] [planner_server]: Plan computed: 805 poses
+[planner_server-4] [INFO] [1790950380.638315430] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950380.638751175] [planner_server]: Plan computed: 803 poses
+[planner_server-4] [INFO] [1790950380.767052867] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950380.767517156] [planner_server]: Plan computed: 802 poses
+[controller_node-5] [WARN] [1790950380.858509404] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950380.859132820] [controller_server]: Computed velocity commands: linear.x=-0.79, linear.y=0.95, angular.z=0.00
+[planner_server-4] [INFO] [1790950380.898968519] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950380.900303949] [planner_server]: Plan computed: 800 poses
+[planner_server-4] [INFO] [1790950381.026849474] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950381.027299255] [planner_server]: Plan computed: 799 poses
+[planner_server-4] [INFO] [1790950381.156238777] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950381.157182574] [planner_server]: Plan computed: 798 poses
+[planner_server-4] [INFO] [1790950381.287262174] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950381.287574729] [planner_server]: Plan computed: 796 poses
+[planner_server-4] [INFO] [1790950381.416389482] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950381.416988995] [planner_server]: Plan computed: 795 poses
+[planner_server-4] [INFO] [1790950381.544756888] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950381.545382800] [planner_server]: Plan computed: 794 poses
+[planner_server-4] [INFO] [1790950381.676749450] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950381.677651167] [planner_server]: Plan computed: 793 poses
+[planner_server-4] [INFO] [1790950381.805687764] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950381.806228656] [planner_server]: Plan computed: 792 poses
+[planner_server-4] [INFO] [1790950381.940884653] [planner_server]: Planning took 23 ms
+[planner_server-4] [INFO] [1790950381.941461868] [planner_server]: Plan computed: 791 poses
+[planner_server-4] [INFO] [1790950382.067432954] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950382.067791565] [planner_server]: Plan computed: 789 poses
+[planner_server-4] [INFO] [1790950382.194967431] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950382.195476273] [planner_server]: Plan computed: 789 poses
+[planner_server-4] [INFO] [1790950382.327529569] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950382.328128900] [planner_server]: Plan computed: 787 poses
+[planner_server-4] [INFO] [1790950382.455945937] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950382.456339924] [planner_server]: Plan computed: 786 poses
+[planner_server-4] [INFO] [1790950382.586800388] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950382.587504196] [planner_server]: Plan computed: 785 poses
+[rviz2-8] [INFO] [1790950382.693055736] [rviz2]: Trying to create a map of size 80 x 79 using 1 swatches
+[planner_server-4] [INFO] [1790950382.715680279] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950382.716201004] [planner_server]: Plan computed: 783 poses
+[planner_server-4] [INFO] [1790950382.844955980] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950382.845391976] [planner_server]: Plan computed: 783 poses
+[controller_node-5] [WARN] [1790950382.878286258] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950382.878701114] [controller_server]: Computed velocity commands: linear.x=1.01, linear.y=-0.27, angular.z=0.00
+[rviz2-8] [INFO] [1790950382.917917253] [rviz2]: Trying to create a map of size 80 x 78 using 1 swatches
+[rviz2-8] [INFO] [1790950382.951139413] [rviz2]: Trying to create a map of size 80 x 77 using 1 swatches
+[planner_server-4] [INFO] [1790950382.976421846] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950382.976968319] [planner_server]: Plan computed: 781 poses
+[rviz2-8] [INFO] [1790950382.981546428] [rviz2]: Trying to create a map of size 80 x 76 using 1 swatches
+[planner_server-4] [INFO] [1790950383.115201089] [planner_server]: Planning took 27 ms
+[planner_server-4] [INFO] [1790950383.115975937] [planner_server]: Plan computed: 780 poses
+[planner_server-4] [INFO] [1790950383.246294721] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950383.246683569] [planner_server]: Plan computed: 779 poses
+[rviz2-8] [INFO] [1790950383.270393755] [rviz2]: Trying to create a map of size 80 x 75 using 1 swatches
+[rviz2-8] [INFO] [1790950383.303119916] [rviz2]: Trying to create a map of size 80 x 74 using 1 swatches
+[rviz2-8] [INFO] [1790950383.365400042] [rviz2]: Trying to create a map of size 80 x 73 using 1 swatches
+[planner_server-4] [INFO] [1790950383.378161849] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950383.378497547] [planner_server]: Plan computed: 776 poses
+[rviz2-8] [INFO] [1790950383.397299600] [rviz2]: Trying to create a map of size 80 x 72 using 1 swatches
+[rviz2-8] [INFO] [1790950383.461445248] [rviz2]: Trying to create a map of size 80 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950383.508309508] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950383.508730365] [planner_server]: Plan computed: 775 poses
+[rviz2-8] [INFO] [1790950383.557751733] [rviz2]: Trying to create a map of size 80 x 70 using 1 swatches
+[rviz2-8] [INFO] [1790950383.623609293] [rviz2]: Trying to create a map of size 80 x 69 using 1 swatches
+[planner_server-4] [INFO] [1790950383.636983298] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950383.637399768] [planner_server]: Plan computed: 773 poses
+[rviz2-8] [INFO] [1790950383.686022019] [rviz2]: Trying to create a map of size 80 x 68 using 1 swatches
+[planner_server-4] [INFO] [1790950383.768249291] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950383.768659829] [planner_server]: Plan computed: 771 poses
+[planner_server-4] [INFO] [1790950383.895082836] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950383.895336080] [planner_server]: Plan computed: 771 poses
+[rviz2-8] [INFO] [1790950384.008507554] [rviz2]: Trying to create a map of size 80 x 67 using 1 swatches
+[planner_server-4] [INFO] [1790950384.026013531] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950384.026348348] [planner_server]: Plan computed: 770 poses
+[rviz2-8] [INFO] [1790950384.038402160] [rviz2]: Trying to create a map of size 80 x 66 using 1 swatches
+[rviz2-8] [INFO] [1790950384.102541636] [rviz2]: Trying to create a map of size 80 x 65 using 1 swatches
+[planner_server-4] [INFO] [1790950384.154191433] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950384.154562859] [planner_server]: Plan computed: 769 poses
+[planner_server-4] [INFO] [1790950384.284257821] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950384.284784798] [planner_server]: Plan computed: 769 poses
+[rviz2-8] [INFO] [1790950384.294168533] [rviz2]: Trying to create a map of size 80 x 64 using 1 swatches
+[planner_server-4] [INFO] [1790950384.416229435] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950384.416711227] [planner_server]: Plan computed: 768 poses
+[rviz2-8] [INFO] [1790950384.455299106] [rviz2]: Trying to create a map of size 80 x 63 using 1 swatches
+[planner_server-4] [INFO] [1790950384.545315808] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950384.545837735] [planner_server]: Plan computed: 768 poses
+[rviz2-8] [INFO] [1790950384.647382033] [rviz2]: Trying to create a map of size 80 x 62 using 1 swatches
+[planner_server-4] [INFO] [1790950384.679321719] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950384.679788754] [planner_server]: Plan computed: 767 poses
+[planner_server-4] [INFO] [1790950384.805685394] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950384.806259108] [planner_server]: Plan computed: 766 poses
+[rviz2-8] [INFO] [1790950384.806360670] [rviz2]: Trying to create a map of size 80 x 61 using 1 swatches
+[controller_node-5] [WARN] [1790950384.881522608] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950384.882060525] [controller_server]: Computed velocity commands: linear.x=0.92, linear.y=0.39, angular.z=0.00
+[planner_server-4] [INFO] [1790950384.935762614] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950384.936436966] [planner_server]: Plan computed: 766 poses
+[planner_server-4] [INFO] [1790950385.070300830] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950385.070705888] [planner_server]: Plan computed: 764 poses
+[rviz2-8] [INFO] [1790950385.128489099] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950385.196544766] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950385.197232192] [planner_server]: Plan computed: 763 poses
+[planner_server-4] [INFO] [1790950385.328471035] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950385.329082319] [planner_server]: Plan computed: 761 poses
+[rviz2-8] [INFO] [1790950385.446659360] [rviz2]: Trying to create a map of size 80 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950385.455625733] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950385.456138243] [planner_server]: Plan computed: 760 poses
+[planner_server-4] [INFO] [1790950385.585221065] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950385.585879337] [planner_server]: Plan computed: 757 poses
+[planner_server-4] [INFO] [1790950385.720124702] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950385.720472002] [planner_server]: Plan computed: 757 poses
+[planner_server-4] [INFO] [1790950385.846636827] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950385.847196885] [planner_server]: Plan computed: 755 poses
+[planner_server-4] [INFO] [1790950385.980083051] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950385.980925207] [planner_server]: Plan computed: 754 poses
+[planner_server-4] [INFO] [1790950386.108223575] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950386.108738489] [planner_server]: Plan computed: 754 poses
+[planner_server-4] [INFO] [1790950386.236295019] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950386.236682415] [planner_server]: Plan computed: 753 poses
+[planner_server-4] [INFO] [1790950386.366195829] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950386.366525746] [planner_server]: Plan computed: 751 poses
+[planner_server-4] [INFO] [1790950386.494188315] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950386.494639349] [planner_server]: Plan computed: 750 poses
+[planner_server-4] [INFO] [1790950386.634712839] [planner_server]: Planning took 24 ms
+[planner_server-4] [INFO] [1790950386.635252189] [planner_server]: Plan computed: 749 poses
+[planner_server-4] [INFO] [1790950386.772156096] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950386.772492666] [planner_server]: Plan computed: 746 poses
+[controller_node-5] [WARN] [1790950386.897796991] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950386.898221786] [controller_server]: Computed velocity commands: linear.x=0.55, linear.y=-0.64, angular.z=0.00
+[planner_server-4] [INFO] [1790950386.904834158] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950386.905150169] [planner_server]: Plan computed: 746 poses
+[rviz2-8] [INFO] [1790950386.982294524] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950387.036473496] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950387.036927736] [planner_server]: Plan computed: 744 poses
+[planner_server-4] [INFO] [1790950387.167840891] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950387.168145180] [planner_server]: Plan computed: 744 poses
+[planner_server-4] [INFO] [1790950387.295695159] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950387.295963011] [planner_server]: Plan computed: 742 poses
+[planner_server-4] [INFO] [1790950387.427309957] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950387.427728701] [planner_server]: Plan computed: 740 poses
+[planner_server-4] [INFO] [1790950387.556490318] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950387.556808724] [planner_server]: Plan computed: 739 poses
+[planner_server-4] [INFO] [1790950387.685642355] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950387.686147000] [planner_server]: Plan computed: 738 poses
+[rviz2-8] [INFO] [1790950387.749061524] [rviz2]: Trying to create a map of size 80 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950387.816333043] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950387.816917878] [planner_server]: Plan computed: 736 poses
+[planner_server-4] [INFO] [1790950387.947026376] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950387.947495384] [planner_server]: Plan computed: 735 poses
+[planner_server-4] [INFO] [1790950388.076015759] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950388.076490698] [planner_server]: Plan computed: 734 poses
+[planner_server-4] [INFO] [1790950388.205193766] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950388.205504167] [planner_server]: Plan computed: 732 poses
+[planner_server-4] [INFO] [1790950388.337354596] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950388.337986719] [planner_server]: Plan computed: 732 poses
+[planner_server-4] [INFO] [1790950388.464811822] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950388.465307339] [planner_server]: Plan computed: 731 poses
+[planner_server-4] [INFO] [1790950388.597515167] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950388.598295187] [planner_server]: Plan computed: 729 poses
+[planner_server-4] [INFO] [1790950388.732231391] [planner_server]: Planning took 25 ms
+[planner_server-4] [INFO] [1790950388.732679209] [planner_server]: Plan computed: 728 poses
+[planner_server-4] [INFO] [1790950388.855354284] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950388.855901969] [planner_server]: Plan computed: 727 poses
+[controller_node-5] [WARN] [1790950388.898618601] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950388.899421544] [controller_server]: Computed velocity commands: linear.x=-0.02, linear.y=-0.51, angular.z=0.00
+[planner_server-4] [INFO] [1790950388.984916419] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950388.985270783] [planner_server]: Plan computed: 725 poses
+[planner_server-4] [INFO] [1790950389.115608982] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950389.116266052] [planner_server]: Plan computed: 724 poses
+[planner_server-4] [INFO] [1790950389.246849715] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950389.247223304] [planner_server]: Plan computed: 723 poses
+[planner_server-4] [INFO] [1790950389.376597814] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950389.377419503] [planner_server]: Plan computed: 721 poses
+[rviz2-8] [INFO] [1790950389.483133385] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950389.504759540] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950389.506364548] [planner_server]: Plan computed: 720 poses
+[planner_server-4] [INFO] [1790950389.639172005] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950389.639593153] [planner_server]: Plan computed: 719 poses
+[planner_server-4] [INFO] [1790950389.765522079] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950389.766687551] [planner_server]: Plan computed: 718 poses
+[rviz2-8] [INFO] [1790950389.863122169] [rviz2]: Trying to create a map of size 80 x 61 using 1 swatches
+[planner_server-4] [INFO] [1790950389.895511205] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950389.895938224] [planner_server]: Plan computed: 716 poses
+[planner_server-4] [INFO] [1790950390.026499020] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950390.027091559] [planner_server]: Plan computed: 715 poses
+[rviz2-8] [INFO] [1790950390.119440945] [rviz2]: Trying to create a map of size 80 x 62 using 1 swatches
+[planner_server-4] [INFO] [1790950390.154356776] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950390.154767345] [planner_server]: Plan computed: 714 poses
+[rviz2-8] [INFO] [1790950390.279334823] [rviz2]: Trying to create a map of size 80 x 63 using 1 swatches
+[planner_server-4] [INFO] [1790950390.287940601] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950390.289598444] [planner_server]: Plan computed: 713 poses
+[rviz2-8] [INFO] [1790950390.341961118] [rviz2]: Trying to create a map of size 80 x 64 using 1 swatches
+[rviz2-8] [INFO] [1790950390.405679377] [rviz2]: Trying to create a map of size 80 x 65 using 1 swatches
+[planner_server-4] [INFO] [1790950390.425205035] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950390.425551203] [planner_server]: Plan computed: 712 poses
+[planner_server-4] [INFO] [1790950390.554813880] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950390.555150811] [planner_server]: Plan computed: 710 poses
+[rviz2-8] [INFO] [1790950390.598413295] [rviz2]: Trying to create a map of size 80 x 66 using 1 swatches
+[planner_server-4] [INFO] [1790950390.685507936] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950390.685842692] [planner_server]: Plan computed: 710 poses
+[rviz2-8] [INFO] [1790950390.727301636] [rviz2]: Trying to create a map of size 80 x 68 using 1 swatches
+[planner_server-4] [INFO] [1790950390.817222141] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950390.817607793] [planner_server]: Plan computed: 708 poses
+[rviz2-8] [INFO] [1790950390.917720155] [rviz2]: Trying to create a map of size 80 x 69 using 1 swatches
+[controller_node-5] [WARN] [1790950390.918417350] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950390.919383949] [controller_server]: Computed velocity commands: linear.x=-0.13, linear.y=-0.90, angular.z=0.00
+[planner_server-4] [INFO] [1790950390.944161007] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950390.944463944] [planner_server]: Plan computed: 707 poses
+[rviz2-8] [INFO] [1790950391.045931854] [rviz2]: Trying to create a map of size 80 x 70 using 1 swatches
+[planner_server-4] [INFO] [1790950391.074300486] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950391.074617369] [planner_server]: Plan computed: 706 poses
+[rviz2-8] [INFO] [1790950391.142282425] [rviz2]: Trying to create a map of size 80 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950391.200521709] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950391.200923901] [planner_server]: Plan computed: 705 poses
+[rviz2-8] [INFO] [1790950391.302581066] [rviz2]: Trying to create a map of size 80 x 72 using 1 swatches
+[planner_server-4] [INFO] [1790950391.326514740] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950391.326835250] [planner_server]: Plan computed: 705 poses
+[rviz2-8] [INFO] [1790950391.397530254] [rviz2]: Trying to create a map of size 80 x 73 using 1 swatches
+[rviz2-8] [INFO] [1790950391.432969030] [rviz2]: Trying to create a map of size 80 x 74 using 1 swatches
+[planner_server-4] [INFO] [1790950391.454407168] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950391.454848755] [planner_server]: Plan computed: 703 poses
+[planner_server-4] [INFO] [1790950391.585044969] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950391.585362483] [planner_server]: Plan computed: 701 poses
+[rviz2-8] [INFO] [1790950391.588823281] [rviz2]: Trying to create a map of size 80 x 75 using 1 swatches
+[rviz2-8] [INFO] [1790950391.654871362] [rviz2]: Trying to create a map of size 80 x 76 using 1 swatches
+[rviz2-8] [INFO] [1790950391.685382233] [rviz2]: Trying to create a map of size 80 x 77 using 1 swatches
+[planner_server-4] [INFO] [1790950391.714967401] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950391.715361719] [planner_server]: Plan computed: 699 poses
+[rviz2-8] [INFO] [1790950391.749597067] [rviz2]: Trying to create a map of size 80 x 78 using 1 swatches
+[planner_server-4] [INFO] [1790950391.845622404] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950391.846078408] [planner_server]: Plan computed: 697 poses
+[rviz2-8] [INFO] [1790950391.878472404] [rviz2]: Trying to create a map of size 80 x 79 using 1 swatches
+[rviz2-8] [INFO] [1790950391.910361925] [rviz2]: Trying to create a map of size 80 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950391.975715406] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950391.976287236] [planner_server]: Plan computed: 697 poses
+[planner_server-4] [INFO] [1790950392.106943730] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950392.107969821] [planner_server]: Plan computed: 697 poses
+[planner_server-4] [INFO] [1790950392.234949848] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950392.235745667] [planner_server]: Plan computed: 696 poses
+[planner_server-4] [INFO] [1790950392.365357809] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950392.366052810] [planner_server]: Plan computed: 695 poses
+[planner_server-4] [INFO] [1790950392.494093421] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950392.494609066] [planner_server]: Plan computed: 694 poses
+[planner_server-4] [INFO] [1790950392.626859916] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950392.627187579] [planner_server]: Plan computed: 693 poses
+[planner_server-4] [INFO] [1790950392.756685758] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950392.757320346] [planner_server]: Plan computed: 692 poses
+[planner_server-4] [INFO] [1790950392.882792828] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950392.883176897] [planner_server]: Plan computed: 690 poses
+[controller_node-5] [WARN] [1790950392.938248953] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950392.938760901] [controller_server]: Computed velocity commands: linear.x=-0.00, linear.y=0.93, angular.z=0.00
+[planner_server-4] [INFO] [1790950393.003323802] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950393.003730022] [planner_server]: Plan computed: 688 poses
+[planner_server-4] [INFO] [1790950393.134309134] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950393.134837002] [planner_server]: Plan computed: 687 poses
+[planner_server-4] [INFO] [1790950393.264747413] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950393.265118268] [planner_server]: Plan computed: 684 poses
+[planner_server-4] [INFO] [1790950393.394549300] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950393.394829154] [planner_server]: Plan computed: 684 poses
+[planner_server-4] [INFO] [1790950393.516395466] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950393.516796326] [planner_server]: Plan computed: 683 poses
+[planner_server-4] [INFO] [1790950393.644631082] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950393.645001695] [planner_server]: Plan computed: 682 poses
+[planner_server-4] [INFO] [1790950393.778215930] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950393.778480636] [planner_server]: Plan computed: 680 poses
+[planner_server-4] [INFO] [1790950393.906628938] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950393.907103576] [planner_server]: Plan computed: 679 poses
+[planner_server-4] [INFO] [1790950394.035289309] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.035682585] [planner_server]: Plan computed: 677 poses
+[planner_server-4] [INFO] [1790950394.165303263] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950394.166325206] [planner_server]: Plan computed: 676 poses
+[planner_server-4] [INFO] [1790950394.294832861] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.295157429] [planner_server]: Plan computed: 675 poses
+[planner_server-4] [INFO] [1790950394.428055492] [planner_server]: Planning took 22 ms
+[planner_server-4] [INFO] [1790950394.428576517] [planner_server]: Plan computed: 673 poses
+[planner_server-4] [INFO] [1790950394.554469239] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.555013948] [planner_server]: Plan computed: 671 poses
+[planner_server-4] [INFO] [1790950394.685054933] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.685362529] [planner_server]: Plan computed: 671 poses
+[planner_server-4] [INFO] [1790950394.813808839] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.814188380] [planner_server]: Plan computed: 671 poses
+[planner_server-4] [INFO] [1790950394.942989345] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950394.943374236] [planner_server]: Plan computed: 671 poses
+[controller_node-5] [WARN] [1790950394.957932747] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950394.958368212] [controller_server]: Computed velocity commands: linear.x=-0.39, linear.y=0.98, angular.z=0.00
+[planner_server-4] [INFO] [1790950395.075328212] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.075643041] [planner_server]: Plan computed: 671 poses
+[planner_server-4] [INFO] [1790950395.206368088] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950395.206741006] [planner_server]: Plan computed: 670 poses
+[planner_server-4] [INFO] [1790950395.334876486] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950395.335695148] [planner_server]: Plan computed: 669 poses
+[planner_server-4] [INFO] [1790950395.464550044] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.465258710] [planner_server]: Plan computed: 668 poses
+[planner_server-4] [INFO] [1790950395.594194527] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.594602070] [planner_server]: Plan computed: 667 poses
+[planner_server-4] [INFO] [1790950395.724777909] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.725374055] [planner_server]: Plan computed: 665 poses
+[planner_server-4] [INFO] [1790950395.854488206] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.855200288] [planner_server]: Plan computed: 664 poses
+[planner_server-4] [INFO] [1790950395.983509182] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950395.983978000] [planner_server]: Plan computed: 663 poses
+[planner_server-4] [INFO] [1790950396.115755487] [planner_server]: Planning took 20 ms
+[planner_server-4] [INFO] [1790950396.116165504] [planner_server]: Plan computed: 661 poses
+[planner_server-4] [INFO] [1790950396.246131390] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950396.246892705] [planner_server]: Plan computed: 659 poses
+[planner_server-4] [INFO] [1790950396.374466805] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950396.374995875] [planner_server]: Plan computed: 658 poses
+[planner_server-4] [INFO] [1790950396.504695773] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950396.505498295] [planner_server]: Plan computed: 656 poses
+[planner_server-4] [INFO] [1790950396.633773987] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950396.634208290] [planner_server]: Plan computed: 655 poses
+[planner_server-4] [INFO] [1790950396.763912817] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950396.764361998] [planner_server]: Plan computed: 654 poses
+[planner_server-4] [INFO] [1790950396.894349574] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950396.894702825] [planner_server]: Plan computed: 653 poses
+[controller_node-5] [WARN] [1790950396.978055919] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950396.978505601] [controller_server]: Computed velocity commands: linear.x=0.67, linear.y=0.77, angular.z=0.00
+[planner_server-4] [INFO] [1790950397.023551610] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950397.024092993] [planner_server]: Plan computed: 651 poses
+[planner_server-4] [INFO] [1790950397.155405431] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950397.155828463] [planner_server]: Plan computed: 650 poses
+[planner_server-4] [INFO] [1790950397.284283671] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950397.284662630] [planner_server]: Plan computed: 648 poses
+[planner_server-4] [INFO] [1790950397.413304865] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950397.413912232] [planner_server]: Plan computed: 647 poses
+[planner_server-4] [INFO] [1790950397.544693309] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950397.545253488] [planner_server]: Plan computed: 646 poses
+[planner_server-4] [INFO] [1790950397.673624339] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950397.674182384] [planner_server]: Plan computed: 643 poses
+[planner_server-4] [INFO] [1790950397.803936930] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950397.804549997] [planner_server]: Plan computed: 642 poses
+[planner_server-4] [INFO] [1790950397.933389731] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950397.933985135] [planner_server]: Plan computed: 640 poses
+[planner_server-4] [INFO] [1790950398.064462319] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950398.064858190] [planner_server]: Plan computed: 638 poses
+[planner_server-4] [INFO] [1790950398.194098559] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950398.194403700] [planner_server]: Plan computed: 637 poses
+[planner_server-4] [INFO] [1790950398.323341412] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950398.323718889] [planner_server]: Plan computed: 633 poses
+[planner_server-4] [INFO] [1790950398.456553807] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950398.457037482] [planner_server]: Plan computed: 632 poses
+[planner_server-4] [INFO] [1790950398.585141634] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950398.585535882] [planner_server]: Plan computed: 630 poses
+[planner_server-4] [INFO] [1790950398.716751669] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950398.717061569] [planner_server]: Plan computed: 628 poses
+[planner_server-4] [INFO] [1790950398.842525167] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950398.842987984] [planner_server]: Plan computed: 626 poses
+[planner_server-4] [INFO] [1790950398.963861817] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950398.964527122] [planner_server]: Plan computed: 625 poses
+[controller_node-5] [WARN] [1790950398.998478775] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950398.998874365] [controller_server]: Computed velocity commands: linear.x=0.35, linear.y=-1.37, angular.z=0.00
+[planner_server-4] [INFO] [1790950399.096287463] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950399.096665791] [planner_server]: Plan computed: 623 poses
+[planner_server-4] [INFO] [1790950399.222501718] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950399.222877973] [planner_server]: Plan computed: 623 poses
+[planner_server-4] [INFO] [1790950399.344415554] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950399.344814681] [planner_server]: Plan computed: 621 poses
+[planner_server-4] [INFO] [1790950399.474412894] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950399.474928229] [planner_server]: Plan computed: 620 poses
+[planner_server-4] [INFO] [1790950399.606111538] [planner_server]: Planning took 21 ms
+[planner_server-4] [INFO] [1790950399.606634277] [planner_server]: Plan computed: 620 poses
+[planner_server-4] [INFO] [1790950399.733353710] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950399.733776822] [planner_server]: Plan computed: 619 poses
+[planner_server-4] [INFO] [1790950399.866247899] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950399.866574781] [planner_server]: Plan computed: 619 poses
+[planner_server-4] [INFO] [1790950399.992687876] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950399.993211426] [planner_server]: Plan computed: 618 poses
+[planner_server-4] [INFO] [1790950400.113357784] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950400.113710805] [planner_server]: Plan computed: 617 poses
+[planner_server-4] [INFO] [1790950400.243520410] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.243931319] [planner_server]: Plan computed: 616 poses
+[planner_server-4] [INFO] [1790950400.373397110] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.373757855] [planner_server]: Plan computed: 615 poses
+[planner_server-4] [INFO] [1790950400.503252591] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.503870989] [planner_server]: Plan computed: 614 poses
+[planner_server-4] [INFO] [1790950400.634638682] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.635205072] [planner_server]: Plan computed: 612 poses
+[planner_server-4] [INFO] [1790950400.763093726] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.763489307] [planner_server]: Plan computed: 612 poses
+[planner_server-4] [INFO] [1790950400.893028898] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950400.893581803] [planner_server]: Plan computed: 611 poses
+[controller_node-5] [WARN] [1790950401.017880971] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950401.018404941] [controller_server]: Computed velocity commands: linear.x=-0.61, linear.y=0.56, angular.z=0.00
+[planner_server-4] [INFO] [1790950401.024490145] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950401.024933585] [planner_server]: Plan computed: 609 poses
+[planner_server-4] [INFO] [1790950401.152055079] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950401.152461499] [planner_server]: Plan computed: 608 poses
+[planner_server-4] [INFO] [1790950401.273291807] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950401.273724247] [planner_server]: Plan computed: 606 poses
+[planner_server-4] [INFO] [1790950401.405419662] [planner_server]: Planning took 19 ms
+[planner_server-4] [INFO] [1790950401.405922133] [planner_server]: Plan computed: 604 poses
+[planner_server-4] [INFO] [1790950401.533786258] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950401.534194622] [planner_server]: Plan computed: 602 poses
+[planner_server-4] [INFO] [1790950401.664541641] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950401.665233416] [planner_server]: Plan computed: 601 poses
+[planner_server-4] [INFO] [1790950401.793839301] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950401.794156134] [planner_server]: Plan computed: 599 poses
+[planner_server-4] [INFO] [1790950401.923864249] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950401.925166898] [planner_server]: Plan computed: 598 poses
+[planner_server-4] [INFO] [1790950402.054232972] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950402.054559534] [planner_server]: Plan computed: 597 poses
+[planner_server-4] [INFO] [1790950402.182581664] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950402.183509641] [planner_server]: Plan computed: 597 poses
+[planner_server-4] [INFO] [1790950402.313688517] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950402.314186520] [planner_server]: Plan computed: 597 poses
+[planner_server-4] [INFO] [1790950402.443802133] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950402.444143692] [planner_server]: Plan computed: 596 poses
+[planner_server-4] [INFO] [1790950402.563841129] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950402.564171047] [planner_server]: Plan computed: 596 poses
+[planner_server-4] [INFO] [1790950402.694655532] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950402.695205681] [planner_server]: Plan computed: 595 poses
+[planner_server-4] [INFO] [1790950402.823976659] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950402.824435808] [planner_server]: Plan computed: 594 poses
+[planner_server-4] [INFO] [1790950402.954532550] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950402.955057834] [planner_server]: Plan computed: 591 poses
+[controller_node-5] [WARN] [1790950403.037600053] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950403.038011323] [controller_server]: Computed velocity commands: linear.x=-0.80, linear.y=0.01, angular.z=0.00
+[planner_server-4] [INFO] [1790950403.084438357] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950403.084891055] [planner_server]: Plan computed: 589 poses
+[planner_server-4] [INFO] [1790950403.211269760] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950403.211606580] [planner_server]: Plan computed: 588 poses
+[planner_server-4] [INFO] [1790950403.333758478] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950403.334478416] [planner_server]: Plan computed: 586 poses
+[planner_server-4] [INFO] [1790950403.464213738] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950403.464583530] [planner_server]: Plan computed: 584 poses
+[planner_server-4] [INFO] [1790950403.592473514] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950403.592859306] [planner_server]: Plan computed: 584 poses
+[planner_server-4] [INFO] [1790950403.712609633] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950403.712967022] [planner_server]: Plan computed: 582 poses
+[planner_server-4] [INFO] [1790950403.831816253] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950403.832343530] [planner_server]: Plan computed: 581 poses
+[planner_server-4] [INFO] [1790950403.952170071] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950403.952600897] [planner_server]: Plan computed: 579 poses
+[planner_server-4] [INFO] [1790950404.077189640] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950404.077604397] [planner_server]: Plan computed: 578 poses
+[planner_server-4] [INFO] [1790950404.204030386] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950404.204767807] [planner_server]: Plan computed: 577 poses
+[planner_server-4] [INFO] [1790950404.324706742] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950404.325360270] [planner_server]: Plan computed: 576 poses
+[planner_server-4] [INFO] [1790950404.450892877] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950404.451331108] [planner_server]: Plan computed: 575 poses
+[planner_server-4] [INFO] [1790950404.571977082] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950404.572513296] [planner_server]: Plan computed: 574 poses
+[planner_server-4] [INFO] [1790950404.700860194] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950404.701461520] [planner_server]: Plan computed: 573 poses
+[planner_server-4] [INFO] [1790950404.833910127] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950404.834244984] [planner_server]: Plan computed: 573 poses
+[planner_server-4] [INFO] [1790950404.955338716] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950404.955890950] [planner_server]: Plan computed: 572 poses
+[controller_node-5] [WARN] [1790950405.037710176] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950405.038159578] [controller_server]: Computed velocity commands: linear.x=-0.58, linear.y=-0.13, angular.z=0.00
+[planner_server-4] [INFO] [1790950405.083150876] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950405.083504317] [planner_server]: Plan computed: 571 poses
+[planner_server-4] [INFO] [1790950405.215416531] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950405.215988421] [planner_server]: Plan computed: 570 poses
+[planner_server-4] [INFO] [1790950405.335505513] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950405.335844718] [planner_server]: Plan computed: 569 poses
+[planner_server-4] [INFO] [1790950405.461934362] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950405.462323290] [planner_server]: Plan computed: 568 poses
+[planner_server-4] [INFO] [1790950405.590305542] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950405.590702155] [planner_server]: Plan computed: 567 poses
+[planner_server-4] [INFO] [1790950405.712396477] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950405.712876325] [planner_server]: Plan computed: 566 poses
+[planner_server-4] [INFO] [1790950405.832751266] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950405.833505588] [planner_server]: Plan computed: 565 poses
+[planner_server-4] [INFO] [1790950405.961351009] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950405.961687930] [planner_server]: Plan computed: 563 poses
+[planner_server-4] [INFO] [1790950406.082267309] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950406.082680132] [planner_server]: Plan computed: 563 poses
+[planner_server-4] [INFO] [1790950406.201508825] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950406.201720812] [planner_server]: Plan computed: 562 poses
+[planner_server-4] [INFO] [1790950406.321209621] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950406.321562321] [planner_server]: Plan computed: 561 poses
+[planner_server-4] [INFO] [1790950406.441458763] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950406.441957536] [planner_server]: Plan computed: 559 poses
+[planner_server-4] [INFO] [1790950406.561423603] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950406.561987599] [planner_server]: Plan computed: 557 poses
+[planner_server-4] [INFO] [1790950406.683324957] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950406.683827167] [planner_server]: Plan computed: 555 poses
+[planner_server-4] [INFO] [1790950406.810763307] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950406.811079599] [planner_server]: Plan computed: 553 poses
+[planner_server-4] [INFO] [1790950406.933498552] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950406.934053140] [planner_server]: Plan computed: 551 poses
+[controller_node-5] [WARN] [1790950407.057414739] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950407.057841558] [controller_server]: Computed velocity commands: linear.x=-0.23, linear.y=0.72, angular.z=0.00
+[planner_server-4] [INFO] [1790950407.063801294] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950407.064194099] [planner_server]: Plan computed: 550 poses
+[planner_server-4] [INFO] [1790950407.194227444] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950407.194544458] [planner_server]: Plan computed: 549 poses
+[planner_server-4] [INFO] [1790950407.324106280] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950407.324457107] [planner_server]: Plan computed: 546 poses
+[planner_server-4] [INFO] [1790950407.452739432] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950407.453084037] [planner_server]: Plan computed: 545 poses
+[planner_server-4] [INFO] [1790950407.581536199] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950407.582228221] [planner_server]: Plan computed: 544 poses
+[planner_server-4] [INFO] [1790950407.702248945] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950407.702676346] [planner_server]: Plan computed: 541 poses
+[planner_server-4] [INFO] [1790950407.820507412] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950407.820902191] [planner_server]: Plan computed: 540 poses
+[planner_server-4] [INFO] [1790950407.944449675] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950407.945843524] [planner_server]: Plan computed: 539 poses
+[planner_server-4] [INFO] [1790950408.072918656] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950408.074317205] [planner_server]: Plan computed: 537 poses
+[planner_server-4] [INFO] [1790950408.194098521] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950408.194461311] [planner_server]: Plan computed: 536 poses
+[planner_server-4] [INFO] [1790950408.313373111] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950408.313996017] [planner_server]: Plan computed: 535 poses
+[planner_server-4] [INFO] [1790950408.443089776] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950408.443472272] [planner_server]: Plan computed: 534 poses
+[planner_server-4] [INFO] [1790950408.561021076] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950408.561431785] [planner_server]: Plan computed: 533 poses
+[planner_server-4] [INFO] [1790950408.681216243] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950408.681684649] [planner_server]: Plan computed: 531 poses
+[planner_server-4] [INFO] [1790950408.800173818] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950408.800577905] [planner_server]: Plan computed: 530 poses
+[planner_server-4] [INFO] [1790950408.923099372] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950408.923713051] [planner_server]: Plan computed: 529 poses
+[planner_server-4] [INFO] [1790950409.044520149] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950409.045354220] [planner_server]: Plan computed: 527 poses
+[controller_node-5] [INFO] [1790950409.057914321] [controller_server]: Computed velocity commands: linear.x=-0.36, linear.y=0.85, angular.z=0.00
+[controller_node-5] [WARN] [1790950409.077687354] [controller_server]: path_copy succeeded.
+[planner_server-4] [INFO] [1790950409.173537284] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950409.173872291] [planner_server]: Plan computed: 526 poses
+[planner_server-4] [INFO] [1790950409.300892445] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950409.301431845] [planner_server]: Plan computed: 524 poses
+[planner_server-4] [INFO] [1790950409.424344574] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950409.424659494] [planner_server]: Plan computed: 523 poses
+[planner_server-4] [INFO] [1790950409.552728074] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950409.552981488] [planner_server]: Plan computed: 522 poses
+[planner_server-4] [INFO] [1790950409.674360132] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950409.674763487] [planner_server]: Plan computed: 522 poses
+[planner_server-4] [INFO] [1790950409.801323815] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950409.802061606] [planner_server]: Plan computed: 521 poses
+[planner_server-4] [INFO] [1790950409.929499777] [planner_server]: Planning took 18 ms
+[planner_server-4] [INFO] [1790950409.929900907] [planner_server]: Plan computed: 520 poses
+[planner_server-4] [INFO] [1790950410.052670850] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950410.053152672] [planner_server]: Plan computed: 519 poses
+[planner_server-4] [INFO] [1790950410.170704812] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950410.171291681] [planner_server]: Plan computed: 519 poses
+[planner_server-4] [INFO] [1790950410.289935375] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950410.290202405] [planner_server]: Plan computed: 517 poses
+[planner_server-4] [INFO] [1790950410.412532123] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950410.413154528] [planner_server]: Plan computed: 515 poses
+[planner_server-4] [INFO] [1790950410.542044622] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950410.542614589] [planner_server]: Plan computed: 514 poses
+[planner_server-4] [INFO] [1790950410.660347037] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950410.660923346] [planner_server]: Plan computed: 513 poses
+[planner_server-4] [INFO] [1790950410.780550607] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950410.780957268] [planner_server]: Plan computed: 512 poses
+[planner_server-4] [INFO] [1790950410.901368827] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950410.901863483] [planner_server]: Plan computed: 509 poses
+[planner_server-4] [INFO] [1790950411.020213853] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.020753773] [planner_server]: Plan computed: 509 poses
+[controller_node-5] [WARN] [1790950411.077787996] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950411.078161695] [controller_server]: Computed velocity commands: linear.x=0.27, linear.y=1.17, angular.z=0.00
+[planner_server-4] [INFO] [1790950411.139781782] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.140326171] [planner_server]: Plan computed: 508 poses
+[planner_server-4] [INFO] [1790950411.259951449] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.260399597] [planner_server]: Plan computed: 507 poses
+[planner_server-4] [INFO] [1790950411.379725193] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.380048298] [planner_server]: Plan computed: 505 poses
+[planner_server-4] [INFO] [1790950411.500890312] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950411.501365201] [planner_server]: Plan computed: 504 poses
+[planner_server-4] [INFO] [1790950411.621422526] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950411.621751222] [planner_server]: Plan computed: 502 poses
+[planner_server-4] [INFO] [1790950411.740441839] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.740970368] [planner_server]: Plan computed: 501 poses
+[planner_server-4] [INFO] [1790950411.863685659] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950411.864242752] [planner_server]: Plan computed: 499 poses
+[planner_server-4] [INFO] [1790950411.990241128] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950411.990559674] [planner_server]: Plan computed: 495 poses
+[planner_server-4] [INFO] [1790950412.109927920] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950412.110219376] [planner_server]: Plan computed: 493 poses
+[planner_server-4] [INFO] [1790950412.228687657] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950412.228959145] [planner_server]: Plan computed: 492 poses
+[planner_server-4] [INFO] [1790950412.350130737] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950412.350547347] [planner_server]: Plan computed: 490 poses
+[planner_server-4] [INFO] [1790950412.471193897] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950412.471514276] [planner_server]: Plan computed: 487 poses
+[planner_server-4] [INFO] [1790950412.590209197] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950412.590586984] [planner_server]: Plan computed: 486 poses
+[planner_server-4] [INFO] [1790950412.710676526] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950412.711235773] [planner_server]: Plan computed: 484 poses
+[planner_server-4] [INFO] [1790950412.830258422] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950412.830888872] [planner_server]: Plan computed: 481 poses
+[planner_server-4] [INFO] [1790950412.951292035] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950412.951561319] [planner_server]: Plan computed: 480 poses
+[planner_server-4] [INFO] [1790950413.071653531] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950413.071957400] [planner_server]: Plan computed: 478 poses
+[controller_node-5] [WARN] [1790950413.097260655] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950413.097751093] [controller_server]: Computed velocity commands: linear.x=0.84, linear.y=-0.84, angular.z=0.00
+[planner_server-4] [INFO] [1790950413.191317446] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950413.191855423] [planner_server]: Plan computed: 477 poses
+[planner_server-4] [INFO] [1790950413.311263980] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950413.311553652] [planner_server]: Plan computed: 476 poses
+[planner_server-4] [INFO] [1790950413.430109689] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950413.430540746] [planner_server]: Plan computed: 474 poses
+[planner_server-4] [INFO] [1790950413.548951840] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950413.549271839] [planner_server]: Plan computed: 474 poses
+[planner_server-4] [INFO] [1790950413.671118092] [planner_server]: Planning took 16 ms
+[planner_server-4] [INFO] [1790950413.672012437] [planner_server]: Plan computed: 473 poses
+[planner_server-4] [INFO] [1790950413.789520374] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950413.789850962] [planner_server]: Plan computed: 472 poses
+[planner_server-4] [INFO] [1790950413.910680044] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950413.911276961] [planner_server]: Plan computed: 471 poses
+[planner_server-4] [INFO] [1790950414.030447107] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950414.031110479] [planner_server]: Plan computed: 471 poses
+[planner_server-4] [INFO] [1790950414.152888657] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950414.153310948] [planner_server]: Plan computed: 470 poses
+[planner_server-4] [INFO] [1790950414.270276797] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950414.270465811] [planner_server]: Plan computed: 469 poses
+[planner_server-4] [INFO] [1790950414.390488033] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950414.390887150] [planner_server]: Plan computed: 469 poses
+[planner_server-4] [INFO] [1790950414.508841440] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950414.509390197] [planner_server]: Plan computed: 468 poses
+[planner_server-4] [INFO] [1790950414.629029091] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950414.629560135] [planner_server]: Plan computed: 467 poses
+[planner_server-4] [INFO] [1790950414.749194119] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950414.749531832] [planner_server]: Plan computed: 465 poses
+[planner_server-4] [INFO] [1790950414.870931793] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950414.871245059] [planner_server]: Plan computed: 463 poses
+[planner_server-4] [INFO] [1790950414.990292025] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950414.990653752] [planner_server]: Plan computed: 462 poses
+[controller_node-5] [WARN] [1790950415.097486884] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950415.098147471] [controller_server]: Computed velocity commands: linear.x=-1.25, linear.y=-0.01, angular.z=0.00
+[planner_server-4] [INFO] [1790950415.108841844] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.109320781] [planner_server]: Plan computed: 461 poses
+[planner_server-4] [INFO] [1790950415.229804312] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950415.230546140] [planner_server]: Plan computed: 461 poses
+[planner_server-4] [INFO] [1790950415.350402462] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950415.350743149] [planner_server]: Plan computed: 460 poses
+[planner_server-4] [INFO] [1790950415.470365963] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.470850480] [planner_server]: Plan computed: 458 poses
+[planner_server-4] [INFO] [1790950415.591106379] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.591558105] [planner_server]: Plan computed: 456 poses
+[planner_server-4] [INFO] [1790950415.708482318] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.708831662] [planner_server]: Plan computed: 455 poses
+[planner_server-4] [INFO] [1790950415.830085494] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.830397748] [planner_server]: Plan computed: 454 poses
+[planner_server-4] [INFO] [1790950415.950379299] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950415.950762807] [planner_server]: Plan computed: 453 poses
+[planner_server-4] [INFO] [1790950416.070763689] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950416.071241183] [planner_server]: Plan computed: 453 poses
+[planner_server-4] [INFO] [1790950416.189044782] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950416.189474386] [planner_server]: Plan computed: 452 poses
+[planner_server-4] [INFO] [1790950416.309849063] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950416.310431853] [planner_server]: Plan computed: 450 poses
+[planner_server-4] [INFO] [1790950416.429635048] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950416.430045095] [planner_server]: Plan computed: 448 poses
+[planner_server-4] [INFO] [1790950416.549668911] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950416.550245170] [planner_server]: Plan computed: 446 poses
+[planner_server-4] [INFO] [1790950416.668692048] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950416.669198707] [planner_server]: Plan computed: 444 poses
+[planner_server-4] [INFO] [1790950416.788845621] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950416.789273893] [planner_server]: Plan computed: 443 poses
+[planner_server-4] [INFO] [1790950416.908065021] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950416.908541943] [planner_server]: Plan computed: 441 poses
+[planner_server-4] [INFO] [1790950417.028550199] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.028914641] [planner_server]: Plan computed: 440 poses
+[controller_node-5] [WARN] [1790950417.098651053] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950417.099082581] [controller_server]: Computed velocity commands: linear.x=-0.04, linear.y=0.76, angular.z=0.00
+[planner_server-4] [INFO] [1790950417.149995681] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950417.150420867] [planner_server]: Plan computed: 438 poses
+[planner_server-4] [INFO] [1790950417.269097596] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.269483528] [planner_server]: Plan computed: 436 poses
+[planner_server-4] [INFO] [1790950417.388744726] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.389182125] [planner_server]: Plan computed: 434 poses
+[planner_server-4] [INFO] [1790950417.508411644] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.508767320] [planner_server]: Plan computed: 433 poses
+[planner_server-4] [INFO] [1790950417.629376731] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.629909028] [planner_server]: Plan computed: 431 poses
+[planner_server-4] [INFO] [1790950417.750041592] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.750403079] [planner_server]: Plan computed: 430 poses
+[planner_server-4] [INFO] [1790950417.870315281] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950417.870553777] [planner_server]: Plan computed: 429 poses
+[planner_server-4] [INFO] [1790950417.989460852] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950417.990001945] [planner_server]: Plan computed: 428 poses
+[planner_server-4] [INFO] [1790950418.109879808] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950418.110237708] [planner_server]: Plan computed: 426 poses
+[planner_server-4] [INFO] [1790950418.230636206] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950418.231020395] [planner_server]: Plan computed: 425 poses
+[planner_server-4] [INFO] [1790950418.350016847] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950418.350414983] [planner_server]: Plan computed: 424 poses
+[planner_server-4] [INFO] [1790950418.467957082] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950418.468285327] [planner_server]: Plan computed: 422 poses
+[planner_server-4] [INFO] [1790950418.589296351] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950418.589565425] [planner_server]: Plan computed: 420 poses
+[planner_server-4] [INFO] [1790950418.711406503] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950418.711847860] [planner_server]: Plan computed: 418 poses
+[planner_server-4] [INFO] [1790950418.830174579] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950418.830511049] [planner_server]: Plan computed: 417 poses
+[planner_server-4] [INFO] [1790950418.947897237] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950418.948233166] [planner_server]: Plan computed: 417 poses
+[planner_server-4] [INFO] [1790950419.071065800] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950419.071413381] [planner_server]: Plan computed: 417 poses
+[controller_node-5] [WARN] [1790950419.116998493] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950419.117423289] [controller_server]: Computed velocity commands: linear.x=0.92, linear.y=-0.88, angular.z=0.00
+[planner_server-4] [INFO] [1790950419.187887283] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950419.188514537] [planner_server]: Plan computed: 416 poses
+[planner_server-4] [INFO] [1790950419.308683976] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950419.309207245] [planner_server]: Plan computed: 415 poses
+[planner_server-4] [INFO] [1790950419.428230559] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950419.428552762] [planner_server]: Plan computed: 415 poses
+[planner_server-4] [INFO] [1790950419.553465879] [planner_server]: Planning took 15 ms
+[planner_server-4] [INFO] [1790950419.554055733] [planner_server]: Plan computed: 412 poses
+[planner_server-4] [INFO] [1790950419.671039250] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950419.671445952] [planner_server]: Plan computed: 411 poses
+[planner_server-4] [INFO] [1790950419.790040689] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950419.790516880] [planner_server]: Plan computed: 410 poses
+[planner_server-4] [INFO] [1790950419.908295258] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950419.908830059] [planner_server]: Plan computed: 409 poses
+[planner_server-4] [INFO] [1790950420.029112831] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.029442919] [planner_server]: Plan computed: 407 poses
+[planner_server-4] [INFO] [1790950420.149430784] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.149859797] [planner_server]: Plan computed: 406 poses
+[planner_server-4] [INFO] [1790950420.268455826] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950420.269017587] [planner_server]: Plan computed: 404 poses
+[planner_server-4] [INFO] [1790950420.387222539] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950420.387580479] [planner_server]: Plan computed: 403 poses
+[planner_server-4] [INFO] [1790950420.509534730] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.509868585] [planner_server]: Plan computed: 400 poses
+[planner_server-4] [INFO] [1790950420.627978400] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.628367157] [planner_server]: Plan computed: 399 poses
+[planner_server-4] [INFO] [1790950420.748830036] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.749224805] [planner_server]: Plan computed: 397 poses
+[planner_server-4] [INFO] [1790950420.868352364] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950420.868737826] [planner_server]: Plan computed: 396 poses
+[planner_server-4] [INFO] [1790950420.990221596] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950420.990521647] [planner_server]: Plan computed: 394 poses
+[planner_server-4] [INFO] [1790950421.113236743] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950421.114561452] [planner_server]: Plan computed: 392 poses
+[controller_node-5] [WARN] [1790950421.117030134] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950421.117670272] [controller_server]: Computed velocity commands: linear.x=-0.53, linear.y=-0.35, angular.z=0.00
+[planner_server-4] [INFO] [1790950421.237946933] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.238373421] [planner_server]: Plan computed: 390 poses
+[planner_server-4] [INFO] [1790950421.359324334] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.359779046] [planner_server]: Plan computed: 389 poses
+[planner_server-4] [INFO] [1790950421.477975297] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.478347424] [planner_server]: Plan computed: 386 poses
+[planner_server-4] [INFO] [1790950421.598277250] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950421.598512219] [planner_server]: Plan computed: 385 poses
+[planner_server-4] [INFO] [1790950421.717329469] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.717689603] [planner_server]: Plan computed: 382 poses
+[planner_server-4] [INFO] [1790950421.837941587] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.838275452] [planner_server]: Plan computed: 381 poses
+[planner_server-4] [INFO] [1790950421.957762435] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950421.957976706] [planner_server]: Plan computed: 380 poses
+[planner_server-4] [INFO] [1790950422.078405587] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950422.079214666] [planner_server]: Plan computed: 380 poses
+[planner_server-4] [INFO] [1790950422.197932831] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950422.198406177] [planner_server]: Plan computed: 378 poses
+[planner_server-4] [INFO] [1790950422.317667798] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950422.318408675] [planner_server]: Plan computed: 377 poses
+[planner_server-4] [INFO] [1790950422.440573290] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950422.441316782] [planner_server]: Plan computed: 376 poses
+[planner_server-4] [INFO] [1790950422.560977891] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950422.561329108] [planner_server]: Plan computed: 374 poses
+[planner_server-4] [INFO] [1790950422.683557293] [planner_server]: Planning took 17 ms
+[planner_server-4] [INFO] [1790950422.684207811] [planner_server]: Plan computed: 374 poses
+[planner_server-4] [INFO] [1790950422.807122079] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950422.807448671] [planner_server]: Plan computed: 373 poses
+[planner_server-4] [INFO] [1790950422.927478420] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950422.927730902] [planner_server]: Plan computed: 370 poses
+[planner_server-4] [INFO] [1790950423.046796327] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950423.047237042] [planner_server]: Plan computed: 369 poses
+[controller_node-5] [WARN] [1790950423.117582926] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950423.118024963] [controller_server]: Computed velocity commands: linear.x=-0.67, linear.y=-0.09, angular.z=0.00
+[planner_server-4] [INFO] [1790950423.168282332] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950423.168904957] [planner_server]: Plan computed: 368 poses
+[planner_server-4] [INFO] [1790950423.290541895] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950423.291065135] [planner_server]: Plan computed: 367 poses
+[planner_server-4] [INFO] [1790950423.419115208] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950423.419403448] [planner_server]: Plan computed: 365 poses
+[planner_server-4] [INFO] [1790950423.538772491] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950423.539275392] [planner_server]: Plan computed: 364 poses
+[planner_server-4] [INFO] [1790950423.658029879] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950423.658376618] [planner_server]: Plan computed: 364 poses
+[planner_server-4] [INFO] [1790950423.777423794] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950423.777762277] [planner_server]: Plan computed: 363 poses
+[planner_server-4] [INFO] [1790950423.897251886] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950423.897522222] [planner_server]: Plan computed: 362 poses
+[planner_server-4] [INFO] [1790950424.019170050] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950424.019612989] [planner_server]: Plan computed: 361 poses
+[planner_server-4] [INFO] [1790950424.137014570] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950424.137318970] [planner_server]: Plan computed: 360 poses
+[planner_server-4] [INFO] [1790950424.258395369] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950424.258992456] [planner_server]: Plan computed: 359 poses
+[planner_server-4] [INFO] [1790950424.380394185] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950424.380704105] [planner_server]: Plan computed: 359 poses
+[planner_server-4] [INFO] [1790950424.495916707] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950424.496193175] [planner_server]: Plan computed: 358 poses
+[planner_server-4] [INFO] [1790950424.617369912] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950424.617699419] [planner_server]: Plan computed: 357 poses
+[planner_server-4] [INFO] [1790950424.739833929] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950424.740090600] [planner_server]: Plan computed: 355 poses
+[planner_server-4] [INFO] [1790950424.857489725] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950424.857825814] [planner_server]: Plan computed: 354 poses
+[planner_server-4] [INFO] [1790950424.979389936] [planner_server]: Planning took 14 ms
+[planner_server-4] [INFO] [1790950424.979892016] [planner_server]: Plan computed: 353 poses
+[planner_server-4] [INFO] [1790950425.096580431] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950425.097176567] [planner_server]: Plan computed: 351 poses
+[controller_node-5] [WARN] [1790950425.137199088] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950425.137624043] [controller_server]: Computed velocity commands: linear.x=-0.91, linear.y=-0.02, angular.z=0.00
+[planner_server-4] [INFO] [1790950425.217962584] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950425.218413278] [planner_server]: Plan computed: 351 poses
+[planner_server-4] [INFO] [1790950425.336440244] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950425.337084811] [planner_server]: Plan computed: 349 poses
+[planner_server-4] [INFO] [1790950425.458018006] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950425.458779291] [planner_server]: Plan computed: 348 poses
+[planner_server-4] [INFO] [1790950425.578969614] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950425.579406802] [planner_server]: Plan computed: 346 poses
+[planner_server-4] [INFO] [1790950425.697448040] [planner_server]: Planning took 12 ms
+[planner_server-4] [INFO] [1790950425.697745427] [planner_server]: Plan computed: 345 poses
+[planner_server-4] [INFO] [1790950425.818334795] [planner_server]: Planning took 13 ms
+[planner_server-4] [INFO] [1790950425.819025117] [planner_server]: Plan computed: 343 poses
+[planner_server-4] [INFO] [1790950425.936413774] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950425.936706842] [planner_server]: Plan computed: 343 poses
+[planner_server-4] [INFO] [1790950426.056940715] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950426.057452684] [planner_server]: Plan computed: 342 poses
+[planner_server-4] [INFO] [1790950426.176450352] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950426.176759150] [planner_server]: Plan computed: 341 poses
+[planner_server-4] [INFO] [1790950426.296893878] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950426.297130591] [planner_server]: Plan computed: 341 poses
+[planner_server-4] [INFO] [1790950426.417036359] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950426.417483346] [planner_server]: Plan computed: 340 poses
+[planner_server-4] [INFO] [1790950426.537508945] [planner_server]: Planning took 11 ms
+[planner_server-4] [INFO] [1790950426.537860563] [planner_server]: Plan computed: 339 poses
+[planner_server-4] [INFO] [1790950426.657196480] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950426.657569759] [planner_server]: Plan computed: 338 poses
+[planner_server-4] [INFO] [1790950426.775347705] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950426.775932910] [planner_server]: Plan computed: 337 poses
+[planner_server-4] [INFO] [1790950426.894798962] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950426.895260847] [planner_server]: Plan computed: 336 poses
+[planner_server-4] [INFO] [1790950427.014338466] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.014696216] [planner_server]: Plan computed: 335 poses
+[planner_server-4] [INFO] [1790950427.137364615] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.137606577] [planner_server]: Plan computed: 333 poses
+[controller_node-5] [WARN] [1790950427.138246398] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950427.138580203] [controller_server]: Computed velocity commands: linear.x=1.52, linear.y=0.07, angular.z=0.00
+[planner_server-4] [INFO] [1790950427.254754326] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.255297933] [planner_server]: Plan computed: 332 poses
+[planner_server-4] [INFO] [1790950427.375378931] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.375596409] [planner_server]: Plan computed: 330 poses
+[planner_server-4] [INFO] [1790950427.494703252] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.500289770] [planner_server]: Plan computed: 329 poses
+[planner_server-4] [INFO] [1790950427.618364110] [planner_server]: Planning took 10 ms
+[planner_server-4] [INFO] [1790950427.618648332] [planner_server]: Plan computed: 328 poses
+[planner_server-4] [INFO] [1790950427.734032788] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.734381010] [planner_server]: Plan computed: 326 poses
+[planner_server-4] [INFO] [1790950427.855108046] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950427.855376479] [planner_server]: Plan computed: 324 poses
+[planner_server-4] [INFO] [1790950427.974351676] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950427.975074720] [planner_server]: Plan computed: 322 poses
+[planner_server-4] [INFO] [1790950428.093474590] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.093887844] [planner_server]: Plan computed: 320 poses
+[planner_server-4] [INFO] [1790950428.205276209] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950428.205613110] [planner_server]: Plan computed: 318 poses
+[planner_server-4] [INFO] [1790950428.324267839] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.324897507] [planner_server]: Plan computed: 317 poses
+[planner_server-4] [INFO] [1790950428.445514930] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950428.445861288] [planner_server]: Plan computed: 315 poses
+[planner_server-4] [INFO] [1790950428.564301365] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.564577652] [planner_server]: Plan computed: 314 poses
+[planner_server-4] [INFO] [1790950428.685080940] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.685574124] [planner_server]: Plan computed: 313 poses
+[planner_server-4] [INFO] [1790950428.804453772] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.805118005] [planner_server]: Plan computed: 312 poses
+[planner_server-4] [INFO] [1790950428.924558865] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950428.925163597] [planner_server]: Plan computed: 311 poses
+[planner_server-4] [INFO] [1790950429.044751061] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.044992914] [planner_server]: Plan computed: 310 poses
+[controller_node-5] [WARN] [1790950429.157291534] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950429.157683908] [controller_server]: Computed velocity commands: linear.x=0.45, linear.y=-0.94, angular.z=0.00
+[planner_server-4] [INFO] [1790950429.164814136] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.165281271] [planner_server]: Plan computed: 308 poses
+[planner_server-4] [INFO] [1790950429.283673568] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.284327752] [planner_server]: Plan computed: 306 poses
+[planner_server-4] [INFO] [1790950429.404494732] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.404866217] [planner_server]: Plan computed: 305 poses
+[planner_server-4] [INFO] [1790950429.524579868] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.525116683] [planner_server]: Plan computed: 304 poses
+[planner_server-4] [INFO] [1790950429.645307947] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950429.645935161] [planner_server]: Plan computed: 303 poses
+[planner_server-4] [INFO] [1790950429.765177297] [planner_server]: Planning took 9 ms
+[planner_server-4] [INFO] [1790950429.765617360] [planner_server]: Plan computed: 302 poses
+[planner_server-4] [INFO] [1790950429.884276960] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950429.884749975] [planner_server]: Plan computed: 300 poses
+[planner_server-4] [INFO] [1790950430.004261018] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.004606835] [planner_server]: Plan computed: 298 poses
+[planner_server-4] [INFO] [1790950430.123034248] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.123295928] [planner_server]: Plan computed: 297 poses
+[planner_server-4] [INFO] [1790950430.233534582] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.233897502] [planner_server]: Plan computed: 294 poses
+[planner_server-4] [INFO] [1790950430.353329836] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950430.354190557] [planner_server]: Plan computed: 293 poses
+[planner_server-4] [INFO] [1790950430.475253524] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.475723203] [planner_server]: Plan computed: 291 poses
+[planner_server-4] [INFO] [1790950430.593014921] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950430.593244721] [planner_server]: Plan computed: 290 poses
+[planner_server-4] [INFO] [1790950430.714936605] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.715141599] [planner_server]: Plan computed: 289 poses
+[planner_server-4] [INFO] [1790950430.835120287] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950430.835486382] [planner_server]: Plan computed: 289 poses
+[planner_server-4] [INFO] [1790950430.953756561] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950430.954110454] [planner_server]: Plan computed: 288 poses
+[planner_server-4] [INFO] [1790950431.074659499] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950431.075112637] [planner_server]: Plan computed: 287 poses
+[controller_node-5] [WARN] [1790950431.177001842] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950431.177444139] [controller_server]: Computed velocity commands: linear.x=-0.74, linear.y=0.54, angular.z=0.00
+[planner_server-4] [INFO] [1790950431.195522412] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950431.195873859] [planner_server]: Plan computed: 286 poses
+[planner_server-4] [INFO] [1790950431.313204080] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950431.313408693] [planner_server]: Plan computed: 285 poses
+[planner_server-4] [INFO] [1790950431.423760879] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950431.424046865] [planner_server]: Plan computed: 284 poses
+[planner_server-4] [INFO] [1790950431.544084843] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950431.544331455] [planner_server]: Plan computed: 283 poses
+[planner_server-4] [INFO] [1790950431.663842337] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950431.664241594] [planner_server]: Plan computed: 281 poses
+[planner_server-4] [INFO] [1790950431.782922452] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950431.783627472] [planner_server]: Plan computed: 280 poses
+[planner_server-4] [INFO] [1790950431.902807746] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950431.903165325] [planner_server]: Plan computed: 279 poses
+[planner_server-4] [INFO] [1790950432.023818947] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950432.024338730] [planner_server]: Plan computed: 277 poses
+[planner_server-4] [INFO] [1790950432.144144103] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950432.144404921] [planner_server]: Plan computed: 276 poses
+[planner_server-4] [INFO] [1790950432.264250600] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950432.264571040] [planner_server]: Plan computed: 275 poses
+[planner_server-4] [INFO] [1790950432.384390500] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.384685151] [planner_server]: Plan computed: 274 poses
+[planner_server-4] [INFO] [1790950432.505516294] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.505998678] [planner_server]: Plan computed: 273 poses
+[planner_server-4] [INFO] [1790950432.623832756] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.624332782] [planner_server]: Plan computed: 271 poses
+[planner_server-4] [INFO] [1790950432.735675814] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.735824282] [planner_server]: Plan computed: 270 poses
+[planner_server-4] [INFO] [1790950432.853372455] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.853637220] [planner_server]: Plan computed: 268 poses
+[planner_server-4] [INFO] [1790950432.964739022] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950432.965037550] [planner_server]: Plan computed: 267 poses
+[planner_server-4] [INFO] [1790950433.083206346] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950433.083488965] [planner_server]: Plan computed: 264 poses
+[controller_node-5] [WARN] [1790950433.177408155] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950433.177988341] [controller_server]: Computed velocity commands: linear.x=0.71, linear.y=1.22, angular.z=0.00
+[planner_server-4] [INFO] [1790950433.202835054] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950433.203374484] [planner_server]: Plan computed: 263 poses
+[planner_server-4] [INFO] [1790950433.324226327] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950433.324597842] [planner_server]: Plan computed: 260 poses
+[planner_server-4] [INFO] [1790950433.442804183] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950433.443270536] [planner_server]: Plan computed: 258 poses
+[planner_server-4] [INFO] [1790950433.562664449] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950433.562919096] [planner_server]: Plan computed: 256 poses
+[planner_server-4] [INFO] [1790950433.681690194] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950433.682042403] [planner_server]: Plan computed: 254 poses
+[planner_server-4] [INFO] [1790950433.793136510] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950433.793474453] [planner_server]: Plan computed: 253 poses
+[planner_server-4] [INFO] [1790950433.904018840] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950433.904243701] [planner_server]: Plan computed: 251 poses
+[planner_server-4] [INFO] [1790950434.024226669] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950434.024739499] [planner_server]: Plan computed: 250 poses
+[planner_server-4] [INFO] [1790950434.143870320] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.144587563] [planner_server]: Plan computed: 247 poses
+[planner_server-4] [INFO] [1790950434.261407398] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.261628713] [planner_server]: Plan computed: 246 poses
+[planner_server-4] [INFO] [1790950434.372574101] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.372872550] [planner_server]: Plan computed: 244 poses
+[planner_server-4] [INFO] [1790950434.481802707] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.482164324] [planner_server]: Plan computed: 242 poses
+[planner_server-4] [INFO] [1790950434.602178208] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950434.602939743] [planner_server]: Plan computed: 241 poses
+[planner_server-4] [INFO] [1790950434.711383008] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.711601928] [planner_server]: Plan computed: 240 poses
+[planner_server-4] [INFO] [1790950434.824892227] [planner_server]: Planning took 8 ms
+[planner_server-4] [INFO] [1790950434.825391231] [planner_server]: Plan computed: 237 poses
+[planner_server-4] [INFO] [1790950434.941435364] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950434.941741868] [planner_server]: Plan computed: 237 poses
+[planner_server-4] [INFO] [1790950435.052818331] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.053360817] [planner_server]: Plan computed: 236 poses
+[planner_server-4] [INFO] [1790950435.161504712] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.161973720] [planner_server]: Plan computed: 235 poses
+[controller_node-5] [WARN] [1790950435.177927005] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950435.178429996] [controller_server]: Computed velocity commands: linear.x=0.43, linear.y=-1.23, angular.z=0.00
+[planner_server-4] [INFO] [1790950435.271503109] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.271934817] [planner_server]: Plan computed: 235 poses
+[planner_server-4] [INFO] [1790950435.383566301] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.384172385] [planner_server]: Plan computed: 235 poses
+[planner_server-4] [INFO] [1790950435.504132299] [planner_server]: Planning took 7 ms
+[planner_server-4] [INFO] [1790950435.504472926] [planner_server]: Plan computed: 233 poses
+[planner_server-4] [INFO] [1790950435.620689193] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950435.621019762] [planner_server]: Plan computed: 231 poses
+[planner_server-4] [INFO] [1790950435.731504339] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.731937920] [planner_server]: Plan computed: 230 poses
+[planner_server-4] [INFO] [1790950435.840694562] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950435.841100071] [planner_server]: Plan computed: 229 poses
+[planner_server-4] [INFO] [1790950435.951171724] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950435.951655780] [planner_server]: Plan computed: 227 poses
+[planner_server-4] [INFO] [1790950436.061263226] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.061530426] [planner_server]: Plan computed: 227 poses
+[planner_server-4] [INFO] [1790950436.171295406] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.171454083] [planner_server]: Plan computed: 225 poses
+[planner_server-4] [INFO] [1790950436.281161996] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950436.281445867] [planner_server]: Plan computed: 224 poses
+[planner_server-4] [INFO] [1790950436.392449977] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.392793260] [planner_server]: Plan computed: 224 poses
+[planner_server-4] [INFO] [1790950436.511727523] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950436.512203574] [planner_server]: Plan computed: 223 poses
+[planner_server-4] [INFO] [1790950436.621724507] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.622095281] [planner_server]: Plan computed: 222 poses
+[planner_server-4] [INFO] [1790950436.733388888] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.733655547] [planner_server]: Plan computed: 220 poses
+[planner_server-4] [INFO] [1790950436.851855412] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950436.852189668] [planner_server]: Plan computed: 219 poses
+[planner_server-4] [INFO] [1790950436.961703248] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950436.962046029] [planner_server]: Plan computed: 217 poses
+[planner_server-4] [INFO] [1790950437.072116231] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950437.072469091] [planner_server]: Plan computed: 216 poses
+[planner_server-4] [INFO] [1790950437.180593261] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950437.180974725] [planner_server]: Plan computed: 215 poses
+[controller_node-5] [WARN] [1790950437.197106293] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950437.197559341] [controller_server]: Computed velocity commands: linear.x=-0.33, linear.y=-0.59, angular.z=0.00
+[planner_server-4] [INFO] [1790950437.292549673] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950437.292834476] [planner_server]: Plan computed: 214 poses
+[planner_server-4] [INFO] [1790950437.401503524] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950437.402394943] [planner_server]: Plan computed: 212 poses
+[planner_server-4] [INFO] [1790950437.512378502] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950437.512583766] [planner_server]: Plan computed: 211 poses
+[planner_server-4] [INFO] [1790950437.630962792] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950437.631145785] [planner_server]: Plan computed: 211 poses
+[planner_server-4] [INFO] [1790950437.741106306] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950437.741378566] [planner_server]: Plan computed: 211 poses
+[planner_server-4] [INFO] [1790950437.850543859] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950437.850919973] [planner_server]: Plan computed: 211 poses
+[planner_server-4] [INFO] [1790950437.961462047] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950437.961730790] [planner_server]: Plan computed: 210 poses
+[planner_server-4] [INFO] [1790950438.070388077] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.070675385] [planner_server]: Plan computed: 209 poses
+[planner_server-4] [INFO] [1790950438.180550056] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.180788973] [planner_server]: Plan computed: 208 poses
+[planner_server-4] [INFO] [1790950438.291571864] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.291904948] [planner_server]: Plan computed: 207 poses
+[planner_server-4] [INFO] [1790950438.401901783] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.402240928] [planner_server]: Plan computed: 206 poses
+[planner_server-4] [INFO] [1790950438.511123196] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.511368124] [planner_server]: Plan computed: 205 poses
+[planner_server-4] [INFO] [1790950438.620553721] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.620787399] [planner_server]: Plan computed: 204 poses
+[planner_server-4] [INFO] [1790950438.731592866] [planner_server]: Planning took 6 ms
+[planner_server-4] [INFO] [1790950438.732168835] [planner_server]: Plan computed: 202 poses
+[planner_server-4] [INFO] [1790950438.842344649] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.842688944] [planner_server]: Plan computed: 201 poses
+[planner_server-4] [INFO] [1790950438.951387533] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950438.951917956] [planner_server]: Plan computed: 199 poses
+[planner_server-4] [INFO] [1790950439.060363597] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.060572628] [planner_server]: Plan computed: 198 poses
+[planner_server-4] [INFO] [1790950439.174173250] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.174589950] [planner_server]: Plan computed: 196 poses
+[controller_node-5] [WARN] [1790950439.198080263] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950439.198476445] [controller_server]: Computed velocity commands: linear.x=-0.41, linear.y=-0.66, angular.z=0.00
+[planner_server-4] [INFO] [1790950439.290172411] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.290541352] [planner_server]: Plan computed: 195 poses
+[planner_server-4] [INFO] [1790950439.402435187] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950439.402680216] [planner_server]: Plan computed: 193 poses
+[planner_server-4] [INFO] [1790950439.511425608] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.511748622] [planner_server]: Plan computed: 192 poses
+[planner_server-4] [INFO] [1790950439.621612920] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.621973916] [planner_server]: Plan computed: 192 poses
+[planner_server-4] [INFO] [1790950439.730731631] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.730974456] [planner_server]: Plan computed: 191 poses
+[planner_server-4] [INFO] [1790950439.839939199] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950439.840579678] [planner_server]: Plan computed: 189 poses
+[planner_server-4] [INFO] [1790950439.951517194] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950439.951885083] [planner_server]: Plan computed: 189 poses
+[planner_server-4] [INFO] [1790950440.060621258] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950440.061180174] [planner_server]: Plan computed: 188 poses
+[planner_server-4] [INFO] [1790950440.169603314] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.170093872] [planner_server]: Plan computed: 188 poses
+[planner_server-4] [INFO] [1790950440.279968780] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950440.280200744] [planner_server]: Plan computed: 187 poses
+[planner_server-4] [INFO] [1790950440.392138894] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.392274067] [planner_server]: Plan computed: 185 poses
+[planner_server-4] [INFO] [1790950440.499669313] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.500149942] [planner_server]: Plan computed: 184 poses
+[planner_server-4] [INFO] [1790950440.610294614] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.610881062] [planner_server]: Plan computed: 182 poses
+[planner_server-4] [INFO] [1790950440.721695889] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.722106006] [planner_server]: Plan computed: 181 poses
+[planner_server-4] [INFO] [1790950440.832702544] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950440.833771936] [planner_server]: Plan computed: 180 poses
+[planner_server-4] [INFO] [1790950440.949698713] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950440.950117006] [planner_server]: Plan computed: 179 poses
+[planner_server-4] [INFO] [1790950441.059477160] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.059707591] [planner_server]: Plan computed: 178 poses
+[planner_server-4] [INFO] [1790950441.170272510] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.170528149] [planner_server]: Plan computed: 177 poses
+[controller_node-5] [WARN] [1790950441.216899585] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950441.217327025] [controller_server]: Computed velocity commands: linear.x=-0.91, linear.y=-0.49, angular.z=0.00
+[planner_server-4] [INFO] [1790950441.278786255] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950441.279206792] [planner_server]: Plan computed: 176 poses
+[planner_server-4] [INFO] [1790950441.389696506] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.390197764] [planner_server]: Plan computed: 174 poses
+[planner_server-4] [INFO] [1790950441.500950573] [planner_server]: Planning took 5 ms
+[planner_server-4] [INFO] [1790950441.501270942] [planner_server]: Plan computed: 174 poses
+[planner_server-4] [INFO] [1790950441.619715515] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.620134178] [planner_server]: Plan computed: 172 poses
+[planner_server-4] [INFO] [1790950441.729273779] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950441.729526552] [planner_server]: Plan computed: 171 poses
+[planner_server-4] [INFO] [1790950441.839193612] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.839766545] [planner_server]: Plan computed: 170 poses
+[planner_server-4] [INFO] [1790950441.948838509] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950441.949330390] [planner_server]: Plan computed: 168 poses
+[planner_server-4] [INFO] [1790950442.059691262] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.059997836] [planner_server]: Plan computed: 167 poses
+[planner_server-4] [INFO] [1790950442.169523595] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950442.169730703] [planner_server]: Plan computed: 165 poses
+[planner_server-4] [INFO] [1790950442.280447276] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.280725227] [planner_server]: Plan computed: 164 poses
+[planner_server-4] [INFO] [1790950442.389644004] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.389901546] [planner_server]: Plan computed: 162 poses
+[planner_server-4] [INFO] [1790950442.500841197] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.501113487] [planner_server]: Plan computed: 159 poses
+[planner_server-4] [INFO] [1790950442.609381937] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950442.609606237] [planner_server]: Plan computed: 159 poses
+[planner_server-4] [INFO] [1790950442.719527341] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.720022448] [planner_server]: Plan computed: 159 poses
+[planner_server-4] [INFO] [1790950442.829508198] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950442.829757625] [planner_server]: Plan computed: 157 poses
+[planner_server-4] [INFO] [1790950442.941030660] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950442.941397486] [planner_server]: Plan computed: 155 poses
+[planner_server-4] [INFO] [1790950443.049030879] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.049426249] [planner_server]: Plan computed: 154 poses
+[planner_server-4] [INFO] [1790950443.159444535] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.159787668] [planner_server]: Plan computed: 152 poses
+[controller_node-5] [WARN] [1790950443.236499775] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950443.237027032] [controller_server]: Computed velocity commands: linear.x=-0.63, linear.y=0.92, angular.z=0.00
+[planner_server-4] [INFO] [1790950443.268481525] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.268741812] [planner_server]: Plan computed: 151 poses
+[planner_server-4] [INFO] [1790950443.379578226] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.380062051] [planner_server]: Plan computed: 151 poses
+[planner_server-4] [INFO] [1790950443.488642793] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.489041369] [planner_server]: Plan computed: 149 poses
+[planner_server-4] [INFO] [1790950443.598313960] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.599224214] [planner_server]: Plan computed: 149 poses
+[planner_server-4] [INFO] [1790950443.710531955] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950443.711045156] [planner_server]: Plan computed: 148 poses
+[planner_server-4] [INFO] [1790950443.819475745] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.819920658] [planner_server]: Plan computed: 148 poses
+[planner_server-4] [INFO] [1790950443.928652461] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950443.929097644] [planner_server]: Plan computed: 146 poses
+[planner_server-4] [INFO] [1790950444.038570441] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.038911399] [planner_server]: Plan computed: 145 poses
+[planner_server-4] [INFO] [1790950444.151463719] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.151692207] [planner_server]: Plan computed: 142 poses
+[planner_server-4] [INFO] [1790950444.259768929] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.260024087] [planner_server]: Plan computed: 141 poses
+[planner_server-4] [INFO] [1790950444.368326367] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.368618764] [planner_server]: Plan computed: 141 poses
+[planner_server-4] [INFO] [1790950444.479152656] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.479399899] [planner_server]: Plan computed: 139 poses
+[planner_server-4] [INFO] [1790950444.588995029] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.589244015] [planner_server]: Plan computed: 138 poses
+[planner_server-4] [INFO] [1790950444.698969109] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.699262628] [planner_server]: Plan computed: 138 poses
+[planner_server-4] [INFO] [1790950444.809401340] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.809805898] [planner_server]: Plan computed: 138 poses
+[planner_server-4] [INFO] [1790950444.919602134] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950444.919955365] [planner_server]: Plan computed: 137 poses
+[planner_server-4] [INFO] [1790950445.028740634] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.029020709] [planner_server]: Plan computed: 137 poses
+[planner_server-4] [INFO] [1790950445.138660507] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.139145255] [planner_server]: Plan computed: 136 poses
+[planner_server-4] [INFO] [1790950445.248238541] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.248522112] [planner_server]: Plan computed: 135 poses
+[controller_node-5] [WARN] [1790950445.256756116] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950445.257110330] [controller_server]: Computed velocity commands: linear.x=0.99, linear.y=-0.76, angular.z=0.00
+[planner_server-4] [INFO] [1790950445.358922695] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.359559677] [planner_server]: Plan computed: 134 poses
+[planner_server-4] [INFO] [1790950445.468408084] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.468575317] [planner_server]: Plan computed: 133 poses
+[planner_server-4] [INFO] [1790950445.579402198] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.580084085] [planner_server]: Plan computed: 131 poses
+[planner_server-4] [INFO] [1790950445.690631112] [planner_server]: Planning took 4 ms
+[planner_server-4] [INFO] [1790950445.691181101] [planner_server]: Plan computed: 130 poses
+[planner_server-4] [INFO] [1790950445.798179235] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950445.798456865] [planner_server]: Plan computed: 129 poses
+[planner_server-4] [INFO] [1790950445.908428385] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950445.908685306] [planner_server]: Plan computed: 127 poses
+[planner_server-4] [INFO] [1790950446.020126157] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.020427150] [planner_server]: Plan computed: 126 poses
+[planner_server-4] [INFO] [1790950446.128260117] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.128659725] [planner_server]: Plan computed: 123 poses
+[planner_server-4] [INFO] [1790950446.237763411] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.238141379] [planner_server]: Plan computed: 121 poses
+[planner_server-4] [INFO] [1790950446.348543395] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950446.348962550] [planner_server]: Plan computed: 121 poses
+[planner_server-4] [INFO] [1790950446.457313978] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.457562122] [planner_server]: Plan computed: 119 poses
+[planner_server-4] [INFO] [1790950446.570340407] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.570771534] [planner_server]: Plan computed: 118 poses
+[planner_server-4] [INFO] [1790950446.678093364] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.678651038] [planner_server]: Plan computed: 116 poses
+[planner_server-4] [INFO] [1790950446.787589023] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.787876571] [planner_server]: Plan computed: 115 poses
+[planner_server-4] [INFO] [1790950446.897978386] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950446.898145879] [planner_server]: Plan computed: 115 poses
+[planner_server-4] [INFO] [1790950447.009533119] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.010505269] [planner_server]: Plan computed: 114 poses
+[planner_server-4] [INFO] [1790950447.118327947] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.118530907] [planner_server]: Plan computed: 113 poses
+[planner_server-4] [INFO] [1790950447.228239005] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.228528857] [planner_server]: Plan computed: 112 poses
+[controller_node-5] [WARN] [1790950447.276697351] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950447.277077202] [controller_server]: Computed velocity commands: linear.x=0.62, linear.y=-0.74, angular.z=0.00
+[planner_server-4] [INFO] [1790950447.339749487] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950447.340144847] [planner_server]: Plan computed: 112 poses
+[planner_server-4] [INFO] [1790950447.448329988] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.448708427] [planner_server]: Plan computed: 111 poses
+[planner_server-4] [INFO] [1790950447.559536025] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.559922929] [planner_server]: Plan computed: 110 poses
+[planner_server-4] [INFO] [1790950447.667462588] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.667811611] [planner_server]: Plan computed: 108 poses
+[planner_server-4] [INFO] [1790950447.778235286] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950447.778394945] [planner_server]: Plan computed: 107 poses
+[planner_server-4] [INFO] [1790950447.889402538] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.889911430] [planner_server]: Plan computed: 106 poses
+[rviz2-8] [INFO] [1790950447.945264233] [rviz2]: Trying to create a map of size 80 x 79 using 1 swatches
+[planner_server-4] [INFO] [1790950447.997297721] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950447.997511802] [planner_server]: Plan computed: 105 poses
+[rviz2-8] [INFO] [1790950448.041243650] [rviz2]: Trying to create a map of size 80 x 78 using 1 swatches
+[planner_server-4] [INFO] [1790950448.107790599] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.108147617] [planner_server]: Plan computed: 104 poses
+[rviz2-8] [INFO] [1790950448.169232431] [rviz2]: Trying to create a map of size 80 x 77 using 1 swatches
+[rviz2-8] [INFO] [1790950448.200777485] [rviz2]: Trying to create a map of size 80 x 76 using 1 swatches
+[planner_server-4] [INFO] [1790950448.217700895] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.217911279] [planner_server]: Plan computed: 102 poses
+[planner_server-4] [INFO] [1790950448.328182782] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.328474729] [planner_server]: Plan computed: 101 poses
+[rviz2-8] [INFO] [1790950448.330142847] [rviz2]: Trying to create a map of size 80 x 75 using 1 swatches
+[rviz2-8] [INFO] [1790950448.394209507] [rviz2]: Trying to create a map of size 80 x 74 using 1 swatches
+[planner_server-4] [INFO] [1790950448.438038337] [planner_server]: Planning took 3 ms
+[planner_server-4] [INFO] [1790950448.438345152] [planner_server]: Plan computed: 100 poses
+[rviz2-8] [INFO] [1790950448.522036314] [rviz2]: Trying to create a map of size 80 x 73 using 1 swatches
+[planner_server-4] [INFO] [1790950448.547449108] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.547853765] [planner_server]: Plan computed: 98 poses
+[rviz2-8] [INFO] [1790950448.556314489] [rviz2]: Trying to create a map of size 80 x 72 using 1 swatches
+[rviz2-8] [INFO] [1790950448.648792186] [rviz2]: Trying to create a map of size 80 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950448.659937571] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.660240538] [planner_server]: Plan computed: 97 poses
+[rviz2-8] [INFO] [1790950448.680452636] [rviz2]: Trying to create a map of size 80 x 70 using 1 swatches
+[planner_server-4] [INFO] [1790950448.767964532] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.768255637] [planner_server]: Plan computed: 96 poses
+[rviz2-8] [INFO] [1790950448.778370560] [rviz2]: Trying to create a map of size 80 x 69 using 1 swatches
+[planner_server-4] [INFO] [1790950448.878001095] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.878340130] [planner_server]: Plan computed: 95 poses
+[planner_server-4] [INFO] [1790950448.987456530] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950448.987718841] [planner_server]: Plan computed: 94 poses
+[rviz2-8] [INFO] [1790950449.001072209] [rviz2]: Trying to create a map of size 80 x 68 using 1 swatches
+[rviz2-8] [INFO] [1790950449.066434029] [rviz2]: Trying to create a map of size 80 x 67 using 1 swatches
+[planner_server-4] [INFO] [1790950449.099694419] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.099950639] [planner_server]: Plan computed: 93 poses
+[rviz2-8] [INFO] [1790950449.130569313] [rviz2]: Trying to create a map of size 80 x 66 using 1 swatches
+[rviz2-8] [INFO] [1790950449.162120239] [rviz2]: Trying to create a map of size 80 x 65 using 1 swatches
+[planner_server-4] [INFO] [1790950449.206852188] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950449.207248220] [planner_server]: Plan computed: 92 poses
+[controller_node-5] [WARN] [1790950449.277822954] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950449.278172378] [controller_server]: Computed velocity commands: linear.x=-1.06, linear.y=0.08, angular.z=0.00
+[rviz2-8] [INFO] [1790950449.289451829] [rviz2]: Trying to create a map of size 80 x 64 using 1 swatches
+[planner_server-4] [INFO] [1790950449.317179717] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950449.317437108] [planner_server]: Plan computed: 91 poses
+[rviz2-8] [INFO] [1790950449.385485899] [rviz2]: Trying to create a map of size 80 x 63 using 1 swatches
+[planner_server-4] [INFO] [1790950449.427073322] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.427322829] [planner_server]: Plan computed: 90 poses
+[planner_server-4] [INFO] [1790950449.538976285] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.539475249] [planner_server]: Plan computed: 89 poses
+[rviz2-8] [INFO] [1790950449.640872945] [rviz2]: Trying to create a map of size 80 x 61 using 1 swatches
+[planner_server-4] [INFO] [1790950449.647126006] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.647517279] [planner_server]: Plan computed: 90 poses
+[planner_server-4] [INFO] [1790950449.757429715] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.757720509] [planner_server]: Plan computed: 89 poses
+[rviz2-8] [INFO] [1790950449.833880514] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950449.866945248] [planner_server]: Planning took 2 ms
+[planner_server-4] [INFO] [1790950449.867201217] [planner_server]: Plan computed: 87 poses
+[rviz2-8] [INFO] [1790950449.898444606] [rviz2]: Trying to create a map of size 80 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950449.977418794] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950449.977751147] [planner_server]: Plan computed: 86 poses
+[rviz2-8] [INFO] [1790950450.026249848] [rviz2]: Trying to create a map of size 80 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950450.088058517] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.088318795] [planner_server]: Plan computed: 85 poses
+[rviz2-8] [INFO] [1790950450.166635998] [rviz2]: Trying to create a map of size 80 x 57 using 1 swatches
+[planner_server-4] [INFO] [1790950450.196825885] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.197448321] [planner_server]: Plan computed: 83 poses
+[planner_server-4] [INFO] [1790950450.307586575] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.308078646] [planner_server]: Plan computed: 81 poses
+[planner_server-4] [INFO] [1790950450.417322426] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.417538270] [planner_server]: Plan computed: 80 poses
+[planner_server-4] [INFO] [1790950450.526896514] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.527571387] [planner_server]: Plan computed: 79 poses
+[rviz2-8] [INFO] [1790950450.633077719] [rviz2]: Trying to create a map of size 80 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950450.637378942] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.637502263] [planner_server]: Plan computed: 77 poses
+[planner_server-4] [INFO] [1790950450.747039161] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.747345334] [planner_server]: Plan computed: 77 poses
+[planner_server-4] [INFO] [1790950450.857174489] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.857698681] [planner_server]: Plan computed: 76 poses
+[rviz2-8] [INFO] [1790950450.857900568] [rviz2]: Trying to create a map of size 80 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950450.966684127] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950450.966807498] [planner_server]: Plan computed: 75 poses
+[rviz2-8] [INFO] [1790950451.017142295] [rviz2]: Trying to create a map of size 80 x 60 using 1 swatches
+[rviz2-8] [INFO] [1790950451.049509871] [rviz2]: Trying to create a map of size 80 x 61 using 1 swatches
+[planner_server-4] [INFO] [1790950451.077403399] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.077654850] [planner_server]: Plan computed: 74 poses
+[rviz2-8] [INFO] [1790950451.113812088] [rviz2]: Trying to create a map of size 80 x 62 using 1 swatches
+[planner_server-4] [INFO] [1790950451.186321658] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.186611440] [planner_server]: Plan computed: 73 poses
+[controller_node-5] [WARN] [1790950451.296496914] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950451.297086608] [controller_server]: Computed velocity commands: linear.x=0.57, linear.y=0.22, angular.z=0.00
+[planner_server-4] [INFO] [1790950451.296612260] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.296813647] [planner_server]: Plan computed: 72 poses
+[rviz2-8] [INFO] [1790950451.338008213] [rviz2]: Trying to create a map of size 80 x 63 using 1 swatches
+[rviz2-8] [INFO] [1790950451.370000276] [rviz2]: Trying to create a map of size 80 x 64 using 1 swatches
+[planner_server-4] [INFO] [1790950451.408281260] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.408544082] [planner_server]: Plan computed: 70 poses
+[rviz2-8] [INFO] [1790950451.433826282] [rviz2]: Trying to create a map of size 80 x 65 using 1 swatches
+[rviz2-8] [INFO] [1790950451.498755984] [rviz2]: Trying to create a map of size 80 x 66 using 1 swatches
+[planner_server-4] [INFO] [1790950451.516763434] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.516917864] [planner_server]: Plan computed: 69 poses
+[rviz2-8] [INFO] [1790950451.593466126] [rviz2]: Trying to create a map of size 80 x 67 using 1 swatches
+[planner_server-4] [INFO] [1790950451.626605184] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.626805339] [planner_server]: Plan computed: 68 poses
+[rviz2-8] [INFO] [1790950451.689188534] [rviz2]: Trying to create a map of size 80 x 68 using 1 swatches
+[planner_server-4] [INFO] [1790950451.736239050] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.736479971] [planner_server]: Plan computed: 67 poses
+[rviz2-8] [INFO] [1790950451.753146787] [rviz2]: Trying to create a map of size 80 x 69 using 1 swatches
+[planner_server-4] [INFO] [1790950451.846899807] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.847228132] [planner_server]: Plan computed: 66 poses
+[rviz2-8] [INFO] [1790950451.914057500] [rviz2]: Trying to create a map of size 80 x 70 using 1 swatches
+[planner_server-4] [INFO] [1790950451.955955285] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950451.956515484] [planner_server]: Plan computed: 65 poses
+[rviz2-8] [INFO] [1790950452.041519235] [rviz2]: Trying to create a map of size 80 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950452.066106712] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.066376527] [planner_server]: Plan computed: 64 poses
+[rviz2-8] [INFO] [1790950452.137226985] [rviz2]: Trying to create a map of size 80 x 72 using 1 swatches
+[planner_server-4] [INFO] [1790950452.178165870] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.178402684] [planner_server]: Plan computed: 63 poses
+[rviz2-8] [INFO] [1790950452.200764211] [rviz2]: Trying to create a map of size 80 x 73 using 1 swatches
+[planner_server-4] [INFO] [1790950452.286886611] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.287458462] [planner_server]: Plan computed: 61 poses
+[rviz2-8] [INFO] [1790950452.393492839] [rviz2]: Trying to create a map of size 80 x 75 using 1 swatches
+[planner_server-4] [INFO] [1790950452.396991749] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.397417136] [planner_server]: Plan computed: 60 poses
+[rviz2-8] [INFO] [1790950452.489566715] [rviz2]: Trying to create a map of size 80 x 76 using 1 swatches
+[planner_server-4] [INFO] [1790950452.507860251] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.508098657] [planner_server]: Plan computed: 58 poses
+[rviz2-8] [INFO] [1790950452.527208467] [rviz2]: Trying to create a map of size 80 x 77 using 1 swatches
+[planner_server-4] [INFO] [1790950452.616543943] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.616890151] [planner_server]: Plan computed: 57 poses
+[rviz2-8] [INFO] [1790950452.619603721] [rviz2]: Trying to create a map of size 80 x 79 using 1 swatches
+[planner_server-4] [INFO] [1790950452.726151735] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950452.726516758] [planner_server]: Plan computed: 56 poses
+[rviz2-8] [INFO] [1790950452.833559047] [rviz2]: Trying to create a map of size 80 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950452.836162421] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950452.836263640] [planner_server]: Plan computed: 55 poses
+[planner_server-4] [INFO] [1790950452.948064508] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950452.948338671] [planner_server]: Plan computed: 53 poses
+[planner_server-4] [INFO] [1790950453.056831716] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950453.057112482] [planner_server]: Plan computed: 52 poses
+[planner_server-4] [INFO] [1790950453.166195492] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950453.166437315] [planner_server]: Plan computed: 52 poses
+[planner_server-4] [INFO] [1790950453.276161926] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950453.276401183] [planner_server]: Plan computed: 52 poses
+[controller_node-5] [WARN] [1790950453.316300017] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950453.316786958] [controller_server]: Computed velocity commands: linear.x=1.11, linear.y=0.02, angular.z=0.00
+[planner_server-4] [INFO] [1790950453.385686533] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950453.386209291] [planner_server]: Plan computed: 51 poses
+[planner_server-4] [INFO] [1790950453.496552851] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950453.497157744] [planner_server]: Plan computed: 51 poses
+[planner_server-4] [INFO] [1790950453.605822771] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950453.606063893] [planner_server]: Plan computed: 51 poses
+[planner_server-4] [INFO] [1790950453.717551414] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950453.717817843] [planner_server]: Plan computed: 51 poses
+[planner_server-4] [INFO] [1790950453.826782019] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950453.827053458] [planner_server]: Plan computed: 50 poses
+[planner_server-4] [INFO] [1790950453.935982359] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950453.936525827] [planner_server]: Plan computed: 49 poses
+[planner_server-4] [INFO] [1790950454.046596511] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.046713660] [planner_server]: Plan computed: 48 poses
+[planner_server-4] [INFO] [1790950454.155857399] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.156165166] [planner_server]: Plan computed: 46 poses
+[planner_server-4] [INFO] [1790950454.266423857] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.266619884] [planner_server]: Plan computed: 45 poses
+[planner_server-4] [INFO] [1790950454.376187451] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.376279965] [planner_server]: Plan computed: 44 poses
+[rviz2-8] [INFO] [1790950454.473923870] [rviz2]: Trying to create a map of size 79 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950454.485894369] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.486357186] [planner_server]: Plan computed: 42 poses
+[rviz2-8] [INFO] [1790950454.537729338] [rviz2]: Trying to create a map of size 78 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950454.596915528] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950454.597195953] [planner_server]: Plan computed: 40 poses
+[rviz2-8] [INFO] [1790950454.698513686] [rviz2]: Trying to create a map of size 77 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950454.705756876] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.706249278] [planner_server]: Plan computed: 39 poses
+[rviz2-8] [INFO] [1790950454.762294227] [rviz2]: Trying to create a map of size 76 x 80 using 1 swatches
+[rviz2-8] [INFO] [1790950454.793026500] [rviz2]: Trying to create a map of size 75 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950454.818500980] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.818640321] [planner_server]: Plan computed: 38 poses
+[rviz2-8] [INFO] [1790950454.827761566] [rviz2]: Trying to create a map of size 74 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950454.926641375] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950454.926908696] [planner_server]: Plan computed: 36 poses
+[rviz2-8] [INFO] [1790950454.953462626] [rviz2]: Trying to create a map of size 73 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.035942314] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.036163217] [planner_server]: Plan computed: 36 poses
+[rviz2-8] [INFO] [1790950455.049345355] [rviz2]: Trying to create a map of size 72 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.146778587] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.146999410] [planner_server]: Plan computed: 34 poses
+[rviz2-8] [INFO] [1790950455.178082567] [rviz2]: Trying to create a map of size 71 x 80 using 1 swatches
+[rviz2-8] [INFO] [1790950455.242337276] [rviz2]: Trying to create a map of size 70 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.257624387] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.258039935] [planner_server]: Plan computed: 33 poses
+[controller_node-5] [WARN] [1790950455.317595286] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950455.318271472] [controller_server]: Computed velocity commands: linear.x=0.92, linear.y=-0.14, angular.z=0.00
+[rviz2-8] [INFO] [1790950455.337992101] [rviz2]: Trying to create a map of size 69 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.366363815] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.366618932] [planner_server]: Plan computed: 32 poses
+[rviz2-8] [INFO] [1790950455.434303292] [rviz2]: Trying to create a map of size 68 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.475609520] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.476151555] [planner_server]: Plan computed: 31 poses
+[planner_server-4] [INFO] [1790950455.586177210] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.586416528] [planner_server]: Plan computed: 30 poses
+[rviz2-8] [INFO] [1790950455.593464472] [rviz2]: Trying to create a map of size 67 x 80 using 1 swatches
+[rviz2-8] [INFO] [1790950455.688691133] [rviz2]: Trying to create a map of size 66 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.701006568] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950455.701421054] [planner_server]: Plan computed: 29 poses
+[planner_server-4] [INFO] [1790950455.806375496] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.806651482] [planner_server]: Plan computed: 29 poses
+[rviz2-8] [INFO] [1790950455.883268765] [rviz2]: Trying to create a map of size 65 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950455.916192290] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950455.916398957] [planner_server]: Plan computed: 28 poses
+[planner_server-4] [INFO] [1790950456.026261767] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.026532634] [planner_server]: Plan computed: 28 poses
+[rviz2-8] [INFO] [1790950456.042393758] [rviz2]: Trying to create a map of size 64 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950456.136073823] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.136468943] [planner_server]: Plan computed: 25 poses
+[rviz2-8] [INFO] [1790950456.169641043] [rviz2]: Trying to create a map of size 63 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950456.245372588] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.245568144] [planner_server]: Plan computed: 24 poses
+[planner_server-4] [INFO] [1790950456.355342600] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.355655666] [planner_server]: Plan computed: 23 poses
+[rviz2-8] [INFO] [1790950456.363162499] [rviz2]: Trying to create a map of size 62 x 80 using 1 swatches
+[planner_server-4] [INFO] [1790950456.465495754] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.465730594] [planner_server]: Plan computed: 22 poses
+[rviz2-8] [INFO] [1790950456.552886906] [rviz2]: Trying to create a map of size 61 x 79 using 1 swatches
+[planner_server-4] [INFO] [1790950456.576541950] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.576616520] [planner_server]: Plan computed: 20 poses
+[rviz2-8] [INFO] [1790950456.585225907] [rviz2]: Trying to create a map of size 61 x 78 using 1 swatches
+[planner_server-4] [INFO] [1790950456.685633986] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.685993449] [planner_server]: Plan computed: 20 poses
+[rviz2-8] [INFO] [1790950456.778067149] [rviz2]: Trying to create a map of size 61 x 77 using 1 swatches
+[planner_server-4] [INFO] [1790950456.795898661] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950456.796606055] [planner_server]: Plan computed: 19 poses
+[rviz2-8] [INFO] [1790950456.841350014] [rviz2]: Trying to create a map of size 60 x 76 using 1 swatches
+[rviz2-8] [INFO] [1790950456.904849049] [rviz2]: Trying to create a map of size 60 x 75 using 1 swatches
+[planner_server-4] [INFO] [1790950456.906742699] [planner_server]: Planning took 1 ms
+[planner_server-4] [INFO] [1790950456.906987898] [planner_server]: Plan computed: 17 poses
+[rviz2-8] [INFO] [1790950457.001121032] [rviz2]: Trying to create a map of size 60 x 74 using 1 swatches
+[planner_server-4] [INFO] [1790950457.019113275] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.019314942] [planner_server]: Plan computed: 16 poses
+[rviz2-8] [INFO] [1790950457.097165004] [rviz2]: Trying to create a map of size 60 x 73 using 1 swatches
+[planner_server-4] [INFO] [1790950457.125393670] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.125582443] [planner_server]: Plan computed: 15 poses
+[rviz2-8] [INFO] [1790950457.161718963] [rviz2]: Trying to create a map of size 60 x 72 using 1 swatches
+[rviz2-8] [INFO] [1790950457.225734334] [rviz2]: Trying to create a map of size 60 x 71 using 1 swatches
+[planner_server-4] [INFO] [1790950457.235452247] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.235681567] [planner_server]: Plan computed: 13 poses
+[rviz2-8] [INFO] [1790950457.321286064] [rviz2]: Trying to create a map of size 61 x 71 using 1 swatches
+[controller_node-5] [WARN] [1790950457.336285484] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950457.336758530] [controller_server]: Computed velocity commands: linear.x=0.26, linear.y=-0.76, angular.z=0.00
+[planner_server-4] [INFO] [1790950457.345679972] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.345911545] [planner_server]: Plan computed: 12 poses
+[rviz2-8] [INFO] [1790950457.385865292] [rviz2]: Trying to create a map of size 61 x 69 using 1 swatches
+[rviz2-8] [INFO] [1790950457.450900883] [rviz2]: Trying to create a map of size 61 x 68 using 1 swatches
+[planner_server-4] [INFO] [1790950457.457249248] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.457759192] [planner_server]: Plan computed: 10 poses
+[rviz2-8] [INFO] [1790950457.513988024] [rviz2]: Trying to create a map of size 61 x 67 using 1 swatches
+[rviz2-8] [INFO] [1790950457.545589938] [rviz2]: Trying to create a map of size 61 x 66 using 1 swatches
+[planner_server-4] [INFO] [1790950457.565372392] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.565610127] [planner_server]: Plan computed: 8 poses
+[rviz2-8] [INFO] [1790950457.642299255] [rviz2]: Trying to create a map of size 61 x 64 using 1 swatches
+[planner_server-4] [INFO] [1790950457.675695505] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.676260883] [planner_server]: Plan computed: 6 poses
+[rviz2-8] [INFO] [1790950457.705751292] [rviz2]: Trying to create a map of size 61 x 63 using 1 swatches
+[rviz2-8] [INFO] [1790950457.769808742] [rviz2]: Trying to create a map of size 61 x 62 using 1 swatches
+[planner_server-4] [INFO] [1790950457.785597860] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.786056419] [planner_server]: Plan computed: 4 poses
+[rviz2-8] [INFO] [1790950457.834151862] [rviz2]: Trying to create a map of size 61 x 61 using 1 swatches
+[rviz2-8] [INFO] [1790950457.864724060] [rviz2]: Trying to create a map of size 61 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950457.897110941] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950457.897198014] [planner_server]: Plan computed: 3 poses
+[planner_server-4] [INFO] [1790950458.005558433] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.005987096] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950458.027574376] [rviz2]: Trying to create a map of size 61 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950458.115586434] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.115745381] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950458.121902786] [rviz2]: Trying to create a map of size 61 x 57 using 1 swatches
+[rviz2-8] [INFO] [1790950458.184895065] [rviz2]: Trying to create a map of size 61 x 56 using 1 swatches
+[planner_server-4] [INFO] [1790950458.225406691] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.225597698] [planner_server]: Plan computed: 4 poses
+[planner_server-4] [INFO] [1790950458.335528462] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.335949891] [planner_server]: Plan computed: 5 poses
+[rviz2-8] [INFO] [1790950458.346238793] [rviz2]: Trying to create a map of size 61 x 55 using 1 swatches
+[rviz2-8] [INFO] [1790950458.409672255] [rviz2]: Trying to create a map of size 60 x 55 using 1 swatches
+[planner_server-4] [INFO] [1790950458.445641833] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.445729306] [planner_server]: Plan computed: 5 poses
+[planner_server-4] [INFO] [1790950458.555540612] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.555692606] [planner_server]: Plan computed: 6 poses
+[rviz2-8] [INFO] [1790950458.569800182] [rviz2]: Trying to create a map of size 60 x 54 using 1 swatches
+[rviz2-8] [INFO] [1790950458.634020552] [rviz2]: Trying to create a map of size 59 x 54 using 1 swatches
+[planner_server-4] [INFO] [1790950458.665853701] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.666199889] [planner_server]: Plan computed: 6 poses
+[planner_server-4] [INFO] [1790950458.776624588] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.776755283] [planner_server]: Plan computed: 6 poses
+[planner_server-4] [INFO] [1790950458.885289337] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.885380117] [planner_server]: Plan computed: 6 poses
+[planner_server-4] [INFO] [1790950458.995317217] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950458.995494239] [planner_server]: Plan computed: 6 poses
+[rviz2-8] [INFO] [1790950459.017481341] [rviz2]: Trying to create a map of size 58 x 55 using 1 swatches
+[planner_server-4] [INFO] [1790950459.106013911] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.106215188] [planner_server]: Plan computed: 5 poses
+[planner_server-4] [INFO] [1790950459.216640843] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.216777880] [planner_server]: Plan computed: 4 poses
+[rviz2-8] [INFO] [1790950459.273385504] [rviz2]: Trying to create a map of size 58 x 56 using 1 swatches
+[planner_server-4] [INFO] [1790950459.326351601] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.326616907] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950459.336651813] [rviz2]: Trying to create a map of size 57 x 57 using 1 swatches
+[controller_node-5] [WARN] [1790950459.337299506] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950459.337596602] [controller_server]: Computed velocity commands: linear.x=0.11, linear.y=-0.31, angular.z=0.00
+[planner_server-4] [INFO] [1790950459.435177842] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.435618687] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950459.530244359] [rviz2]: Trying to create a map of size 57 x 58 using 1 swatches
+[planner_server-4] [INFO] [1790950459.545980794] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.546186860] [planner_server]: Plan computed: 3 poses
+[planner_server-4] [INFO] [1790950459.656015157] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.656443910] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950459.753977952] [rviz2]: Trying to create a map of size 57 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950459.765795345] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.765960544] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950459.817975119] [rviz2]: Trying to create a map of size 57 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950459.875456795] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.875739654] [planner_server]: Plan computed: 3 poses
+[rviz2-8] [INFO] [1790950459.927931978] [rviz2]: Trying to create a map of size 58 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950459.986611300] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950459.986740302] [planner_server]: Plan computed: 2 poses
+[planner_server-4] [INFO] [1790950460.095936787] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950460.096226449] [planner_server]: Plan computed: 2 poses
+[planner_server-4] [INFO] [1790950460.206088820] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950460.206359197] [planner_server]: Plan computed: 2 poses
+[planner_server-4] [INFO] [1790950460.314801599] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950460.315041418] [planner_server]: Plan computed: 2 poses
+[rviz2-8] [INFO] [1790950460.329186329] [rviz2]: Trying to create a map of size 59 x 60 using 1 swatches
+[planner_server-4] [INFO] [1790950460.425675595] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950460.426739818] [planner_server]: Plan computed: 2 poses
+[rviz2-8] [INFO] [1790950460.521781128] [rviz2]: Trying to create a map of size 59 x 59 using 1 swatches
+[planner_server-4] [INFO] [1790950460.535617576] [planner_server]: Planning took 0 ms
+[planner_server-4] [INFO] [1790950460.535931874] [planner_server]: Plan computed: 1 poses
+[nav_interface_node-7] [INFO] [1790950460.564447633] [nav_interface_node]: [NavStateTrack] Goal reached! remaining=0.037 m, elapsed=89.75 s
+[nav_interface_node-7] Sequence succeeded, halting children and returning SUCCESS
+[nav_interface_node-7] [INFO] [1790950460.574515376] [nav_interface_node]: Navigation task finished successfully.
+[sp_decision_node-6] [INFO] [1790950460.769832947] [sp_decision]: [NavToPose] Goal succeeded.
+[sp_decision_node-6] [INFO] [1790950460.770480489] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950460.869993075] [sp_decision]: [WaitDuration] Wait complete – SUCCESS.
+[sp_decision_node-6] [INFO] [1790950460.870113420] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[rviz2-8] [INFO] [1790950460.873861917] [rviz2]: Trying to create a map of size 59 x 58 using 1 swatches
+[sp_decision_node-6] [INFO] [1790950460.969723679] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.070233757] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.170330908] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.269955379] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[controller_node-5] [WARN] [1790950461.356037109] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950461.356435434] [controller_server]: Computed velocity commands: linear.x=-0.00, linear.y=-0.03, angular.z=0.00
+[sp_decision_node-6] [INFO] [1790950461.369909081] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.470108032] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[rviz2-8] [INFO] [1790950461.545265543] [rviz2]: Trying to create a map of size 58 x 58 using 1 swatches
+[sp_decision_node-6] [INFO] [1790950461.570099114] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.670636256] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.771692184] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.869764905] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950461.969948853] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[rviz2-8] [INFO] [1790950462.057693183] [rviz2]: Trying to create a map of size 58 x 59 using 1 swatches
+[sp_decision_node-6] [INFO] [1790950462.069936584] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.170255289] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.269712252] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.370620982] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.469943223] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.570284120] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.670139689] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.770757094] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.869715112] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950462.969820669] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.070121973] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.169783859] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.270059895] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[controller_node-5] [WARN] [1790950463.356144299] [controller_server]: path_copy succeeded.
+[sp_decision_node-6] [INFO] [1790950463.370426566] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[controller_node-5] [INFO] [1790950463.376484382] [controller_server]: Computed velocity commands: linear.x=0.00, linear.y=0.00, angular.z=0.00
+[sp_decision_node-6] [INFO] [1790950463.470186391] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.570183706] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.670364173] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.770111750] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.869740525] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950463.969744001] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.069781671] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.170027962] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.269856906] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.369919659] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.469978915] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.570165689] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.670366425] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.769932793] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.870801139] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950464.969963180] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.069943283] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.170032380] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.270066092] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.370036979] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[controller_node-5] [WARN] [1790950465.375931269] [controller_server]: path_copy succeeded.
+[controller_node-5] [INFO] [1790950465.396275640] [controller_server]: Computed velocity commands: linear.x=0.00, linear.y=0.00, angular.z=0.00
+[sp_decision_node-6] [INFO] [1790950465.469975584] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.569987958] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.669953022] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.769770761] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.870104516] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950465.969798361] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.069898271] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.171021665] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.270052391] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.370854433] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.470023458] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.569982192] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.670159219] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.769673164] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.870112803] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950466.970089174] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950467.070074222] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950467.173680008] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[sp_decision_node-6] [INFO] [1790950467.270019446] [sp_decision]: [DecisionEngine] SUCCEEDED – restarting
+[WARNING] [launch]: user interrupted with ctrl-c (SIGINT)
+[rviz2-8] [INFO] [1790950467.359617664] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[sp_decision_node-6] [INFO] [1790950467.359627693] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[sp_decision_node-6] [INFO] [1790950467.360054142] [sp_decision]: [DecisionEngine] Stopped.
+[controller_node-5] [INFO] [1790950467.359632812] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[planner_server-4] [INFO] [1790950467.359750127] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[static_transform_publisher-1] [INFO] [1790950467.359705634] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[INFO] [rviz2-8]: sending signal 'SIGINT' to process[rviz2-8]
+[INFO] [nav_interface_node-7]: sending signal 'SIGINT' to process[nav_interface_node-7]
+[INFO] [sp_decision_node-6]: sending signal 'SIGINT' to process[sp_decision_node-6]
+[INFO] [controller_node-5]: sending signal 'SIGINT' to process[controller_node-5]
+[INFO] [planner_server-4]: sending signal 'SIGINT' to process[planner_server-4]
+[INFO] [esdf_map_publisher-3]: sending signal 'SIGINT' to process[esdf_map_publisher-3]
+[INFO] [sim_robot-2]: sending signal 'SIGINT' to process[sim_robot-2]
+[INFO] [static_transform_publisher-1]: sending signal 'SIGINT' to process[static_transform_publisher-1]
+[nav_interface_node-7] [INFO] [1790950467.361492619] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [controller_node-5]: process has died [pid 185825, exit code -2, cmd '/home/zrj/nav_final_project/install/sp_controller_server/lib/sp_controller_server/controller_node --ros-args -r __node:=controller_server --params-file /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/config/nav_params.yaml --params-file /tmp/launch_params_8hnhbn2g'].
+[ERROR] [nav_interface_node-7]: process has died [pid 185829, exit code -2, cmd '/home/zrj/nav_final_project/install/sp_nav_bt/lib/sp_nav_bt/nav_interface_node --ros-args -r __node:=nav_interface_node --params-file /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/config/nav_params.yaml --params-file /tmp/launch_params_xkxfiytp'].
+[esdf_map_publisher-3] [INFO] [1790950467.362655130] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[sp_decision_node-6] [INFO] [1790950467.387627049] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [planner_server-4]: process has died [pid 185823, exit code -2, cmd '/home/zrj/nav_final_project/install/sp_global_planner/lib/sp_global_planner/planner_server --ros-args -r __node:=planner_server --params-file /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/config/nav_params.yaml --params-file /tmp/launch_params_rvuvwit5'].
+[rviz2-8] [INFO] [1790950467.387552612] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[esdf_map_publisher-3] [INFO] [1790950467.392578441] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [static_transform_publisher-1]: process has died [pid 185815, exit code -2, cmd '/opt/ros/humble/lib/tf2_ros/static_transform_publisher 0 0.15 0 0 0 0 base_link livox_frame --ros-args'].
+[sim_robot-2] Traceback (most recent call last):
+[sim_robot-2]   File "/home/zrj/nav_final_project/install/sp_nav_sim/lib/sp_nav_sim/sim_robot", line 33, in <module>
+[sim_robot-2]     sys.exit(load_entry_point('sp-nav-sim', 'console_scripts', 'sim_robot')())
+[sim_robot-2]   File "/home/zrj/nav_final_project/build/sp_nav_sim/sp_nav_sim/sim_robot_node.py", line 599, in main
+[sim_robot-2]     rclpy.shutdown()
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 130, in shutdown
+[sim_robot-2]     _shutdown(context=context)
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/utilities.py", line 58, in shutdown
+[sim_robot-2]     return context.shutdown()
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/context.py", line 102, in shutdown
+[sim_robot-2]     self.__context.shutdown()
+[sim_robot-2] rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241
+[sim_robot-2] Error in sys.excepthook:
+[sim_robot-2] Traceback (most recent call last):
+[sim_robot-2]   File "/usr/lib/python3/dist-packages/apport_python_hook.py", line 55, in apport_excepthook
+[sim_robot-2]     import apt_pkg
+[sim_robot-2] KeyboardInterrupt
+[sim_robot-2] 
+[sim_robot-2] Original exception was:
+[sim_robot-2] Traceback (most recent call last):
+[sim_robot-2]   File "/home/zrj/nav_final_project/install/sp_nav_sim/lib/sp_nav_sim/sim_robot", line 33, in <module>
+[sim_robot-2]     sys.exit(load_entry_point('sp-nav-sim', 'console_scripts', 'sim_robot')())
+[sim_robot-2]   File "/home/zrj/nav_final_project/build/sp_nav_sim/sp_nav_sim/sim_robot_node.py", line 599, in main
+[sim_robot-2]     rclpy.shutdown()
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/__init__.py", line 130, in shutdown
+[sim_robot-2]     _shutdown(context=context)
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/utilities.py", line 58, in shutdown
+[sim_robot-2]     return context.shutdown()
+[sim_robot-2]   File "/opt/ros/humble/local/lib/python3.10/dist-packages/rclpy/context.py", line 102, in shutdown
+[sim_robot-2]     self.__context.shutdown()
+[sim_robot-2] rclpy._rclpy_pybind11.RCLError: failed to shutdown: rcl_shutdown already called on the given context, at ./src/rcl/init.c:241
+[INFO] [esdf_map_publisher-3]: process has finished cleanly [pid 185821]
+[sim_robot-2] The following exception was never retrieved: Failed to publish: publisher's context is invalid, at ./src/rcl/publisher.c:389
+[INFO] [rviz2-8]: process has finished cleanly [pid 185831]
+[ERROR] [sim_robot-2]: process has died [pid 185817, exit code 1, cmd '/home/zrj/nav_final_project/install/sp_nav_sim/lib/sp_nav_sim/sim_robot --ros-args -r __node:=sim_robot_node --params-file /home/zrj/nav_final_project/install/sp_nav_sim/share/sp_nav_sim/config/sim_robot.yaml'].
+[ERROR] [sp_decision_node-6]: process[sp_decision_node-6] failed to terminate '5' seconds after receiving 'SIGINT', escalating to 'SIGTERM'
+[INFO] [sp_decision_node-6]: sending signal 'SIGTERM' to process[sp_decision_node-6]
+[sp_decision_node-6] [INFO] [1790950472.375258277] [rclcpp]: signal_handler(SIGINT/SIGTERM)
+[ERROR] [sp_decision_node-6]: process[sp_decision_node-6] failed to terminate '10.0' seconds after receiving 'SIGTERM', escalating to 'SIGKILL'
+[INFO] [sp_decision_node-6]: sending signal 'SIGKILL' to process[sp_decision_node-6]
+[ERROR] [sp_decision_node-6]: process has died [pid 185827, exit code -9, cmd '/home/zrj/nav_final_project/install/sp_decision/lib/sp_decision/sp_decision_node --ros-args -r __node:=sp_decision --params-file /home/zrj/nav_final_project/install/sp_nav_bringup/share/sp_nav_bringup/config/nav_params.yaml --params-file /tmp/launch_params_rtrmfn5c'].

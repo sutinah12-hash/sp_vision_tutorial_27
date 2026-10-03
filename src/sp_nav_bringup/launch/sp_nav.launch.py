@@ -14,6 +14,13 @@ def nodes(context):
     mpc_max_acceleration = float(LaunchConfiguration('mpc_max_acceleration').perform(context))
     mpc_braking_acceleration = float(LaunchConfiguration('mpc_braking_acceleration').perform(context))
     mpc_lateral_acceleration = float(LaunchConfiguration('mpc_lateral_acceleration').perform(context))
+    pid_max_speed = float(LaunchConfiguration('pid_max_speed').perform(context))
+    pid_max_acceleration = float(LaunchConfiguration('pid_max_acceleration').perform(context))
+    pid_braking_acceleration = float(LaunchConfiguration('pid_braking_acceleration').perform(context))
+    pid_lateral_acceleration = float(LaunchConfiguration('pid_lateral_acceleration').perform(context))
+    pid_kp = float(LaunchConfiguration('pid_kp').perform(context))
+    pid_ki = float(LaunchConfiguration('pid_ki').perform(context))
+    pid_kd = float(LaunchConfiguration('pid_kd').perform(context))
     if controller not in ('mpc', 'pid', 'sampling'):
         raise ValueError('controller must be mpc, pid or sampling')
     smooth = LaunchConfiguration('smoothing').perform(context).lower() == 'true'
@@ -31,7 +38,14 @@ def nodes(context):
           'MpcController.max_speed': mpc_max_speed,
           'MpcController.max_acceleration': mpc_max_acceleration,
           'MpcController.braking_acceleration': mpc_braking_acceleration,
-          'MpcController.lateral_acceleration': mpc_lateral_acceleration}),
+          'MpcController.lateral_acceleration': mpc_lateral_acceleration,
+          'PidController.max_speed': pid_max_speed,
+          'PidController.max_acceleration': pid_max_acceleration,
+          'PidController.braking_acceleration': pid_braking_acceleration,
+          'PidController.lateral_acceleration': pid_lateral_acceleration,
+          'PidController.kp': pid_kp,
+          'PidController.ki': pid_ki,
+          'PidController.kd': pid_kd}),
         ('sp_decision', 'sp_decision_node', 'sp_decision', {}),
         ('sp_nav_bt', 'nav_interface_node', 'nav_interface_node', {}),
     ]:
@@ -56,5 +70,12 @@ def generate_launch_description():
         DeclareLaunchArgument('mpc_max_acceleration', default_value='1.7'),
         DeclareLaunchArgument('mpc_braking_acceleration', default_value='0.8'),
         DeclareLaunchArgument('mpc_lateral_acceleration', default_value='0.8'),
+        DeclareLaunchArgument('pid_max_speed', default_value='1.0'),
+        DeclareLaunchArgument('pid_max_acceleration', default_value='2.0'),
+        DeclareLaunchArgument('pid_braking_acceleration', default_value='0.45'),
+        DeclareLaunchArgument('pid_lateral_acceleration', default_value='0.35'),
+        DeclareLaunchArgument('pid_kp', default_value='2.4'),
+        DeclareLaunchArgument('pid_ki', default_value='0.02'),
+        DeclareLaunchArgument('pid_kd', default_value='0.55'),
         OpaqueFunction(function=nodes),
     ])

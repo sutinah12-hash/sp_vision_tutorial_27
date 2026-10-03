@@ -33,6 +33,13 @@ def main():
     parser.add_argument('--mpc-max-acceleration', type=float)
     parser.add_argument('--mpc-braking-acceleration', type=float)
     parser.add_argument('--mpc-lateral-acceleration', type=float)
+    parser.add_argument('--pid-max-speed', type=float)
+    parser.add_argument('--pid-max-acceleration', type=float)
+    parser.add_argument('--pid-braking-acceleration', type=float)
+    parser.add_argument('--pid-lateral-acceleration', type=float)
+    parser.add_argument('--pid-kp', type=float)
+    parser.add_argument('--pid-ki', type=float)
+    parser.add_argument('--pid-kd', type=float)
     args = parser.parse_args()
     out = Path(args.out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -69,6 +76,26 @@ def main():
                 parser.error('MPC acceleration overrides require --controller mpc')
             if value <= 0.0 or value > 2.0:
                 parser.error(f'{launch_name} must be in (0, 2.0]')
+            launch_cmd.append(f'{launch_name}:={value}')
+    pid_limits = [
+        ('pid_max_speed', args.pid_max_speed),
+        ('pid_max_acceleration', args.pid_max_acceleration),
+        ('pid_braking_acceleration', args.pid_braking_acceleration),
+        ('pid_lateral_acceleration', args.pid_lateral_acceleration),
+    ]
+    pid_gains = [
+        ('pid_kp', args.pid_kp),
+        ('pid_ki', args.pid_ki),
+        ('pid_kd', args.pid_kd),
+    ]
+    for launch_name, value in pid_limits + pid_gains:
+        if value is not None:
+            if args.controller != 'pid':
+                parser.error('PID overrides require --controller pid')
+            if (launch_name, value) in pid_limits and not 0.0 < value <= 2.0:
+                parser.error(f'{launch_name} must be in (0, 2.0]')
+            if (launch_name, value) in pid_gains and not 0.0 <= value <= 10.0:
+                parser.error(f'{launch_name} must be in [0, 10.0]')
             launch_cmd.append(f'{launch_name}:={value}')
     label = args.controller.upper() + (' with raw A*' if args.no_smoothing else ' with smoothed A*')
     recorder_cmd = [sys.executable, str(workspace / 'scripts/evaluate_run.py'),

@@ -10,14 +10,14 @@
     "max_speed_mps": 1.2096895323171257
   },
   "PID": {
-    "result": "FAIL",
+    "result": "PASS",
     "trigger": "rviz_click",
-    "action_time_s": null,
-    "time_or_timeout_s": 240.0,
-    "final_error_cm": 824.3163426238473,
-    "tracking_rmse_cm": 35.932929466551975,
-    "minimum_wall_clearance_m": 0.35000000000000003,
-    "max_speed_mps": 1.2026465333767615
+    "action_time_s": 161.30733535999025,
+    "time_or_timeout_s": 161.30733535999025,
+    "final_error_cm": 0.9934963088378869,
+    "tracking_rmse_cm": 11.055221248526827,
+    "minimum_wall_clearance_m": 0.55,
+    "max_speed_mps": 0.9406986959592102
   },
   "Sampling": {
     "result": "PASS",

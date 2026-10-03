@@ -30,7 +30,19 @@ python3 scripts/run_trial.py --controller pid --out results/my_pid_01
 python3 scripts/run_trial.py --controller sampling --out results/my_sampling_01
 ```
 
-每次运行仍需要在新开的 RViz 中点击一次。`sampling` 是独立的平滑采样预测实验算法，不是完整 Nav2 MPPI 或 SVG-MPPI；没有成功保证，评价应包括失败记录。
+每次运行仍需要在新开的 RViz 中点击一次。当前 PID 默认使用 1.0 m/s 速度上限、2.0 m/s² 加速度上限、0.45 m/s² 制动减速度、0.35 m/s² 横向加速度，以及 `Kp=2.4`、`Ki=0.02`、`Kd=0.55`；这组参数已在主办方代价地图参数下完成两轮后台复测和一轮 RViz 实测。`sampling` 是独立的平滑采样预测实验算法，不是完整 Nav2 MPPI 或 SVG-MPPI，评价时仍应结合到达、跟踪误差、墙距和计算耗时。
+
+PID 参数也可通过命令行单独做新实验，例如：
+
+```bash
+python3 scripts/run_trial.py --controller pid \
+  --pid-max-speed 1.0 --pid-max-acceleration 2.0 \
+  --pid-braking-acceleration 0.45 --pid-lateral-acceleration 0.35 \
+  --pid-kp 2.4 --pid-ki 0.02 --pid-kd 0.55 \
+  --out results/my_pid_tuned_01
+```
+
+这些选项只修改 PID 控制器，不修改地图、仿真机器人参数、控制频率、起点或终点。
 
 自动回归可以加入 `--headless --auto-goal`，它只发送一次目标、不发布速度。正式 RViz 验收不要添加这些参数。关闭平滑做消融实验时添加 `--no-smoothing`。无需修改官方仿真器参数。
 

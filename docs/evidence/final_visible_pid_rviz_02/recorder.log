@@ -1,0 +1,57 @@
+[INFO] [1790986098.569332110] [nav_trial_recorder]: Recorder ready. Click the fixed-goal button in RViz ONCE.
+[INFO] [1790986137.048947367] [nav_trial_recorder]: Goal received: [14.1, 14.1], initial pose: [0.9 0.9]
+[INFO] [1790986137.115457038] [nav_trial_recorder]: Progress: t=0.1s xy=[0.9 0.9] goal_error=18.668m
+[INFO] [1790986147.220559008] [nav_trial_recorder]: Progress: t=10.2s xy=[3.1297075  2.62723753] goal_error=15.874m
+[INFO] [1790986157.348746208] [nav_trial_recorder]: Progress: t=20.3s xy=[6.00632808 1.39484575] goal_error=15.064m
+[INFO] [1790986167.419597787] [nav_trial_recorder]: Progress: t=30.4s xy=[8.27342408 0.99883212] goal_error=14.338m
+[INFO] [1790986177.523213886] [nav_trial_recorder]: Progress: t=40.5s xy=[10.54975922  3.03776762] goal_error=11.618m
+[INFO] [1790986187.545324589] [nav_trial_recorder]: Progress: t=50.5s xy=[11.20491544  5.85580976] goal_error=8.738m
+[INFO] [1790986197.718488736] [nav_trial_recorder]: Progress: t=60.7s xy=[11.60023738  7.37248037] goal_error=7.177m
+[INFO] [1790986207.746314639] [nav_trial_recorder]: Progress: t=70.7s xy=[9.31067341 6.89440868] goal_error=8.652m
+[INFO] [1790986217.751820416] [nav_trial_recorder]: Progress: t=80.7s xy=[8.59732922 4.27844588] goal_error=11.258m
+[INFO] [1790986227.755765730] [nav_trial_recorder]: Progress: t=90.7s xy=[5.71066654 5.11919316] goal_error=12.290m
+[INFO] [1790986237.937545191] [nav_trial_recorder]: Progress: t=100.9s xy=[4.87002409 7.53964291] goal_error=11.324m
+[INFO] [1790986248.119997271] [nav_trial_recorder]: Progress: t=111.1s xy=[ 4.41988003 10.64254457] goal_error=10.279m
+[INFO] [1790986258.127458874] [nav_trial_recorder]: Progress: t=121.1s xy=[ 7.67088503 10.00160411] goal_error=7.624m
+[INFO] [1790986268.135356390] [nav_trial_recorder]: Progress: t=131.1s xy=[ 9.05392778 10.5591478 ] goal_error=6.164m
+[INFO] [1790986278.315508415] [nav_trial_recorder]: Progress: t=141.3s xy=[10.8734346  13.37523987] goal_error=3.307m
+[INFO] [1790986288.514379373] [nav_trial_recorder]: Progress: t=151.5s xy=[13.24311267 12.5871871 ] goal_error=1.739m
+[INFO] [1790986298.352802763] [nav_trial_recorder]: Action SUCCEEDED after 161.307 seconds.
+[INFO] [1790986298.514599891] [nav_trial_recorder]: Progress: t=161.5s xy=[14.07613522 14.07137885] goal_error=0.037m
+{
+  "label": "PID with smoothed A*",
+  "result": "PASS",
+  "reason": "action_completed",
+  "trigger": "rviz_click",
+  "goal_messages": 1,
+  "action_status": 4,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    14.092004640774038,
+    14.094102736022927
+  ],
+  "action_time_s": 161.30733535999025,
+  "final_error_m": 0.009934963088378868,
+  "final_speed_mps": 0.000245309457195812,
+  "sample_count": 3378,
+  "odom_observed_hz": 20.419120009522096,
+  "controller_mean_ms": 0.02420567676494455,
+  "controller_p95_ms": 0.05251749999999994,
+  "controller_max_ms": 2.417646,
+  "tracking_rmse_m": 0.11055221248526827,
+  "tracking_mean_m": 0.09076774895674072,
+  "tracking_p95_m": 0.21277582778748774,
+  "tracking_max_m": 0.2333288325826016,
+  "raw_path_rmse_m": 0.1082542213286565,
+  "minimum_wall_clearance_m": 0.55,
+  "max_speed_mps": 0.9406986959592102,
+  "distance_travelled_m": 49.568824920374595,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}

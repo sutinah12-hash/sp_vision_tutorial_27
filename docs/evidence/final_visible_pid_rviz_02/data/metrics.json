@@ -1,0 +1,37 @@
+{
+  "label": "PID with smoothed A*",
+  "result": "PASS",
+  "reason": "action_completed",
+  "trigger": "rviz_click",
+  "goal_messages": 1,
+  "action_status": 4,
+  "start_xy": [
+    0.9,
+    0.9
+  ],
+  "goal_xy": [
+    14.1,
+    14.1
+  ],
+  "final_xy": [
+    14.092004640774038,
+    14.094102736022927
+  ],
+  "action_time_s": 161.30733535999025,
+  "final_error_m": 0.009934963088378868,
+  "final_speed_mps": 0.000245309457195812,
+  "sample_count": 3378,
+  "odom_observed_hz": 20.419120009522096,
+  "controller_mean_ms": 0.02420567676494455,
+  "controller_p95_ms": 0.05251749999999994,
+  "controller_max_ms": 2.417646,
+  "tracking_rmse_m": 0.11055221248526827,
+  "tracking_mean_m": 0.09076774895674072,
+  "tracking_p95_m": 0.21277582778748774,
+  "tracking_max_m": 0.2333288325826016,
+  "raw_path_rmse_m": 0.1082542213286565,
+  "minimum_wall_clearance_m": 0.55,
+  "max_speed_mps": 0.9406986959592102,
+  "distance_travelled_m": 49.568824920374595,
+  "notes": "Tracking error is point-to-segment distance to the FIRST global path, frozen at goal planning. Wall clearance is centre-to-occupied-pixel distance, not a simulator collision event."
+}

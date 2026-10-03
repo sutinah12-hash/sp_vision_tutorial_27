@@ -54,7 +54,16 @@ def main():
             errors.append(error)
         assert abs(np.sqrt(np.mean(np.square(errors)))-metrics['tracking_rmse_m'])<1e-8
         results[directory.parent.name]=metrics['result']
-    assert results and 'FAIL' in results.values(), 'Documented failed baseline must be retained'
+    expected_trials={
+        'final_visible_mpc_rviz_01',
+        'final_visible_pid_rviz_02',
+        'final_visible_sampling_rviz_01',
+        'final_visible_fast_mpc_rviz_01',
+    }
+    assert set(results)==expected_trials, (
+        f'Expected exactly the four final RViz trials, got {sorted(results)}'
+    )
+    assert set(results.values())=={'PASS'}, 'Every retained final RViz trial must pass'
     print(json.dumps({'result':'PASS','evidence_trials':results,
                       'checks':['ASCII filenames','UTF-8 documentation','Python AST','XML parse',
                                 'clean tested revisions','one goal and fixed endpoints','command limits',

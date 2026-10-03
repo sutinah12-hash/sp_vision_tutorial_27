@@ -4,9 +4,9 @@ Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。保留课程�
 
 作者账号：`sutinah12-hash`。提交分支：`nav`。官方来源：[TongjiSuperPower/sp_vision_tutorial_27 / final_project_nav](https://github.com/TongjiSuperPower/sp_vision_tutorial_27/tree/final_project_nav)，本次核对版本 `05c33fc8aa6695e76bcff310b42f8fdfe276e1cb`。
 
-[原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md) · [架构与面试讲解](docs/architecture_guide.md) · [MPC 详细讲解](docs/mpc_explained.md) · [三种控制方法](docs/controller_methods.md) · [开发与失败记录](docs/implementation_status.md)
+[原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md) · [架构与面试讲解](docs/architecture_guide.md) · [MPC 详细讲解](docs/mpc_explained.md) · [三种控制方法](docs/controller_methods.md) · [开发与验证记录](docs/implementation_status.md)
 
-**当前四段实录：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_01/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段均在 VMware 的真实 RViz 窗口连续录制，通过同一个精确目标按钮只发布一次 `(14.1, 14.1)`；画面中可直接看到 R1、R2、R3 的彩色车体、朝向和标签。
+**当前四段实录：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_02/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段均在 VMware 的真实 RViz 窗口连续录制，通过同一个精确目标按钮只发布一次 `(14.1, 14.1)`；画面中可直接看到 R1、R2、R3 的彩色车体、朝向和标签。
 
 [四种控制配置的录像与指标](docs/video_comparison.md)：地图、三台机器人、代价地图参数、起终点和 RViz 显示完全一致。
 
@@ -67,7 +67,7 @@ A* 在膨胀代价地图上搜索，并禁止对角穿过障碍角。将确切�
 
 ## 5. Controllers
 
-**PID baseline**：路径切向速度前馈，加最近投影点横向位置反馈、积分限幅和速度反馈。接近终点后使用无前馈阻尼位置调节，防止绕终点振荡。基线进行了实际调试，不以早期明显未完成的 PID 作为唯一对照。
+**PID baseline**：路径切向速度前馈，加最近投影点横向位置反馈、积分限幅和速度反馈。接近终点后使用无前馈阻尼位置调节，防止绕终点振荡。按主办方代价地图重新调节后，PID 使用 1.0 m/s 指令上限、提前制动和较低弯道速度，在两轮自动回归及最终 RViz 单击试验中均完整到达。
 
 **Delay-compensated linear MPC (default)**：状态为世界坐标 `px, py, vx, vy`，输入为期望速度 `ux, uy`。模型：
 
@@ -81,7 +81,7 @@ p[k+1] = p[k] + dt*v[k+1]
 
 **Smooth sampling predictive (experimental)**：同样的参考路径和延迟队列，评估 257 条平滑扰动序列、3 轮加权更新，并在预测中考虑速度与加速度限幅。它是受 MPPI 启发的实验实现，与 Nav2 MPPI / SVG-MPPI 的差异见 [controller methods](docs/controller_methods.md)，运行时不会回退到 MPC。
 
-三者共同的指令速度上限为 1.25 m/s，最终指令变化限幅为 1.7 m/s²。这些是学生控制器配置，未改原版仿真器的物理上限。MPC 的最终变化限幅未完整建模到优化约束中，是已知近似。
+默认 MPC 与 Sampling 使用 1.25 m/s 指令上限和 1.7 m/s² 指令变化限幅；PID 使用 1.0 m/s、2.0 m/s²，并采用 `braking_acceleration=0.45`、`lateral_acceleration=0.35`。这些都是学生控制器参数，没有改原版仿真器的 2.0 m/s、2.0 m/s² 物理上限。MPC 的最终变化限幅未完整建模到优化约束中，是已知近似。
 
 ## 6. Evidence and evaluation
 
@@ -94,31 +94,11 @@ p[k+1] = p[k] + dt*v[k+1]
 - 耗时为接收目标到 action 成功的墙钟时间；终点误差是上述等待后的值，两者不混淆。
 - 跟踪误差是实测位置到**首次全局参考路径线段**的最近距离，冻结参考避免重规划造成误差虚低。
 - 静态墙净空是中心到占据像素的近似距离，不冒充仿真器直接提供的碰撞计数。
-- 失败试验保留，均值只汇总成功试验并同时展示通过次数。小样本不能证明普遍最优或稳定性。
+- 当前提交只汇总最终四段三机器人 RViz 验收；单轮 GUI 结果不代表长期统计结论。
 
 逐轮证据位于 [docs/evidence](docs/evidence)，可使用 `scripts/summarize_trials.py` 从所列试验目录重新计算汇总。自动回归的 `trigger=single_topic_message_test`，GUI 验收的 `trigger=rviz_click`，不会把自动发布目标说成手工点击。
 
 编译结果：9 个包成功；`colcon test-result` 汇总 21 项检查，0 errors、0 failures、0 skipped。仿真采样等价测试覆盖 190 个案例、506861 个格子，并验证未修改文件哈希。
-
-### Repeated controller comparison
-
-同版本无界面对照，三种控制器各 2 轮：
-
-- **MPC：2/2 通过。**成功轮平均耗时 91.91 s，终点误差 5.92 mm，跟踪 RMSE 9.25 cm，控制计算 P95 平均 0.345 ms。
-- **PID：1/2 通过。**成功轮耗时 98.76 s，终点误差 11.06 mm，跟踪 RMSE 17.45 cm，计算 P95 0.0215 ms；另一轮转弯后导航 action 中止，记录至 240 s 超时，不能从结果中删除。
-- **平滑采样：2/2 通过。**成功轮平均耗时 95.45 s，终点误差 24.52 mm，跟踪 RMSE 11.66 cm，计算 P95 平均 1.334 ms。
-
-这组有限样本里，MPC 的到达、跟踪和耗时优于这里实现的 PID，代价是更高计算量；采样实验可运行，但暂未胜过 MPC，所以不把“更新”写成“全面更优”。默认仍选择 MPC。2 轮不构成统计显著性或长期可靠性证明。
-
-![Recorded controller comparison](docs/evidence/comparison/comparison.png)
-
-![Measured MPC trajectory](docs/evidence/final_mpc_01/data/trajectory.png)
-
-### Smoothing ablation
-
-固定首次参考路径均为 914 个点。平滑前后路径长度约 50.97 / 49.30 m，相邻转角平方和从 59.94 降至 3.91 rad²，最大相邻转角从 0.785 降至 0.189 rad。这是当前采样密度下的形状指标，不是与采样密度无关的曲率积分。
-
-MPC 关闭平滑的单轮也通过：123.87 s、终点误差 7.32 mm、跟踪 RMSE 6.78 cm。平滑后的两轮更快，但相对各自参考线的误差反而更大，因此不能宣传平滑让所有指标都同时改善。该消融只有一轮，受速度剖面和 VM 调度影响。
 
 ### Current RViz runs
 
@@ -127,17 +107,17 @@ MPC 关闭平滑的单轮也通过：123.87 s、终点误差 7.32 mm、跟踪 RM
 |配置|结果|Action 时间|终点误差|跟踪 RMSE|最小墙距|视频长度|
 |---|---:|---:|---:|---:|---:|---:|
 |默认 MPC|PASS|96.38 s|0.84 cm|10.60 cm|0.60 m|104.9 s|
-|PID|FAIL|240 s 超时|824.32 cm|35.93 cm|0.35 m|245.7 s|
+|PID|PASS|161.31 s|0.99 cm|11.06 cm|0.55 m|171.4 s|
 |Sampling|PASS|97.58 s|2.78 cm|12.65 cm|0.50 m|107.4 s|
 |Fast MPC|PASS|90.37 s|0.91 cm|11.18 cm|0.55 m|100.0 s|
 
-四轮都来自干净提交 `3b9ea6c`，`metrics.json` 记录 `trigger=rviz_click`、`goal_messages=1`、起点 `(0.9, 0.9)` 和终点 `(14.1, 14.1)`。三轮成功的 `action_status=4`；PID 在同一路段停止并以 `action_status=2` 记录至 240 秒超时。视频均为 1600×1016、H.264、10 fps 的原速连续窗口捕获，已完整解码检查；每个目录另存视频 20 秒处的实际画面。
+默认 MPC、Sampling 和 Fast MPC 来自干净提交 `3b9ea6c`，调优后的 PID 来自干净提交 `4208f16`。四轮 `metrics.json` 均记录 `trigger=rviz_click`、`goal_messages=1`、起点 `(0.9, 0.9)`、终点 `(14.1, 14.1)` 和 `action_status=4`。视频均为 1600×1016、H.264、10 fps 的原速连续窗口捕获，已完整解码检查；每个目录另存视频 20 秒处的实际画面。
 
 ![Current controller comparison](docs/evidence/final_visible_comparison/comparison.png)
 
 ![R1, R2 and R3 visible in RViz](docs/evidence/final_visible_mpc_rviz_01/video_20s.png)
 
-旧版录屏和早期失败轮仍保存在 `docs/evidence/`，用于回看调试过程；上表四轮是当前配置的最终对照。
+`docs/evidence/` 只保留上表四段三机器人录像、当前对比图以及构建、动力学和仿真等价性检查。
 
 ## 7. Reproduce and extend
 

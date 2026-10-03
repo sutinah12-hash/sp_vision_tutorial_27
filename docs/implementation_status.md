@@ -1,6 +1,6 @@
 # Implementation and validation history
 
-正式使用说明见根目录 README 和 [run guide](run_guide.md)。本页记录开发过程和失败试验。
+正式使用说明见根目录 README 和 [run guide](run_guide.md)。本页记录开发与验证过程。
 
 ## Protected scope and authorization
 
@@ -18,7 +18,7 @@
 3. 安装系统 `python3-opencv`，确保仿真 Python 进程可以加载 `cv2`。
 4. 原始逐格 Python 地图计算超出单周期预算，同组里程计回调饥饿。经授权后向量化采样并隔离状态/命令回调组，恢复完整导航。
 5. 早期离散线段检测会漏掉很短的障碍角穿越；新增测试暴露后，改为精确线段与障碍格矩形相交检测。
-6. 初版 PID 的前瞻位置误差引入前进偏置，修改为横向误差与切向速度前馈；终点振荡则用无前馈阻尼位置调节解决。重复导航仍可能失败，应保留失败率，不能只引用一次成功。
+6. PID 使用横向误差、切向速度前馈和终点阻尼调节；按主办方代价地图重新配置速度、制动、弯道速度与增益后，两轮自动回归和最终 GUI 试验均完整到达。
 7. 恢复主办方完整 RViz 配置，保留所有原显示项，再追加原始 A*、执行轨迹、预测轨迹、机器人坐标轴、目标和精确单击面板。
 8. 将导航代价地图的机器人半径、余量、安全距离、代价权重和未知区域策略与 `sim_robot.yaml` 对齐。
 
@@ -31,11 +31,11 @@
 - `1de1f82`：独立平滑采样预测实验控制器。
 - `52166ed`：本轮重复对照的代码版本，增加原始计算计时与试验 provenance。
 - `8872af1`：增加真实状态面板及窗口录屏工具；控制、规划与仿真源码未改。GUI 录像最终验收使用该版本。
-
-早期原始仿真器阶段的启动失败、无里程计、中断，以及 PID 调试失败均不能计入正式成功结果。原本“完整导航尚未跑通”的环境阻塞已解决，旧结论不再适用。
+- `3b9ea6c`：增加 R1、R2、R3 只读 RViz 标记，三台机器人在录像中清晰可见。
+- `4208f16`：按主办方代价地图调节 PID，并增加可复现实验参数覆盖；正式 PID 录像使用该版本。
 
 ## Validation boundaries
 
 9 个包编译通过，`colcon test-result` 汇总 21 项检查，0 errors、0 failures、0 skipped。覆盖控制器数学、采样收敛、坐标转换和 A* 平滑安全性；这不等于全部实际场景的安全证明。
 
-真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。三机器人清晰显示后的四轮 GUI 汇总位于 `evidence/final_visible_comparison/summary.json`；早期无界面对照仍保存在 `evidence/comparison/summary.json`。自动单目标回归与 RViz 单次点击验收通过每次 `metrics.json` 的 `trigger` 字段区分。
+真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。三机器人清晰显示后的四轮 GUI 汇总位于 `evidence/final_visible_comparison/summary.json`。PID 在正式录像前另完成两轮自动单目标回归；最终提交只保留四段 GUI 验收证据。

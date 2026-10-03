@@ -1,3 +1,0 @@
-[x11grab @ 0x55c3480c16c0] Stream #0: not enough frames to estimate rate; consider increasing probesize
-[x11grab @ 0x55c3480c16c0] Failed to query xcb pointer
-:0: Generic error in an external library

@@ -4,7 +4,9 @@
 #include <Eigen/Dense>
 #include <deque>
 #include <functional>
+#include <limits>
 #include <map>
+#include <string>
 
 namespace tools
 {
@@ -38,18 +40,19 @@ public:
     std::function<Eigen::VectorXd(const Eigen::VectorXd &, const Eigen::VectorXd &)> z_subtract =
       [](const Eigen::VectorXd & a, const Eigen::VectorXd & b) { return a - b; });
 
-  std::map<std::string, double> data;  //卡方检验数据
-  std::deque<int> recent_nis_failures{0};
+  // NIS uses the prior innovation. NEES requires truth and is intentionally not logged.
+  std::map<std::string, double> data;
+  std::deque<int> recent_nis_failures;
   size_t window_size = 100;
-  double last_nis;
+  double last_nis = 0.0;
+  double nis_gate = std::numeric_limits<double>::infinity();
+  bool last_update_accepted = false;
 
 private:
   Eigen::MatrixXd I;
-  std::function<Eigen::VectorXd(const Eigen::VectorXd &, const Eigen::VectorXd &)> x_add;
-
-  int nees_count_ = 0;
-  int nis_count_ = 0;
-  int total_count_ = 0;
+  std::function<Eigen::VectorXd(const Eigen::VectorXd &, const Eigen::VectorXd &)> x_add =
+    [](const Eigen::VectorXd & a, const Eigen::VectorXd & b) { return (a + b).eval(); };
+  void log_innovation(const Eigen::VectorXd & residual, double nis, bool accepted);
 };
 
 }  // namespace tools

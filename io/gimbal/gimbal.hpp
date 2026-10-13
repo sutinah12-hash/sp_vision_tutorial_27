@@ -6,6 +6,8 @@
 #include <chrono>
 #include <cstdint>
 #include <mutex>
+#include <optional>
+#include <shared_mutex>
 #include <string>
 #include <thread>
 #include <tuple>
@@ -66,22 +68,22 @@ enum class GimbalMode
 
 struct GimbalState
 {
-  float yaw;
-  float yaw_vel;
-  float pitch;
-  float pitch_vel;
-  float bullet_speed;
-  uint16_t bullet_count;
+  float yaw = 0.0f;
+  float yaw_vel = 0.0f;
+  float pitch = 0.0f;
+  float pitch_vel = 0.0f;
+  float bullet_speed = 0.0f;
+  uint16_t bullet_count = 0;
 
   // SuperCap 相关状态
-  float supercap_power_in;
-  float supercap_power_out;
-  float supercap_voltage;
-  float supercap_cap_energy;
-  uint8_t supercap_temputer;
-  uint8_t supercap_status;
+  float supercap_power_in = 0.0f;
+  float supercap_power_out = 0.0f;
+  float supercap_voltage = 0.0f;
+  float supercap_cap_energy = 0.0f;
+  uint8_t supercap_temputer = 0;
+  uint8_t supercap_status = 0;
 
-  uint8_t game_progress;
+  uint8_t game_progress = 0;
 };
 
 class Gimbal
@@ -95,6 +97,11 @@ public:
   GimbalState state() const;
   std::string str(GimbalMode mode) const;
   Eigen::Quaterniond q(std::chrono::steady_clock::time_point t);
+  // Interpolate only inside a valid, fresh interval; never extrapolate stale IMU data.
+  std::optional<Eigen::Quaterniond> try_q(
+    std::chrono::steady_clock::time_point t,
+    std::chrono::milliseconds timeout = std::chrono::milliseconds{50});
+  bool fresh(std::chrono::milliseconds max_age = std::chrono::milliseconds{200}) const;
 
   void send(bool control, bool fire, float yaw, float pitch);
 
@@ -105,20 +112,32 @@ private:
   std::atomic<bool> quit_ = false;
   mutable std::mutex mutex_;
 
-  std::mutex serial_mutex_;
+  // Serial already has separate read/write locks. This lock protects only the
+  // port lifetime: concurrent RX/TX share it; open/close require exclusivity.
+  std::shared_mutex serial_mutex_;
+  std::mutex tx_mutex_;  // Protect packet assembly and serialize multiple send callers.
   std::atomic<bool> is_connected_{false};
 
-  GimbalToVision rx_data_;
-  VisionToGimbal tx_data_;
+  GimbalToVision rx_data_{};
+  VisionToGimbal tx_data_{};
 
   GimbalMode mode_ = GimbalMode::IDLE;
-  GimbalState state_;
-  tools::ThreadSafeQueue<std::tuple<Eigen::Quaterniond, std::chrono::steady_clock::time_point>>
-    queue_{1000};
+  GimbalState state_{};
+  std::chrono::steady_clock::time_point last_valid_packet_{};
+  bool has_valid_packet_ = false;
+  using TimedQuaternion =
+    std::tuple<Eigen::Quaterniond, std::chrono::steady_clock::time_point>;
+  // Bounded history drops oldest data if consumers lag behind.
+  tools::ThreadSafeQueue<TimedQuaternion, true> queue_{1000};
+  std::timed_mutex q_mutex_;
+  std::optional<TimedQuaternion> q_left_;
+  std::atomic<uint64_t> pose_generation_{0};
+  uint64_t q_generation_ = 0;
 
   bool read(uint8_t * buffer, size_t size);
   void read_thread();
   void reconnect();
+  void invalidate();
 };
 
 }  // namespace io

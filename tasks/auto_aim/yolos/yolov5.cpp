@@ -4,6 +4,9 @@
 #include <yaml-cpp/yaml.h>
 
 #include <filesystem>
+#include <algorithm>
+#include <cmath>
+#include <stdexcept>
 
 #include "tools/img_tools.hpp"
 #include "tools/logger.hpp"
@@ -18,6 +21,8 @@ YOLOV5::YOLOV5(const std::string & config_path, bool debug) : debug_(debug)
   device_ = yaml["device"].as<std::string>();
   binary_threshold_ = yaml["threshold"].as<double>();
   min_confidence_ = yaml["min_confidence"].as<double>();
+  if (!std::isfinite(min_confidence_) || min_confidence_ < 0 || min_confidence_ > 1)
+    throw std::invalid_argument("YOLO min_confidence must lie in [0,1]");
   int x = 0, y = 0, width = 0, height = 0;
   x = yaml["roi"]["x"].as<int>();
   y = yaml["roi"]["y"].as<int>();
@@ -58,16 +63,17 @@ std::list<Armor> YOLOV5::detect(const cv::Mat & raw_img, int frame_count)
     tools::logger()->warn("Empty img!, camera drop!");
     return std::list<Armor>();
   }
+  if (raw_img.type() != CV_8UC3) throw std::invalid_argument("YOLO requires a BGR uint8 image");
 
   cv::Mat bgr_img;
   if (use_roi_) {
-    if (roi_.width == -1) {  // -1 表示该维度不裁切
-      roi_.width = raw_img.cols;
-    }
-    if (roi_.height == -1) {  // -1 表示该维度不裁切
-      roi_.height = raw_img.rows;
-    }
-    bgr_img = raw_img(roi_);
+    auto crop = roi_;
+    if (crop.width == -1) crop.width = raw_img.cols - crop.x;
+    if (crop.height == -1) crop.height = raw_img.rows - crop.y;
+    const cv::Rect bounds(0, 0, raw_img.cols, raw_img.rows);
+    if (crop.width <= 0 || crop.height <= 0 || (crop & bounds) != crop)
+      throw std::invalid_argument("YOLO ROI lies outside the image");
+    bgr_img = raw_img(crop);
   } else {
     bgr_img = raw_img;
   }
@@ -92,6 +98,9 @@ std::list<Armor> YOLOV5::detect(const cv::Mat & raw_img, int frame_count)
   // postprocess
   auto output_tensor = infer_request.get_output_tensor();
   auto output_shape = output_tensor.get_shape();
+  if (output_shape.size() != 3 || output_shape[0] != 1 || output_shape[2] != 22 ||
+      output_tensor.get_element_type() != ov::element::f32)
+    throw std::runtime_error("YOLOv5 output must be float32 [1,N,22]");
   cv::Mat output(output_shape[1], output_shape[2], CV_32F, output_tensor.data());
 
   return parse(scale, output, raw_img, frame_count);
@@ -100,12 +109,19 @@ std::list<Armor> YOLOV5::detect(const cv::Mat & raw_img, int frame_count)
 std::list<Armor> YOLOV5::parse(
   double scale, cv::Mat & output, const cv::Mat & bgr_img, int frame_count)
 {
-  // for each row: xywh + classess
+  // Model contract: four (x,y) corners, objectness logit, four colors, nine numbers.
+  if (bgr_img.empty() || output.empty()) return {};
+  if (!std::isfinite(scale) || scale <= 0 || output.dims != 2 ||
+      output.type() != CV_32FC1 || output.cols != 22)
+    throw std::invalid_argument("Invalid YOLOv5 postprocess tensor or scale");
   std::vector<int> color_ids, num_ids;
   std::vector<float> confidences;
   std::vector<cv::Rect> boxes;
   std::vector<std::vector<cv::Point2f>> armors_key_points;
   for (int r = 0; r < output.rows; r++) {
+    bool finite = true;
+    for (int c = 0; c < 22; ++c) finite = finite && std::isfinite(output.at<float>(r, c));
+    if (!finite) continue;
     double score = output.at<float>(r, 8);
     score = sigmoid(score);
 
@@ -138,14 +154,27 @@ std::list<Armor> YOLOV5::parse(
     float min_y = armor_key_points[0].y;
     float max_y = armor_key_points[0].y;
 
-    for (int i = 1; i < armor_key_points.size(); i++) {
+    bool bounded = true;
+    const double coordinate_limit = std::max(bgr_img.cols, bgr_img.rows) * 4.0 + 1000.0;
+    for (const auto & point : armor_key_points) {
+      bounded = bounded && std::isfinite(point.x) && std::isfinite(point.y) &&
+        std::abs(point.x) <= coordinate_limit && std::abs(point.y) <= coordinate_limit;
+    }
+    if (!bounded) continue;
+    for (std::size_t i = 1; i < armor_key_points.size(); i++) {
       if (armor_key_points[i].x < min_x) min_x = armor_key_points[i].x;
       if (armor_key_points[i].x > max_x) max_x = armor_key_points[i].x;
       if (armor_key_points[i].y < min_y) min_y = armor_key_points[i].y;
       if (armor_key_points[i].y > max_y) max_y = armor_key_points[i].y;
     }
 
-    cv::Rect rect(min_x, min_y, max_x - min_x, max_y - min_y);
+    // Clip only the NMS box; retain physical keypoints for later PnP validation.
+    const int x0 = std::clamp(static_cast<int>(std::floor(min_x)), 0, bgr_img.cols);
+    const int y0 = std::clamp(static_cast<int>(std::floor(min_y)), 0, bgr_img.rows);
+    const int x1 = std::clamp(static_cast<int>(std::ceil(max_x)), 0, bgr_img.cols);
+    const int y1 = std::clamp(static_cast<int>(std::ceil(max_y)), 0, bgr_img.rows);
+    if (x1 <= x0 || y1 <= y0) continue;
+    cv::Rect rect(x0, y0, x1 - x0, y1 - y0);
 
     color_ids.emplace_back(_color_id);
     num_ids.emplace_back(_class_id);
@@ -159,11 +188,16 @@ std::list<Armor> YOLOV5::parse(
 
   std::list<Armor> armors;
   for (const auto & i : indices) {
-    if (use_roi_) {
-      armors.emplace_back(
-        color_ids[i], num_ids[i], confidences[i], boxes[i], armors_key_points[i], offset_);
-    } else {
-      armors.emplace_back(color_ids[i], num_ids[i], confidences[i], boxes[i], armors_key_points[i]);
+    try {
+      if (use_roi_) {
+        armors.emplace_back(
+          color_ids[i], num_ids[i], confidences[i], boxes[i], armors_key_points[i], offset_);
+      } else {
+        armors.emplace_back(color_ids[i], num_ids[i], confidences[i], boxes[i], armors_key_points[i]);
+      }
+    } catch (const std::invalid_argument &) {
+      // A malformed candidate must not abort all valid detections in this frame.
+      continue;
     }
   }
 
@@ -201,15 +235,16 @@ bool YOLOV5::check_name(const Armor & armor) const
 
 bool YOLOV5::check_type(const Armor & armor) const
 {
-  auto name_ok = (armor.type == ArmorType::small)
-                   ? (armor.name != ArmorName::one && armor.name != ArmorName::base)
-                   : (armor.name != ArmorName::two && armor.name != ArmorName::sentry &&
-                      armor.name != ArmorName::outpost);
-
-  // 保存异常的图案，用于神经网络的迭代
-  // if (!name_ok) save(armor);
-
-  return name_ok;
+  if (armor.type == ArmorType::special)
+    return armor.name == ArmorName::outpost || armor.name == ArmorName::base;
+  if (armor.type == ArmorType::small)
+    return armor.name == ArmorName::two || armor.name == ArmorName::three ||
+           armor.name == ArmorName::four || armor.name == ArmorName::five ||
+           armor.name == ArmorName::sentry;
+  if (armor.type == ArmorType::big)
+    return armor.name == ArmorName::one || armor.name == ArmorName::three ||
+           armor.name == ArmorName::four || armor.name == ArmorName::five;
+  return false;
 }
 
 cv::Point2f YOLOV5::get_center_norm(const cv::Mat & bgr_img, const cv::Point2f & center) const

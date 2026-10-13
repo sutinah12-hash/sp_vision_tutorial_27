@@ -1,0 +1,8 @@
+# Synthetic pinhole calibration. Deliberately not a hardware calibration.
+# 1440 x 1080 pixels, world/gimbal x forward, y left, z up.
+R_gimbal2imubody: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+R_camera2gimbal: [0, 0, 1, -1, 0, 0, 0, -1, 0]
+t_camera2gimbal: [0, 0, 0]
+t_yaw2pitch: [0, 0, 0]
+camera_matrix: [1200, 0, 720, 0, 1200, 540, 0, 0, 1]
+distort_coeffs: [0, 0, 0, 0, 0]

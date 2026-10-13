@@ -41,3 +41,22 @@ t_camera2gimbal: [0.041545038711890976, 0.002043263447746746, 0.0926485489073881
 
 #####-----gimbal参数-----#####
 com_port: "/dev/gimbal"
+
+# Official intrinsics/extrinsics/offsets above are preserved, not newly calibrated.
+# Confirm image resolution, camera mount, axis signs and physical pitch limits on site.
+# --live is required for hardware. Fire also requires --allow-fire (task 2/3 only).
+# The supplied RX protocol has no wheel-enable bit: supervisor confirmation is required.
+controller:
+  pitch_limit_deg: 20.0
+  yaw_rate_limit: 6.0       # rad/s reference slew limit
+  pitch_rate_limit: 2.0    # rad/s reference slew limit
+  measurement_timeout: 0.12
+  reset_timeout: 0.45
+  execution_delay: 0.025  # s; must be measured on the actual robot
+  max_prediction: 0.65
+  fire_angle_tolerance: 0.008  # rad; not a proven hit-probability threshold
+  max_facing_angle: 0.65
+  settle_time: 1.0
+  stage_change_threshold: 0.8  # rad/s; task-2 stable speed-stage discriminator
+  acknowledgement_timeout: 0.5
+  offline_bullet_speed: 22.0   # assumption for file diagnostics, not measured telemetry

@@ -1,14 +1,18 @@
 #include "math_tools.hpp"
 
 #include <cmath>
+#include <algorithm>
+#include <limits>
 #include <opencv2/core.hpp>  // CV_PI
 
 namespace tools
 {
 double limit_rad(double angle)
 {
-  while (angle > CV_PI) angle -= 2 * CV_PI;
-  while (angle <= -CV_PI) angle += 2 * CV_PI;
+  if (!std::isfinite(angle)) return std::numeric_limits<double>::quiet_NaN();
+  // Bounded time even for corrupt, very large input; preserve (-pi, pi].
+  angle = std::remainder(angle, 2 * CV_PI);
+  if (angle <= -CV_PI) angle += 2 * CV_PI;
   return angle;
 }
 
@@ -37,7 +41,9 @@ Eigen::Vector3d eulers(Eigen::Quaterniond q, int axis0, int axis1, int axis2, bo
 
   Eigen::Vector3d eulers;
   auto n2 = a * a + b * b + c * c + d * d;
-  eulers[1] = std::acos(2 * (a * a + b * b) / n2 - 1);
+  if (!std::isfinite(n2) || n2 <= 1e-20)
+    return Eigen::Vector3d::Constant(std::numeric_limits<double>::quiet_NaN());
+  eulers[1] = std::acos(std::clamp(2 * (a * a + b * b) / n2 - 1, -1.0, 1.0));
 
   auto half_sum = std::atan2(b, a);
   auto half_diff = std::atan2(-d, c);

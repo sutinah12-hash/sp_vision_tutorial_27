@@ -1,0 +1,379 @@
+{
+  "suite": "offline_cli_fail_closed",
+  "passed": 37,
+  "total": 37,
+  "hardware_open_requested": false,
+  "scope": "Help, invalid argument combinations, nonexistent YAML and empty local video only",
+  "cases": [
+    {
+      "task": 1,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.22891125400019519,
+      "output": "Task 1 - safe default: no camera or serial access\nUsage: task_1 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 1,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.2194656780002333,
+      "output": "Task 1 - safe default: no camera or serial access\nUsage: task_1 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.20946122799978184,
+      "output": "Task 1 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 1,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.25554835900038597,
+      "output": "Task 1 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 1,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.23412449899933563,
+      "output": "Task 1 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.2269519740002579,
+      "output": "Task 1 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.2129034400004457,
+      "output": "Task 1 failed safely: bad file: /tmp/aim-cli-test-vrcgqwib/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 1,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6066280590002862,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-vrcgqwib/empty video.avi in function 'icvExtractPattern'\n\n\nTask 1 failed safely: Cannot decode video: /tmp/aim-cli-test-vrcgqwib/empty video.avi\n"
+    },
+    {
+      "task": 1,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.22791486000005534,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.21463458100060961,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2154994060001627,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.2302608930003771,
+      "output": "Task 1 failed safely: Unknown option: --not-a-real-option\n"
+    },
+    {
+      "task": 1,
+      "case": "task1_can_never_arm",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.23060652399999526,
+      "output": "Task 1 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 2,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.21612013000049046,
+      "output": "Task 2 - safe default: no camera or serial access\nUsage: task_2 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 2,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.22124191600050835,
+      "output": "Task 2 - safe default: no camera or serial access\nUsage: task_2 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.2215525499996147,
+      "output": "Task 2 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 2,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.21555466700010584,
+      "output": "Task 2 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 2,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.2175252550005098,
+      "output": "Task 2 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.21641479400022945,
+      "output": "Task 2 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.25354876999972475,
+      "output": "Task 2 failed safely: bad file: /tmp/aim-cli-test-vrcgqwib/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 2,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6860874099993453,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-vrcgqwib/empty video.avi in function 'icvExtractPattern'\n\n\nTask 2 failed safely: Cannot decode video: /tmp/aim-cli-test-vrcgqwib/empty video.avi\n"
+    },
+    {
+      "task": 2,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.23238555599982647,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.22521627400055877,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.21197442500033503,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.23106536300019798,
+      "output": "Task 2 failed safely: Unknown option: --not-a-real-option\n"
+    },
+    {
+      "task": 3,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.21308905099976982,
+      "output": "Task 3 - safe default: no camera or serial access\nUsage: task_3 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 3,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.2111575429998993,
+      "output": "Task 3 - safe default: no camera or serial access\nUsage: task_3 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.23952498499966168,
+      "output": "Task 3 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 3,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.22728784700029792,
+      "output": "Task 3 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 3,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.20612849699955405,
+      "output": "Task 3 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.22205032399961055,
+      "output": "Task 3 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.2240137210001194,
+      "output": "Task 3 failed safely: bad file: /tmp/aim-cli-test-vrcgqwib/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 3,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6390757420003865,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-vrcgqwib/empty video.avi in function 'icvExtractPattern'\n\n\nTask 3 failed safely: Cannot decode video: /tmp/aim-cli-test-vrcgqwib/empty video.avi\n"
+    },
+    {
+      "task": 3,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.24723979999998846,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.23461396699985926,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2353435269997135,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.20590497899956972,
+      "output": "Task 3 failed safely: Unknown option: --not-a-real-option\n"
+    }
+  ]
+}

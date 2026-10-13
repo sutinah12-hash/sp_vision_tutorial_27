@@ -1,0 +1,66 @@
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found OpenCV: /usr (found version "4.5.4") found components: core imgproc calib3d imgcodecs videoio highgui dnn 
+-- Looking for C++ include pthread.h
+-- Looking for C++ include pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found nlohmann_json: /usr/lib/cmake/nlohmann_json/nlohmann_jsonConfig.cmake (found version "3.10.5") 
+-- Found Python3: /usr/bin/python3.10 (found version "3.10.12") found components: Interpreter 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/zrj/final_project_aim/build-sanitize
+[  4%] Building CXX object CMakeFiles/aim_tools.dir/tools/exiter.cpp.o
+[  8%] Building CXX object CMakeFiles/aim_tools.dir/tools/extended_kalman_filter.cpp.o
+[ 12%] Building CXX object CMakeFiles/aim_tools.dir/tools/img_tools.cpp.o
+[ 16%] Building CXX object CMakeFiles/aim_tools.dir/tools/math_tools.cpp.o
+[ 20%] Building CXX object CMakeFiles/aim_tools.dir/tools/plotter.cpp.o
+[ 25%] Building CXX object CMakeFiles/aim_tools.dir/tools/trajectory.cpp.o
+[ 29%] Building CXX object CMakeFiles/aim_tools.dir/tools/logger.cpp.o
+[ 33%] Building CXX object CMakeFiles/aim_tools.dir/tools/crc.cpp.o
+[ 37%] Linking CXX static library libaim_tools.a
+[ 37%] Built target aim_tools
+[ 41%] Building CXX object CMakeFiles/aim_core.dir/tasks/auto_aim/armor.cpp.o
+[ 45%] Building CXX object CMakeFiles/aim_core.dir/tasks/auto_aim/solver.cpp.o
+[ 50%] Building CXX object CMakeFiles/aim_core.dir/tasks/auto_aim/target.cpp.o
+[ 54%] Building CXX object CMakeFiles/aim_core.dir/tasks/auto_aim/controller.cpp.o
+[ 58%] Linking CXX static library libaim_core.a
+[ 58%] Built target aim_core
+[ 62%] Building CXX object CMakeFiles/aim_simulator.dir/sim/aim_simulator.cpp.o
+[ 66%] Linking CXX executable aim_simulator
+[ 66%] Built target aim_simulator
+[ 70%] Building CXX object CMakeFiles/solver_tests.dir/tests/test_solver.cpp.o
+[ 75%] Linking CXX executable solver_tests
+[ 75%] Built target solver_tests
+[ 79%] Building CXX object CMakeFiles/controller_edge_tests.dir/tests/test_controller_edges.cpp.o
+[ 83%] Linking CXX executable controller_edge_tests
+[ 83%] Built target controller_edge_tests
+[ 87%] Building CXX object CMakeFiles/target_tests.dir/tests/test_target.cpp.o
+[ 91%] Linking CXX executable target_tests
+[ 91%] Built target target_tests
+[ 95%] Building CXX object CMakeFiles/controller_tests.dir/tests/test_controller.cpp.o
+[100%] Linking CXX executable controller_tests
+[100%] Built target controller_tests
+Internal ctest changing into directory: /home/zrj/final_project_aim/build-sanitize
+Test project /home/zrj/final_project_aim/build-sanitize
+    Start 1: solver_tests
+1/6 Test #1: solver_tests .....................   Passed    1.20 sec
+    Start 2: simulator_physics_tests
+2/6 Test #2: simulator_physics_tests ..........   Passed    0.55 sec
+    Start 3: simulator_blackbox_tests
+3/6 Test #3: simulator_blackbox_tests .........   Passed    3.52 sec
+    Start 4: controller_edge_tests
+4/6 Test #4: controller_edge_tests ............   Passed   43.50 sec
+    Start 5: target_tests
+5/6 Test #5: target_tests .....................   Passed    5.96 sec
+    Start 6: controller_tests
+6/6 Test #6: controller_tests .................   Passed    0.64 sec
+
+100% tests passed, 0 tests failed out of 6
+
+Total Test time (real) =  55.38 sec

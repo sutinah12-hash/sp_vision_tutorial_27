@@ -1,0 +1,66 @@
+{
+  "evidence": "REAL RECORDED IMAGE INPUT / FIXED IMU / NO HARDWARE OR HIT VALIDATION",
+  "source_video_sha256": "70d04ce4a73197ee1d5e0e771c148f8f883866bc8a3a9dee86125dffde06533b",
+  "runs": [
+    {
+      "task": 1,
+      "frames": 90,
+      "detections": 90,
+      "valid_pnp_poses": 63,
+      "frames_with_control_computed": 65,
+      "fire_pulses": 0,
+      "input_mode": "offline_static_imu",
+      "hardware_opened": false,
+      "metadata": {
+        "config": "/home/zrj/final_project_aim/configs/offline_cpu.yaml",
+        "event": "metadata",
+        "fire_armed": false,
+        "live": false,
+        "notice": "Fixed identity IMU, file time axis; no real robot, closed-loop, or hit validation",
+        "task": 1,
+        "video": "/home/zrj/sp_vision_tutorial_27/lecture4/class/assets/video.avi"
+      },
+      "telemetry_sha256": "e755ea723724f4860a2b754b0e8c9411fa044ce2c38dba0bb01dc5a67d14aa61"
+    },
+    {
+      "task": 2,
+      "frames": 90,
+      "detections": 90,
+      "valid_pnp_poses": 63,
+      "frames_with_control_computed": 65,
+      "fire_pulses": 0,
+      "input_mode": "offline_static_imu",
+      "hardware_opened": false,
+      "metadata": {
+        "config": "/home/zrj/final_project_aim/configs/offline_cpu.yaml",
+        "event": "metadata",
+        "fire_armed": false,
+        "live": false,
+        "notice": "Fixed identity IMU, file time axis; no real robot, closed-loop, or hit validation",
+        "task": 2,
+        "video": "/home/zrj/sp_vision_tutorial_27/lecture4/class/assets/video.avi"
+      },
+      "telemetry_sha256": "61e3a88a4f32b3f799d21ac02c8d8a299e6335ceda5e68164e12bbfd25d82785"
+    },
+    {
+      "task": 3,
+      "frames": 90,
+      "detections": 90,
+      "valid_pnp_poses": 63,
+      "frames_with_control_computed": 0,
+      "fire_pulses": 0,
+      "input_mode": "offline_static_imu",
+      "hardware_opened": false,
+      "metadata": {
+        "config": "/home/zrj/final_project_aim/configs/offline_cpu.yaml",
+        "event": "metadata",
+        "fire_armed": false,
+        "live": false,
+        "notice": "Fixed identity IMU, file time axis; no real robot, closed-loop, or hit validation",
+        "task": 3,
+        "video": "/home/zrj/sp_vision_tutorial_27/lecture4/class/assets/video.avi"
+      },
+      "telemetry_sha256": "acd80e7ac4399a91d827187ada566c035498ff1e270441c0ac85cc36eabeb338"
+    }
+  ]
+}

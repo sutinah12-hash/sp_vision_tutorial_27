@@ -1,0 +1,30 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/zrj/final_project_aim/build
+
+[HANDLER_OUTPUT] 
+Test project /home/zrj/final_project_aim/build
+
+      Start  1: solver_tests
+ 1/10 Test  #1: solver_tests .....................   Passed    0.02 sec
+      Start  2: simulator_physics_tests
+ 2/10 Test  #2: simulator_physics_tests ..........   Passed    0.14 sec
+      Start  3: simulator_blackbox_tests
+ 3/10 Test  #3: simulator_blackbox_tests .........   Passed    1.03 sec
+      Start  4: plotter_loopback_tests
+ 4/10 Test  #4: plotter_loopback_tests ...........   Passed    0.73 sec
+      Start  5: controller_edge_tests
+ 5/10 Test  #5: controller_edge_tests ............   Passed    2.11 sec
+      Start  6: target_tests
+ 6/10 Test  #6: target_tests .....................   Passed    0.25 sec
+      Start  7: controller_tests
+ 7/10 Test  #7: controller_tests .................   Passed    0.02 sec
+      Start  8: yolo_parser_tests
+ 8/10 Test  #8: yolo_parser_tests ................   Passed    0.47 sec
+      Start  9: task_cli_tests
+ 9/10 Test  #9: task_cli_tests ...................   Passed    9.63 sec
+      Start 10: gimbal_transport_tests
+10/10 Test #10: gimbal_transport_tests ...........   Passed    4.35 sec
+
+100% tests passed, 0 tests failed out of 10
+
+Total Test time (real) =  18.75 sec

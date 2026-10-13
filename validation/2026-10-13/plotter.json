@@ -1,0 +1,53 @@
+{
+  "schema": "aim-plotter-loopback-test-v1",
+  "passed": true,
+  "evidence": "Real UDP reception from compiled simulator; SYNTHETIC INPUT / NOT HARDWARE RESULT",
+  "listener": "127.0.0.1:9870/UDP",
+  "scenario": "follow",
+  "duration_s": 3.0,
+  "datagrams_received": 301,
+  "all_required_numbers_finite": true,
+  "ignored_other_streams": 0,
+  "timestamps_strictly_increasing": true,
+  "simulator_checks_passed": true,
+  "fire_pulses": 0,
+  "command_fields": [
+    "cmd_yaw",
+    "cmd_pitch"
+  ],
+  "estimator_fields": [
+    "estimated_omega"
+  ],
+  "synthetic_truth_fields": [
+    "truth_omega"
+  ],
+  "simulated_feedback_fields": [
+    "simulated_feedback_yaw",
+    "simulated_feedback_pitch"
+  ],
+  "truth_label_separate_from_estimate": true,
+  "first_sample": {
+    "cmd_pitch": 0.0,
+    "cmd_yaw": 3.141592653589793,
+    "estimated_omega": 0.0,
+    "simulated_feedback_pitch": 0.0,
+    "simulated_feedback_yaw": 3.141592653589793,
+    "time": 0.0,
+    "truth_omega": 0.0
+  },
+  "last_sample": {
+    "cmd_pitch": -0.2636862454530809,
+    "cmd_yaw": -2.6627220303685597,
+    "estimated_omega": 0.0,
+    "simulated_feedback_pitch": -0.27088103274304515,
+    "simulated_feedback_yaw": -2.662038605779779,
+    "time": 3.0,
+    "truth_omega": 0.0
+  },
+  "not_tested": [
+    "PlotJuggler GUI rendering",
+    "real robot telemetry",
+    "physical actuator readiness"
+  ],
+  "test_time_utc": "2026-10-13T16:01:58.294632+00:00"
+}

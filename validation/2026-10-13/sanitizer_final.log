@@ -1,0 +1,24 @@
+[OUTPUT] 
+Internal ctest changing into directory: /home/zrj/final_project_aim/build-sanitize
+
+[HANDLER_OUTPUT] 
+Test project /home/zrj/final_project_aim/build-sanitize
+
+    Start 1: solver_tests
+1/7 Test #1: solver_tests .....................   Passed    0.57 sec
+    Start 2: simulator_physics_tests
+2/7 Test #2: simulator_physics_tests ..........   Passed    0.61 sec
+    Start 3: simulator_blackbox_tests
+3/7 Test #3: simulator_blackbox_tests .........   Passed    3.40 sec
+    Start 4: plotter_loopback_tests
+4/7 Test #4: plotter_loopback_tests ...........   Passed    1.46 sec
+    Start 5: controller_edge_tests
+5/7 Test #5: controller_edge_tests ............   Passed   44.97 sec
+    Start 6: target_tests
+6/7 Test #6: target_tests .....................   Passed    6.02 sec
+    Start 7: controller_tests
+7/7 Test #7: controller_tests .................   Passed    0.69 sec
+
+100% tests passed, 0 tests failed out of 7
+
+Total Test time (real) =  57.73 sec

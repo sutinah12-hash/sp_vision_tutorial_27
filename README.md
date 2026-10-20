@@ -6,11 +6,15 @@
 **当前验证范围是 Ubuntu 22.04 构建、自动化测试、离线录像和合成闭环仿真，不是实机考核通过证明。**
 演示和日志中的合成结果均标注 `SYNTHETIC INPUT / NOT HARDWARE RESULT`。
 
-本轮构建、窗口尺寸及完整视野验证见 [2026-10-20 验证记录](validation/2026-10-20/README.md)。
+窗口尺寸及完整视野验证见 [首次部署记录](validation/2026-10-20/README.md)。
+本次定位修复、原始接口核对及未通过项目见 [定位修复验证记录](validation/2026-10-20-pnpfix/README.md)。
+**当前交付是任务一定位修复包，不代表任务二、三的全部问题已经修复。**
 
 ## 现场快速开始：编译 → 运行
 
-任务 1、2 的目标使用红色配置。三个程序直接通过终端运行，不额外增加“只观察”步骤。
+当前换车后的现场配置是 **standard 标定、蓝色目标**，使用 `configs/standard.yaml`。
+`standard_red.yaml` / `sentry_red.yaml` 保留给相应机型的红色目标；颜色和标定分别确认。
+三个程序直接通过终端运行，不额外增加“只观察”步骤。
 以下命令一行一条复制，不要复制提示符、额外反斜杠或网页链接格式。
 
 ### 第一步：进入项目，准备可执行程序
@@ -19,13 +23,14 @@
 
 ```bash
 cd /home/rm/Desktop
-tar -xzf zhaoruijie_aim_ubuntu22_20261020.tar.gz
-cd /home/rm/Desktop/zhaoruijie-final_project_aim
+mkdir zhaoruijie_pnpfix
+tar -xzf zhaoruijie_aim_ubuntu22_20261020_pnpfix.tar.gz -C zhaoruijie_pnpfix
+cd /home/rm/Desktop/zhaoruijie_pnpfix/zhaoruijie-final_project_aim
 bash scripts/check_runtime.sh bin
 BIN=./bin
 ```
 
-若解压目录已存在，先换新的位置，避免覆盖已有修改和日志。
+若 `mkdir` 提示目录已存在，先停止并换新的位置，避免覆盖已有修改和日志。
 预编译包已含三个任务的 Linux 可执行程序；检查通过后可以跳过重新编译。
 它面向 Ubuntu 22.04 x86_64，仍依赖机器人已有的 OpenVINO 2024.6、OpenCV 4.5、
 MVS 完整运行环境等，并非任意 Linux 都能直接运行。
@@ -47,29 +52,31 @@ BIN=./build-local
 如果你继续使用旧目录 `/home/rm/Desktop/sp_vision_tutorial_27-final_project_aim`，
 先把更新的源码放好，再在该目录执行上述编译命令。
 
-### 第二步：一次性选对红色目标配置
+### 第二步：一次性选对标定和目标颜色
 
 让现场负责人确认这辆车使用哪套相机标定。**颜色相同不代表相机标定相同。**
 
-- 确认使用 standard 标定：`CFG=configs/standard_red.yaml`。
-- 确认使用 sentry 标定：`CFG=configs/sentry_red.yaml`。
+- standard 标定、蓝色目标（当前现场）：`CFG=configs/standard.yaml`。
+- standard 标定、红色目标：`CFG=configs/standard_red.yaml`。
+- sentry 标定、蓝色目标：`CFG=configs/sentry.yaml`。
+- sentry 标定、红色目标：`CFG=configs/sentry_red.yaml`。
 
-例如，只有确认 standard 标定适用时执行：
+例如，当前现场已确认 standard 标定、蓝色目标时执行：
 
 ```bash
-CFG=configs/standard_red.yaml
+CFG=configs/standard.yaml
 printf '程序目录=%s\n配置=%s\n' "$BIN" "$CFG"
 ls -l /dev/gimbal
 lsusb
 ```
 
-两个新配置都为红色，分别保留原配置的相机内参、畸变、安装外参、旋转、曝光和控制限制。
-原来的 `sentry.yaml` 是蓝色；使用它看见红板检测框，不代表控制器会跟随红板。
+两个 `_red` 配置都为红色，分别保留对应机型的相机内参、畸变、安装外参、旋转、曝光和控制限制。
+`standard.yaml` 和 `sentry.yaml` 当前均为蓝色；看到红板检测框不代表控制器会跟随红板。
 不要凭电脑名猜标定，也不要为改变敌方颜色而换另一机型标定。
 相机、串口应已连接，其他程序不占用设备；现场负责人确认可进行云台测试后再运行。
 **新开终端时，要重新进入项目目录，并设置 `BIN`、`CFG`。**
 
-### 任务 1：红色装甲板跟随
+### 任务 1：装甲板跟随（当前为蓝色）
 
 1. 完成上面两步后直接运行：
 
@@ -77,7 +84,7 @@ lsusb
 "$BIN/task_1" "$CFG" --live --show --output artifacts/task1_live
 ```
 
-2. 按现场规程进入自瞄档位，将红板放入相机视野。正常时能看到闭合四点框和目标标签；
+2. 按现场规程进入自瞄档位，将与 `enemy_color` 一致的装甲板放入相机视野。正常时能看到闭合四点框和目标标签；
    有效跟随时 `control=1`、`reason=follow_only`，俯仰受限时可能为 `pitch_limited`。
    **任务 1 永不开火**，不需要也不能添加 `--allow-fire`。
 3. 现场已有的 Plotter 可接收本机 UDP 9870 的 `cmd_yaw`、`cmd_pitch`（弧度）。
@@ -89,9 +96,35 @@ lsusb
 python3 tools/summarize_log.py artifacts/task1_live
 ```
 
-### 任务 2：红色车辆目标跟踪、估速与切板
+任务一使用 `free_armor` 定位模式：通过四点、正深度、距离合理性和原有 5 px 重投影误差检查后，
+直接使用 PnP 的自由姿态与位置，不要求目标保持整车模型的固定 15° 倾角和零横滚。
+任务二、三仍使用 `vehicle_model`，保留其几何约束。
+“3 米手持、yaw 跨越 ±π、俯仰 ±18°”只是测试样例，不是任务一要求、使用条件或完整能力边界。
+程序没有固定 3 米筛选；实际可用范围取决于目标成像、角点质量和标定，云台物理限制仍需遵守。
 
-1. 同样使用已确认的红色 `CFG`，先运行不发射的跟踪程序：
+#### 连续转圈与电控角度约定
+
+视觉方位使用最短角差，不在 yaw 方向设置 ±180° 的机械限位。
+沿用上游 `atan2(y,x)` 的**绝对弧度角**约定，输出规范化到 `(-π, π]`，
+不是角度制，也不是累计圈数。跨边界时先求最短角差，再限速及规范化，
+因此 `+179° → -179°` 是向前约 2°，不是反向转 358°。
+没有新增需要学生选择的 `yaw_output` 协议开关。
+左右方向及正负标定偏置均有超过两圈的纯内存回归测试，
+但这不能替代串口接口核验及实车 360° 跟随复测，也不代表单相机可以同时看见全周。
+
+### 任务二、三的发射排查口径
+
+本次没有以任意放大容差、绕过通信失联停发等方式换取发射。
+先查看日志中的实际 `reason`：`fire_not_armed` 是未显式授权；
+`estimator_not_converged` 是估计未就绪；`gimbal_not_aligned` 是实际/指令角未到达目标；
+`waiting_shot_acknowledgement` / `shot_acknowledgement_fault` 是单发回执或计数协议未满足。
+其中角度容差、稳定时间等属于现场可核验参数，不是作业条文；
+应结合真实角误差、发射回执延迟和负责人确认调整，不能仅凭“没发弹”判断应去掉哪一项。
+当前协议还缺少摩擦轮使能和明确阶段事件；这些接口问题需继续核对，不承诺已完成实机发射考核。
+
+### 任务 2：车辆目标跟踪、估速与切板
+
+1. 使用已确认颜色和标定的 `CFG`（当前为 standard、蓝色），先运行不发射的跟踪程序：
 
 ```bash
 "$BIN/task_2" "$CFG" --live --show --output artifacts/task2_live
@@ -124,7 +157,7 @@ python3 tools/summarize_log.py artifacts/task2_assessment
 
 ### 任务 3：前哨中部三块装甲板
 
-1. 先确认前哨颜色。**只有前哨也是红色且使用同一标定时**，沿用：
+1. 先确认前哨颜色。**只有前哨颜色与当前 CFG 一致且使用同一标定时**，沿用：
 
 ```bash
 TASK3_CFG="$CFG"
@@ -174,8 +207,10 @@ python3 tools/summarize_log.py artifacts/task3_assessment
 
 `reason` 保留控制器原始判断，`diagnostic` 解释当前帧，多个问题也可能同时存在：
 
-- `enemy_color_mismatch`：有检测但没有目标颜色，先检查 `enemy=red` 和检测标签。
+- `enemy_color_mismatch`：有检测但没有目标颜色，先检查窗口中的 `enemy` 和检测标签。
 - `enemy_pnp_rejected`：目标颜色对但 PnP 未通过，检查角点、模糊和实际标定。
+- `enemy_model_rejected`：相机 PnP 已通过，但任务二、三的整车模型不匹配；不再统称为 PnP 失败。
+- `pose_rejections`：日志中的详细原因计数，例如 `invalid_quad`、`pnp_reprojection`、`vehicle_model_reprojection`。
 - `wrong_armor_type`：目标类型与任务不符。
 - `frame_too_old`：采集到决策的时间超过默认 120 ms；检查计算负载与积压，不直接放宽超时。
 - `imu_missing` / `telemetry_stale`：姿态或通信反馈不新鲜。

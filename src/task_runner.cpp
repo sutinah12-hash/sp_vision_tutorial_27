@@ -201,7 +201,7 @@ std::string armor_label(const auto_aim::Armor & armor)
   const std::string n = name < auto_aim::ARMOR_NAMES.size() ? auto_aim::ARMOR_NAMES[name] : "unknown";
   std::ostringstream text;
   text << c << n << ' ' << std::fixed << std::setprecision(2) << armor.confidence;
-  if (!armor.pose_valid) text << " PNP_REJECTED";
+  if (!armor.pose_valid) text << " POSE:" << armor.pose_status;
   return text.str();
 }
 
@@ -291,6 +291,7 @@ struct RunLog
       numeric["blue_detections"] = diagnostics->blue;
       numeric["enemy_detections"] = diagnostics->enemy_detected;
       numeric["enemy_valid_poses"] = diagnostics->enemy_solved;
+      numeric["enemy_pnp_valid"] = diagnostics->enemy_pnp_valid;
       numeric["task_type_poses"] = diagnostics->task_poses;
       numeric["frame_age_ms"] = diagnostics->age_ms;
       numeric["frame_limit_ms"] = diagnostics->limit_ms;
@@ -301,6 +302,7 @@ struct RunLog
     if (diagnostics) {
       numeric["diagnostic"] = diagnostics->hint;
       numeric["enemy_color"] = diagnostics->enemy;
+      numeric["pose_rejections"] = diagnostics->pose_rejections;
     }
     numeric["event"] = event;
     numeric["state"] = command.state;
@@ -342,6 +344,8 @@ int run_task(int task, int argc, char * argv[])
       {"enemy_color", yaml["enemy_color"].as<std::string>()},
       {"window_width", options.window.width}, {"window_height", options.window.height},
       {"measurement_timeout_ms", controller.config().measurement_timeout * 1000.0},
+      {"pose_mode", task == 1 ? "free_armor" : "vehicle_model"},
+      {"yaw_output", "absolute_radians_wrapped"},
       {"notice", options.live ? "Field validation and wheel-enable confirmation required" :
         "Fixed identity IMU, file time axis; no real robot, closed-loop, or hit validation"}}).dump() << '\n';
     std::unique_ptr<io::Gimbal> gimbal;
@@ -403,7 +407,10 @@ int run_task(int task, int argc, char * argv[])
       if (attitude) {
         solver.set_R_gimbal2world(*attitude);
         detections = detector.detect(image, frame);
-        for (auto & armor : detections) if (solver.solve(armor)) observations.push_back(armor);
+        const auto pose_mode = task == 1 ? auto_aim::PoseMode::FreeArmor :
+                                          auto_aim::PoseMode::VehicleModel;
+        for (auto & armor : detections)
+          if (solver.solve(armor, pose_mode)) observations.push_back(armor);
       }
       const auto now = options.live ? Clock::now() : frame_time;
       auto_aim::Feedback feedback;

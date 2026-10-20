@@ -1,5 +1,6 @@
-enemy_color: "red"
-# enemy_color: "blue"
+# Current field setup: standard calibration, blue target (confirmed on site).
+enemy_color: "blue"
+# For a red target with the same calibration use standard_red.yaml.
 rotation_angle: 0
 
 #####-----神经网络参数-----#####

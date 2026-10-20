@@ -268,6 +268,9 @@ AimCommand Controller::step(const std::vector<Armor> & observations, AimTime fra
   const bool within_pitch = std::abs(desired_pitch) <= config_.pitch_limit;
   desired_pitch = std::clamp(desired_pitch, -config_.pitch_limit, config_.pitch_limit);
   const double yaw_delta = tools::limit_rad(desired_yaw - previous_yaw);
+  // The upstream aimer sends absolute atan2-based radians, not a turn counter.
+  // Limit the shortest angular difference BEFORE normalizing the output.
+  // +/-pi is a representation seam, not a mechanical yaw end stop.
   command.yaw = tools::limit_rad(previous_yaw +
     std::clamp(yaw_delta, -config_.yaw_rate_limit * step_dt, config_.yaw_rate_limit * step_dt));
   command.pitch = previous_pitch + std::clamp(desired_pitch - previous_pitch,

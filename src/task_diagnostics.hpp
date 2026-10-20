@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <cmath>
 #include <list>
+#include <map>
 #include <stdexcept>
 #include <string>
 
@@ -40,6 +41,8 @@ inline WindowSize parse_window_size(const std::string & value)
 struct FrameDiagnostics
 {
   int red = 0, blue = 0, enemy_detected = 0, enemy_solved = 0, task_poses = 0;
+  int enemy_pnp_valid = 0;
+  std::map<std::string, int> pose_rejections;
   double age_ms = 0.0, limit_ms = 0.0;
   bool imu_ok = false;
   bool requested_control = false;
@@ -62,7 +65,8 @@ inline FrameDiagnostics inspect_frame(
     if (a.color == auto_aim::blue) ++d.blue;
     if (a.color != config.enemy) continue;
     ++d.enemy_detected;
-    if (!a.pose_valid) continue;
+    if (a.raw_pose_valid) ++d.enemy_pnp_valid;
+    if (!a.pose_valid) { ++d.pose_rejections[a.pose_status]; continue; }
     ++d.enemy_solved;
     if (a.name == auto_aim::not_armor) continue;
     if (config.task == 3 && a.name != auto_aim::outpost) continue;
@@ -76,7 +80,8 @@ inline FrameDiagnostics inspect_frame(
   else if (age_ms > d.limit_ms) d.hint = "frame_too_old";
   else if (detections.empty()) d.hint = "no_detections";
   else if (d.enemy_detected == 0) d.hint = "enemy_color_mismatch";
-  else if (d.enemy_solved == 0) d.hint = "enemy_pnp_rejected";
+  else if (d.enemy_solved == 0)
+    d.hint = d.enemy_pnp_valid > 0 ? "enemy_model_rejected" : "enemy_pnp_rejected";
   else if (d.task_poses == 0) d.hint = "wrong_armor_type";
   else d.hint = command.reason;
   return d;

@@ -200,7 +200,9 @@ Frame capture(
     for (const auto & pixel : pixels) observed.center += pixel * 0.25f;
     observed.box = cv::boundingRect(pixels);
     try {
-      if (solver.solve(observed) && observed.xyz_in_world.allFinite() && observed.ypr_in_world.allFinite())
+      const auto pose_mode = follows(options) ? auto_aim::PoseMode::FreeArmor :
+                                                 auto_aim::PoseMode::VehicleModel;
+      if (solver.solve(observed, pose_mode) && observed.xyz_in_world.allFinite() && observed.ypr_in_world.allFinite())
         frame.observations.push_back(std::move(observed));
     } catch (const cv::Exception &) {
       // A rejected PnP sample is a missing observation, never a truth replacement.

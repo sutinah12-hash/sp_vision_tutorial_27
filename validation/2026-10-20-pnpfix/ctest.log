@@ -1,0 +1,385 @@
+Start testing: Oct 20 10:12 EDT
+----------------------------------------------------------
+1/13 Testing: task_diagnostics_tests
+1/13 Test: task_diagnostics_tests
+Command: "/home/zrj/final_project_aim/build-deploy/task_diagnostics_tests"
+Directory: /home/zrj/final_project_aim/build-deploy
+"task_diagnostics_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+Window, full-view pixel preservation and red-target diagnostics passed.
+<end of output>
+Test time =   0.06 sec
+----------------------------------------------------------
+Test Passed.
+"task_diagnostics_tests" end time: Oct 20 10:12 EDT
+"task_diagnostics_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/13 Testing: solver_tests
+2/13 Test: solver_tests
+Command: "/home/zrj/final_project_aim/build-deploy/solver_tests" "/home/zrj/final_project_aim/sim/camera.yaml"
+Directory: /home/zrj/final_project_aim/build-deploy
+"solver_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+PASS calibration validation, IMU, PnP, projection offsets and angle edges
+<end of output>
+Test time =   0.03 sec
+----------------------------------------------------------
+Test Passed.
+"solver_tests" end time: Oct 20 10:12 EDT
+"solver_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/13 Testing: task1_pose_tests
+3/13 Test: task1_pose_tests
+Command: "/home/zrj/final_project_aim/build-deploy/task1_pose_tests" "/home/zrj/final_project_aim/sim/camera.yaml"
+Directory: /home/zrj/final_project_aim/build-deploy
+"task1_pose_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+Free-plate poses: cases=1500 rejected=0 worst_position_error_m=1.66351e-05
+PASS 18 bidirectional/no-fire cases and pose rejection gates
+<end of output>
+Test time =   0.38 sec
+----------------------------------------------------------
+Test Passed.
+"task1_pose_tests" end time: Oct 20 10:12 EDT
+"task1_pose_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/13 Testing: simulator_physics_tests
+4/13 Test: simulator_physics_tests
+Command: "/home/zrj/final_project_aim/build-deploy/aim_simulator" "--self-test" "--config" "/home/zrj/final_project_aim/sim/camera.yaml"
+Directory: /home/zrj/final_project_aim
+"simulator_physics_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+{
+  "checks": {
+    "collision_deterministic": true,
+    "exact_project_solve_round_trip": true,
+    "integration_step_refinement": true,
+    "known_yaw_offset_misses": true,
+    "outpost_top_panel_rejected": true,
+    "stationary_front_plate_hit": true
+  },
+  "evidence": "SYNTHETIC SCORER SELF-TEST / NOT HARDWARE",
+  "passed": true
+}
+<end of output>
+Test time =   0.15 sec
+----------------------------------------------------------
+Test Passed.
+"simulator_physics_tests" end time: Oct 20 10:12 EDT
+"simulator_physics_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/13 Testing: log_summary_tests
+5/13 Test: log_summary_tests
+Command: "/usr/bin/python3.10" "/home/zrj/final_project_aim/tests/test_log_summary.py"
+Directory: /home/zrj/final_project_aim/build-deploy
+"log_summary_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+...
+----------------------------------------------------------------------
+Ran 3 tests in 0.007s
+
+OK
+<end of output>
+Test time =   0.12 sec
+----------------------------------------------------------
+Test Passed.
+"log_summary_tests" end time: Oct 20 10:12 EDT
+"log_summary_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/13 Testing: simulator_blackbox_tests
+6/13 Test: simulator_blackbox_tests
+Command: "/usr/bin/python3.10" "/home/zrj/final_project_aim/tests/test_simulator.py" "--binary" "/home/zrj/final_project_aim/build-deploy/aim_simulator"
+Directory: /home/zrj/final_project_aim/build-deploy
+"simulator_blackbox_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+test_independent_collision_scorer_and_pnp_roundtrip (__main__.SimulatorTests) ... ok
+test_nonfinite_noise_is_rejected (__main__.SimulatorTests) ... ok
+test_seed_reproducibility_and_real_artifacts (__main__.SimulatorTests) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.951s
+
+OK
+<end of output>
+Test time =   1.05 sec
+----------------------------------------------------------
+Test Passed.
+"simulator_blackbox_tests" end time: Oct 20 10:12 EDT
+"simulator_blackbox_tests" time elapsed: 00:00:01
+----------------------------------------------------------
+
+7/13 Testing: plotter_loopback_tests
+7/13 Test: plotter_loopback_tests
+Command: "/usr/bin/python3.10" "/home/zrj/final_project_aim/tests/test_plotter.py" "--binary" "/home/zrj/final_project_aim/build-deploy/aim_simulator"
+Directory: /home/zrj/final_project_aim/build-deploy
+"plotter_loopback_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+{
+  "schema": "aim-plotter-loopback-test-v1",
+  "passed": true,
+  "evidence": "Real UDP reception from compiled simulator; SYNTHETIC INPUT / NOT HARDWARE RESULT",
+  "listener": "127.0.0.1:9870/UDP",
+  "scenario": "follow",
+  "duration_s": 3.0,
+  "datagrams_received": 301,
+  "all_required_numbers_finite": true,
+  "ignored_other_streams": 0,
+  "timestamps_strictly_increasing": true,
+  "simulator_checks_passed": true,
+  "fire_pulses": 0,
+  "command_fields": [
+    "cmd_yaw",
+    "cmd_pitch"
+  ],
+  "estimator_fields": [
+    "estimated_omega"
+  ],
+  "synthetic_truth_fields": [
+    "truth_omega"
+  ],
+  "simulated_feedback_fields": [
+    "simulated_feedback_yaw",
+    "simulated_feedback_pitch"
+  ],
+  "truth_label_separate_from_estimate": true,
+  "first_sample": {
+    "cmd_pitch": 0.0,
+    "cmd_yaw": 3.141592653589793,
+    "estimated_omega": 0.0,
+    "simulated_feedback_pitch": 0.0,
+    "simulated_feedback_yaw": 3.141592653589793,
+    "time": 0.0,
+    "truth_omega": 0.0
+  },
+  "last_sample": {
+    "cmd_pitch": -0.26368623432753585,
+    "cmd_yaw": -2.662722303570301,
+    "estimated_omega": 0.0,
+    "simulated_feedback_pitch": -0.27088105953191877,
+    "simulated_feedback_yaw": -2.6620386020688103,
+    "time": 3.0,
+    "truth_omega": 0.0
+  },
+  "not_tested": [
+    "PlotJuggler GUI rendering",
+    "real robot telemetry",
+    "physical actuator readiness"
+  ],
+  "test_time_utc": "2026-10-20T14:12:32.905226+00:00"
+}
+<end of output>
+Test time =   0.72 sec
+----------------------------------------------------------
+Test Passed.
+"plotter_loopback_tests" end time: Oct 20 10:12 EDT
+"plotter_loopback_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+8/13 Testing: controller_edge_tests
+8/13 Test: controller_edge_tests
+Command: "/home/zrj/final_project_aim/build-deploy/controller_edge_tests"
+Directory: /home/zrj/final_project_aim/build-deploy
+"controller_edge_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+PASS all floating-point configuration is finite
+PASS timestamps and duplicate observation identity
+PASS prediction horizon and long-gap contract
+PASS acknowledgement timeout remains latched
+PASS late acknowledgement without an intermediate poll
+PASS counter wrap and multiple acknowledgement
+PASS two-stage ammunition budget
+PASS outpost 30-second first-pulse budget
+<end of output>
+Test time =   2.71 sec
+----------------------------------------------------------
+Test Passed.
+"controller_edge_tests" end time: Oct 20 10:12 EDT
+"controller_edge_tests" time elapsed: 00:00:02
+----------------------------------------------------------
+
+9/13 Testing: target_tests
+9/13 Test: target_tests
+Command: "/home/zrj/final_project_aim/build-deploy/target_tests"
+Directory: /home/zrj/final_project_aim/build-deploy
+"target_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+rotation omega=-9 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00218552 plate_error=0.00257412 omega_error=0.00832557 converged=1
+rotation omega=-6 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00219836 plate_error=0.00307751 omega_error=0.00558725 converged=1
+rotation omega=-3 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00259943 plate_error=0.00428646 omega_error=0.010039 converged=1
+rotation omega=3 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00174789 plate_error=0.00377852 omega_error=0.0116729 converged=1
+rotation omega=6 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00190894 plate_error=0.0022061 omega_error=0.0124408 converged=1
+rotation omega=9 outpost=0 first_layer=0 accepted=711 rejected=0 center_error=0.00173517 plate_error=0.00188631 omega_error=0.00841863 converged=1
+rotation omega=-2.5 outpost=1 first_layer=0 accepted=711 rejected=0 center_error=0.000157965 plate_error=0.00123337 omega_error=0.00639591 converged=1
+rotation omega=-2.5 outpost=1 first_layer=1 accepted=711 rejected=0 center_error=0.000153541 plate_error=0.000639692 omega_error=0.00739729 converged=1
+rotation omega=-2.5 outpost=1 first_layer=2 accepted=711 rejected=0 center_error=0.000258637 plate_error=0.000929901 omega_error=0.00244927 converged=1
+rotation omega=2.5 outpost=1 first_layer=0 accepted=711 rejected=0 center_error=0.000257722 plate_error=0.00115833 omega_error=0.00645105 converged=1
+rotation omega=2.5 outpost=1 first_layer=1 accepted=711 rejected=0 center_error=8.05328e-05 plate_error=0.000672535 omega_error=0.00860666 converged=1
+rotation omega=2.5 outpost=1 first_layer=2 accepted=711 rejected=0 center_error=0.000203596 plate_error=0.000512063 omega_error=0.000945413 converged=1
+stress omega=-9 outliers=28 rejected=28 center_error=0.00827663 omega_error=0.0232991
+stress omega=-3 outliers=28 rejected=28 center_error=0.0107953 omega_error=0.0140925
+stress omega=0 outliers=28 rejected=28 center_error=0.0349443 omega_error=0.00240739
+stress omega=3 outliers=28 rejected=28 center_error=0.00775959 omega_error=0.0214761
+stress omega=9 outliers=28 rejected=28 center_error=0.00475929 omega_error=0.00129466
+All Target/EKF checks passed.
+<end of output>
+Test time =   0.34 sec
+----------------------------------------------------------
+Test Passed.
+"target_tests" end time: Oct 20 10:12 EDT
+"target_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+10/13 Testing: controller_tests
+10/13 Test: controller_tests
+Command: "/home/zrj/final_project_aim/build-deploy/controller_tests"
+Directory: /home/zrj/final_project_aim/build-deploy
+"controller_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+PASS absolute yaw, both directions and offsets, more than two turns each
+PASS controller safety, follow, timestamps, mode and ballistics
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"controller_tests" end time: Oct 20 10:12 EDT
+"controller_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+11/13 Testing: yolo_parser_tests
+11/13 Test: yolo_parser_tests
+Command: "/home/zrj/final_project_aim/build-deploy/yolo_parser_tests" "configs/offline_cpu.yaml"
+Directory: /home/zrj/final_project_aim
+"yolo_parser_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+PASS synthetic outpost head -> real parser -> special geometry -> PnP
+PASS base-pattern 7/8, hero and infantry class contracts
+PASS NaN, degenerate corners, short constructor input and invalid scale rejection
+All parser tests passed. These are contract tests, not detector accuracy measurements.
+<end of output>
+Test time =   0.60 sec
+----------------------------------------------------------
+Test Passed.
+"yolo_parser_tests" end time: Oct 20 10:12 EDT
+"yolo_parser_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+12/13 Testing: task_cli_tests
+12/13 Test: task_cli_tests
+Command: "/usr/bin/python3.10" "/home/zrj/final_project_aim/tests/test_task_cli.py" "--build-dir" "/home/zrj/final_project_aim/build-deploy"
+Directory: /home/zrj/final_project_aim
+"task_cli_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+PASS task_1: no_arguments_help
+PASS task_1: explicit_help
+PASS task_1: missing_mode
+PASS task_1: conflicting_modes
+PASS task_1: offline_fire_forbidden
+PASS task_1: missing_config_argument
+PASS task_1: missing_config_file
+PASS task_1: empty_video
+PASS task_1: zero_frames
+PASS task_1: negative_frames
+PASS task_1: nonnumeric_frame_suffix
+PASS task_1: unknown_flag
+PASS task_1: small_preview
+PASS task_1: bad_preview
+PASS task_1: zero_preview
+PASS task_1: huge_preview
+PASS task_1: task1_can_never_arm
+PASS task_2: no_arguments_help
+PASS task_2: explicit_help
+PASS task_2: missing_mode
+PASS task_2: conflicting_modes
+PASS task_2: offline_fire_forbidden
+PASS task_2: missing_config_argument
+PASS task_2: missing_config_file
+PASS task_2: empty_video
+PASS task_2: zero_frames
+PASS task_2: negative_frames
+PASS task_2: nonnumeric_frame_suffix
+PASS task_2: unknown_flag
+PASS task_2: small_preview
+PASS task_2: bad_preview
+PASS task_2: zero_preview
+PASS task_2: huge_preview
+PASS task_3: no_arguments_help
+PASS task_3: explicit_help
+PASS task_3: missing_mode
+PASS task_3: conflicting_modes
+PASS task_3: offline_fire_forbidden
+PASS task_3: missing_config_argument
+PASS task_3: missing_config_file
+PASS task_3: empty_video
+PASS task_3: zero_frames
+PASS task_3: negative_frames
+PASS task_3: nonnumeric_frame_suffix
+PASS task_3: unknown_flag
+PASS task_3: small_preview
+PASS task_3: bad_preview
+PASS task_3: zero_preview
+PASS task_3: huge_preview
+CLI tests: 49/49; report=/home/zrj/final_project_aim/artifacts/tests/task_cli.json
+<end of output>
+Test time =  16.39 sec
+----------------------------------------------------------
+Test Passed.
+"task_cli_tests" end time: Oct 20 10:12 EDT
+"task_cli_tests" time elapsed: 00:00:16
+----------------------------------------------------------
+
+13/13 Testing: gimbal_transport_tests
+13/13 Test: gimbal_transport_tests
+Command: "/home/zrj/final_project_aim/build-deploy/gimbal_transport_tests"
+Directory: /home/zrj/final_project_aim/build-deploy
+"gimbal_transport_tests" start time: Oct 20 10:12 EDT
+Output:
+----------------------------------------------------------
+[2026-10-20 10:12:53.023] [info] [Gimbal] Telemetry reader started.
+[2026-10-20 10:12:53.026] [info] [Gimbal] First validated telemetry packet received.
+[2026-10-20 10:12:54.075] [info] [Gimbal] Telemetry reader stopped.
+PASS valid telemetry, interpolation, stale/future rejection, zero/NaN/CRC rejection, recovery, shutdown
+[2026-10-20 10:12:54.081] [info] [Gimbal] Telemetry reader started.
+[2026-10-20 10:12:54.082] [info] [Gimbal] First validated telemetry packet received.
+PTY TX expected_mode=0 send_ms=0.727064
+PTY TX expected_mode=0 send_ms=0.057096
+PTY TX expected_mode=1 send_ms=0.057667
+PTY TX expected_mode=2 send_ms=0.836829
+PTY TX expected_mode=1 send_ms=0.275421
+PTY TX expected_mode=0 send_ms=0.058499
+[2026-10-20 10:12:54.122] [warning] [Gimbal] Non-finite command downgraded to disabled control.
+PTY TX expected_mode=0 send_ms=0.124701
+[2026-10-20 10:12:54.128] [warning] [Gimbal] Non-finite command downgraded to disabled control.
+PTY TX expected_mode=0 send_ms=0.376203
+PTY TX expected_mode=0 send_ms=0.062987
+PASS PTY-only 30-byte TX header/CRC, mode 0/1/2, no fire latch, finite and stale gates
+[2026-10-20 10:12:54.346] [info] [Gimbal] Telemetry reader stopped.
+[2026-10-20 10:12:54.351] [info] [Gimbal] Telemetry reader started.
+[2026-10-20 10:12:57.360] [info] [Gimbal] Telemetry reader stopped.
+PASS startup timeout and constructor thread cleanup
+All PTY transport tests passed; all command bytes stayed inside test pseudo-terminals.
+<end of output>
+Test time =   4.38 sec
+----------------------------------------------------------
+Test Passed.
+"gimbal_transport_tests" end time: Oct 20 10:12 EDT
+"gimbal_transport_tests" time elapsed: 00:00:04
+----------------------------------------------------------
+
+End testing: Oct 20 10:12 EDT

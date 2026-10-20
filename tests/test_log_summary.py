@@ -17,7 +17,8 @@ class LogSummaryTests(unittest.TestCase):
             path = Path(temporary) / "telemetry.jsonl"
             rows = [
                 {"event": "metadata", "enemy_color": "red"},
-                {"event": "frame", "reason": "no_valid_observation", "detections": 1, "valid_poses": 0},
+                {"event": "frame", "reason": "no_valid_observation", "detections": 1, "valid_poses": 0,
+                 "pose_rejections": {"pnp_reprojection": 1}, "enemy_pnp_valid": 0},
                 {"event": "frame", "reason": "follow_only", "diagnostic": "follow_only", "control": 1,
                  "valid_poses": 1, "enemy_valid_poses": 1, "frame_age_ms": 25},
                 {"event": "camera_timeout", "reason": "camera_timeout", "control": 0},
@@ -31,6 +32,8 @@ class LogSummaryTests(unittest.TestCase):
             self.assertEqual(report["metrics"]["valid_poses"]["mean"], .5)
             self.assertEqual(report["metrics"]["enemy_valid_poses"]["samples"], 1)
             self.assertEqual(report["diagnostics"]["not_recorded"], 2)
+            self.assertEqual(report["pose_rejections"], {"pnp_reprojection": 1})
+            self.assertEqual(report["metrics"]["enemy_pnp_valid"]["samples"], 1)
 
     def test_missing_log_does_not_succeed(self):
         with tempfile.TemporaryDirectory() as temporary:

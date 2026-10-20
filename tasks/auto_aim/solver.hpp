@@ -11,6 +11,9 @@
 
 namespace auto_aim
 {
+// Task 1 follows a measured plate, without assuming it is mounted at a fixed
+// world pitch/roll. The rotating-vehicle estimators still require that model.
+enum class PoseMode { VehicleModel, FreeArmor };
 
 class Solver
 {
@@ -21,7 +24,7 @@ public:
 
   void set_R_gimbal2world(const Eigen::Quaterniond & q);
 
-  bool solve(Armor & armor) const;
+  bool solve(Armor & armor, PoseMode mode = PoseMode::VehicleModel) const;
 
   std::vector<cv::Point2f> reproject_armor(
     const Eigen::Vector3d & xyz_in_world, double yaw, ArmorType type, ArmorName name) const;

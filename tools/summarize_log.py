@@ -21,7 +21,7 @@ def select_log(path):
 
 def summarize(path):
     metadata = {}
-    reasons, diagnostics, metrics = Counter(), Counter(), {}
+    reasons, diagnostics, pose_rejections, metrics = Counter(), Counter(), Counter(), {}
     frames = events = malformed = 0
     with Path(path).open(encoding="utf-8") as stream:
         for line in stream:
@@ -41,8 +41,13 @@ def summarize(path):
             frames += row.get("event", "frame") == "frame"
             reasons[str(row.get("reason", "missing"))] += 1
             diagnostics[str(row.get("diagnostic", "not_recorded"))] += 1
+            rejected = row.get("pose_rejections", {})
+            if isinstance(rejected, dict):
+                for name, count in rejected.items():
+                    if isinstance(count, int) and not isinstance(count, bool) and count >= 0:
+                        pose_rejections[str(name)] += count
             for key in ("detections", "valid_poses", "enemy_valid_poses", "task_type_poses",
-                        "control", "fire", "auto_mode", "imu_ok", "transport_fresh",
+                        "enemy_pnp_valid", "control", "fire", "auto_mode", "imu_ok", "transport_fresh",
                         "frame_age_ms", "processing_ms"):
                 value = row.get(key)
                 if isinstance(value, (int, float)) and math.isfinite(value):
@@ -55,7 +60,7 @@ def summarize(path):
         entry["mean"] = entry.pop("sum") / entry["samples"]
     return {"log": str(Path(path).resolve()), "metadata": metadata, "frames": frames,
             "events": events, "malformed_lines": malformed, "reasons": dict(reasons),
-            "diagnostics": dict(diagnostics), "metrics": metrics}
+            "diagnostics": dict(diagnostics), "pose_rejections": dict(pose_rejections), "metrics": metrics}
 
 
 def main():
@@ -74,7 +79,7 @@ def main():
         print(f"Log: {report['log']}")
         print("Metadata:", json.dumps(report["metadata"], ensure_ascii=False))
         print(f"Frames={report['frames']}; events={report['events']}; unreadable lines={report['malformed_lines']}")
-        for field in ("reasons", "diagnostics"):
+        for field in ("reasons", "diagnostics", "pose_rejections"):
             print(field + ":")
             for name, count in sorted(report[field].items(), key=lambda item: (-item[1], item[0])):
                 print(f"  {count:7d}  {name}")

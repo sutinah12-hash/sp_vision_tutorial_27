@@ -48,6 +48,11 @@ int main()
     armor.pose_valid = false;
     detections.push_back(armor);
     require(inspect().hint == "enemy_pnp_rejected", "blue PnP cannot hide red PnP failure");
+    detections.back().raw_pose_valid = true;
+    detections.back().pose_status = "vehicle_model_reprojection";
+    require(inspect().hint == "enemy_model_rejected", "model mismatch is not PnP failure");
+    require(inspect().pose_rejections.at("vehicle_model_reprojection") == 1,
+      "preserve the exact pose rejection reason");
     detections.back().pose_valid = true;
     require(inspect().enemy_solved == 1 && inspect().hint == "follow_only", "matching valid pose");
     require(inspect().red == 1 && inspect().blue == 1, "color counts");

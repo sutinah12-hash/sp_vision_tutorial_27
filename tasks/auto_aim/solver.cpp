@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <chrono>
 #include <cmath>
+#include <limits>
 #include <stdexcept>
 #include <vector>
 
@@ -34,6 +35,87 @@ const std::vector<cv::Point3f> SPECIAL_ARMOR_POINTS{
   {0, -SPECIAL_ARMOR_WIDTH / 2, LIGHTBAR_LENGTH / 2},
   {0, -SPECIAL_ARMOR_WIDTH / 2, -LIGHTBAR_LENGTH / 2},
   {0, SPECIAL_ARMOR_WIDTH / 2, -LIGHTBAR_LENGTH / 2}};
+
+namespace
+{
+struct CameraPose
+{
+  cv::Vec3d rotation{}, translation{};
+  double error = std::numeric_limits<double>::infinity();
+};
+
+bool finite_vector(const cv::Vec3d & v)
+{
+  return std::isfinite(v[0]) && std::isfinite(v[1]) && std::isfinite(v[2]);
+}
+
+CameraPose camera_pose(const std::vector<cv::Point3f> & object_points,
+                       const std::vector<cv::Point2f> & image_points,
+                       const cv::Mat & camera, const cv::Mat & distortion,
+                       bool free_armor)
+{
+  CameraPose best;
+  const auto consider = [&](const cv::Vec3d & rotation, const cv::Vec3d & translation) {
+    if (!finite_vector(rotation) || !finite_vector(translation) ||
+        translation[2] <= .05 || cv::norm(translation) > 30) return;
+    cv::Matx33d matrix;
+    cv::Rodrigues(rotation, matrix);
+    if (free_armor) for (const auto & point : object_points) {
+      const auto in_camera = matrix * cv::Vec3d(point.x, point.y, point.z) + translation;
+      if (!finite_vector(in_camera) || in_camera[2] <= .05) return;
+    }
+    std::vector<cv::Point2f> projected;
+    cv::projectPoints(object_points, rotation, translation, camera, distortion, projected);
+    double error = 0;
+    for (std::size_t i = 0; i < image_points.size(); ++i)
+      error += cv::norm(projected[i] - image_points[i]) / image_points.size();
+    if (std::isfinite(error) && error < best.error) best = {rotation, translation, error};
+  };
+  // Keep the established vehicle-model input unchanged for tasks 2/3. The
+  // free-pose refinement below is a task-1 correction, not an EKF retuning.
+  if (!free_armor) {
+    try {
+      cv::Vec3d rotation, translation;
+      if (cv::solvePnP(object_points, image_points, camera, distortion,
+                       rotation, translation, false, cv::SOLVEPNP_IPPE))
+        consider(rotation, translation);
+    } catch (const cv::Exception &) {}
+    return best;
+  }
+  const auto refine = [&](cv::Vec3d rotation, cv::Vec3d translation) {
+    if (!finite_vector(rotation) || !finite_vector(translation)) return;
+    // Keep the original solution if refinement fails or makes the residual worse.
+    consider(rotation, translation);
+    try {
+      cv::solvePnPRefineLM(object_points, image_points, camera, distortion,
+                          rotation, translation);
+      consider(rotation, translation);
+    } catch (const cv::Exception &) {}
+  };
+  try {
+    std::vector<cv::Mat> rotations, translations;
+    cv::solvePnPGeneric(object_points, image_points, camera, distortion,
+                        rotations, translations, false, cv::SOLVEPNP_IPPE);
+    for (std::size_t i = 0; i < rotations.size(); ++i) {
+      const auto & r = rotations[i];
+      const auto & t = translations[i];
+      refine(cv::Vec3d(r.at<double>(0), r.at<double>(1), r.at<double>(2)),
+             cv::Vec3d(t.at<double>(0), t.at<double>(1), t.at<double>(2)));
+    }
+  } catch (const cv::Exception &) {}
+  // Some exactly frontal, symmetric poses are singular in older IPPE builds.
+  // Iterative planar PnP is a fallback, subject to the same physical/error gates.
+  if (!std::isfinite(best.error) || best.error >= 5.0) {
+    try {
+      cv::Vec3d rotation, translation;
+      if (cv::solvePnP(object_points, image_points, camera, distortion,
+                       rotation, translation, false, cv::SOLVEPNP_ITERATIVE))
+        refine(rotation, translation);
+    } catch (const cv::Exception &) {}
+  }
+  return best;
+}
+}
 
 Solver::Solver(const std::string & config_path) : R_gimbal2world_(Eigen::Matrix3d::Identity())
 {
@@ -92,29 +174,32 @@ void Solver::set_R_gimbal2world(const Eigen::Quaterniond & q)
 }
 
 //solvePnP（获得姿态）
-bool Solver::solve(Armor & armor) const
+bool Solver::solve(Armor & armor, PoseMode mode) const
 {
   armor.pose_valid = false;
-  if (armor.points.size() != 4) return false;
-  for (const auto & point : armor.points)
-    if (!std::isfinite(point.x) || !std::isfinite(point.y)) return false;
-  if (!cv::isContourConvex(armor.points) || std::abs(cv::contourArea(armor.points)) < 4)
+  armor.raw_pose_valid = false;
+  armor.reprojection_error = armor.pnp_reprojection_error =
+    armor.model_reprojection_error = std::numeric_limits<double>::infinity();
+  const auto reject = [&](const char * reason) {
+    armor.pose_status = reason;
     return false;
+  };
+  if (armor.points.size() != 4) return reject("corner_count");
+  for (const auto & point : armor.points)
+    if (!std::isfinite(point.x) || !std::isfinite(point.y)) return reject("nonfinite_corner");
+  if (!cv::isContourConvex(armor.points) || std::abs(cv::contourArea(armor.points)) < 4)
+    return reject("invalid_quad");
   const auto & object_points = (armor.type == ArmorType::big)       ? BIG_ARMOR_POINTS
                                : (armor.type == ArmorType::special) ? SPECIAL_ARMOR_POINTS
                                                                     : SMALL_ARMOR_POINTS;
 
-  cv::Vec3d rvec, tvec;
-  bool solved = false;
-  try {
-    solved = cv::solvePnP(
-      object_points, armor.points, camera_matrix_, distort_coeffs_, rvec, tvec, false,
-      cv::SOLVEPNP_IPPE);
-  } catch (const cv::Exception &) { return false; }
-  if (!solved || !std::isfinite(tvec[0]) || !std::isfinite(tvec[1]) ||
-      !std::isfinite(tvec[2]) || !std::isfinite(rvec[0]) || !std::isfinite(rvec[1]) ||
-      !std::isfinite(rvec[2]) || tvec[2] <= 0.05 || cv::norm(tvec) > 30)
-    return false;
+  const auto pose = camera_pose(object_points, armor.points, camera_matrix_, distort_coeffs_,
+                                mode == PoseMode::FreeArmor);
+  if (!std::isfinite(pose.error)) return reject("pnp_no_physical_solution");
+  armor.reprojection_error = armor.pnp_reprojection_error = pose.error;
+  if (mode == PoseMode::FreeArmor && pose.error >= 5.0) return reject("pnp_reprojection");
+  const auto & rvec = pose.rotation;
+  const auto & tvec = pose.translation;
 
   Eigen::Vector3d xyz_in_camera;
   cv::cv2eigen(tvec, xyz_in_camera);
@@ -134,32 +219,39 @@ bool Solver::solve(Armor & armor) const
   armor.ypr_in_world = tools::eulers(R_armor2world, 2, 1, 0);
   armor.yaw_raw = armor.ypr_in_world[0];
   armor.raw_pitch = armor.ypr_in_world[1];
+  armor.ypd_in_world = tools::xyz2ypd(armor.xyz_in_world);
+  if (!armor.xyz_in_world.allFinite() || !armor.ypr_in_world.allFinite() ||
+      !armor.ypd_in_world.allFinite()) return reject("nonfinite_world_pose");
+  armor.raw_pose_valid = true;
+  if (mode == PoseMode::FreeArmor) {
+    // A genuine PnP pose does not become invalid merely because a handheld
+    // plate is not tilted by the vehicle model's fixed +/-15 degrees.
+    armor.pose_valid = true;
+    armor.pose_status = "accepted_free";
+    return true;
+  }
   // Only the three -15 degree middle panels belong to the outpost model.
   if (armor.name == ArmorName::outpost &&
       std::abs(tools::limit_rad(armor.raw_pitch + 15 * CV_PI / 180)) > 0.45)
-    return false;
-
-  armor.ypd_in_world = tools::xyz2ypd(armor.xyz_in_world);
+    return reject("outpost_panel_tilt");
 
   // 平衡不做yaw优化，因为pitch假设不成立
   auto is_balance = (armor.type == ArmorType::big) &&
                     (armor.name == ArmorName::three || armor.name == ArmorName::four ||
                      armor.name == ArmorName::five);
   if (is_balance) {
-    std::vector<cv::Point2f> projected;
-    cv::projectPoints(object_points, rvec, tvec, camera_matrix_, distort_coeffs_, projected);
-    armor.reprojection_error = 0;
-    for (std::size_t i = 0; i < 4; ++i)
-      armor.reprojection_error += cv::norm(projected[i] - armor.points[i]) / 4.0;
-    armor.pose_valid = armor.xyz_in_world.allFinite() && armor.ypr_in_world.allFinite() &&
-                       std::isfinite(armor.reprojection_error) && armor.reprojection_error < 5.0;
-    return armor.pose_valid;
+    if (pose.error >= 5.0) return reject("pnp_reprojection");
+    armor.pose_valid = true;
+    armor.pose_status = "accepted_balance";
+    return true;
   }
 
   optimize_yaw(armor);
   armor.reprojection_error = armor_reprojection_error(armor, armor.ypr_in_world[0], 0) / 4.0;
+  armor.model_reprojection_error = armor.reprojection_error;
   armor.pose_valid = armor.xyz_in_world.allFinite() && armor.ypr_in_world.allFinite() &&
                      std::isfinite(armor.reprojection_error) && armor.reprojection_error < 5.0;
+  armor.pose_status = armor.pose_valid ? "accepted_model" : "vehicle_model_reprojection";
   return armor.pose_valid;
 }
 

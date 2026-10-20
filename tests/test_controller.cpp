@@ -72,6 +72,32 @@ int main()
     const double z = 22 * std::sin(valid.pitch) * valid.fly_time -
                      0.5 * 9.794 * valid.fly_time * valid.fly_time;
     check(std::abs(z - .4) < 1e-9, "independent ballistic residual");
+
+    for (double offset : {-0.08, 0.0, 0.08}) {
+      for (double direction : {-1.0, 1.0}) {
+        auto_aim::ControllerConfig turn_config;
+        turn_config.yaw_offset = offset;
+        auto_aim::Controller turns(turn_config);
+        auto_aim::Feedback turn_feedback;
+        turn_feedback.yaw = offset;
+        double last = turn_feedback.yaw;
+        double travelled = 0;
+        for (int i = 0; i < 1800; ++i) {
+          auto sample = observation(direction * i * .01);
+          auto command = turns.step({sample}, at(i * .01), at(i * .01), turn_feedback);
+          check(command.control && !command.fire, "multi-turn task1 never fires or drops control");
+          const double step = tools::limit_rad(command.yaw - last);
+          check(std::abs(step) <= turn_config.yaw_rate_limit * .01 + 1e-8,
+            "no full-turn command jump across the angular seam");
+          check(step * direction >= -1e-9, "multi-turn output never reverses spuriously");
+          check(std::abs(command.yaw) <= CV_PI, "upstream angular contract remains normalized");
+          travelled += step;
+          turn_feedback.yaw = last = command.yaw;
+        }
+        check(travelled * direction > 4 * CV_PI, "more than two full revolutions in each direction");
+      }
+    }
+    std::cout << "PASS absolute yaw, both directions and offsets, more than two turns each\n";
     bool threw = false;
     try { cfg.pitch_limit = -1; auto_aim::Controller invalid(cfg); }
     catch (const std::invalid_argument &) { threw = true; }

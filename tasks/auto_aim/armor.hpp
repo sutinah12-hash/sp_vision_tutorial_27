@@ -3,6 +3,7 @@
 
 #include <Eigen/Dense>
 #include <opencv2/opencv.hpp>
+#include <limits>
 #include <string>
 #include <tuple>
 #include <vector>
@@ -110,6 +111,10 @@ struct Armor
   double yaw_raw = 0.0;  // rad
   double reprojection_error = 0.0;  // px, populated by Solver
   bool pose_valid = false;
+  bool raw_pose_valid = false;  // Camera PnP passed, before the optional vehicle model.
+  double pnp_reprojection_error = std::numeric_limits<double>::infinity();
+  double model_reprojection_error = std::numeric_limits<double>::infinity();
+  std::string pose_status = "not_solved";
   double raw_pitch = 0.0;  // rad, before any geometry-constrained refinement
 
   Armor() = default;

@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "display": ":0",
+  "backend": "GTK3/X11",
+  "runs": [
+    {
+      "requested_window": [
+        960,
+        600
+      ],
+      "actual_x11_window": [
+        960,
+        600
+      ],
+      "original_image": [
+        1280,
+        1024
+      ],
+      "canvas": [
+        1280,
+        1190
+      ],
+      "four_corners_pixel_equal": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "preview_png": "/home/zrj/final_project_aim/artifacts/deploy_20261020/preview_x11/960x600/task_1_1792497229140642/frame_000000.png",
+      "exit_code": 0,
+      "input": "offline recording; not hardware"
+    },
+    {
+      "requested_window": [
+        800,
+        500
+      ],
+      "actual_x11_window": [
+        800,
+        500
+      ],
+      "original_image": [
+        1280,
+        1024
+      ],
+      "canvas": [
+        1280,
+        1190
+      ],
+      "four_corners_pixel_equal": [
+        true,
+        true,
+        true,
+        true
+      ],
+      "preview_png": "/home/zrj/final_project_aim/artifacts/deploy_20261020/preview_x11/800x500/task_1_1792497233925833/frame_000000.png",
+      "exit_code": 0,
+      "input": "offline recording; not hardware"
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 #include "task_runner.hpp"
+#include "task_diagnostics.hpp"
 
 #include <algorithm>
 #include <chrono>
@@ -63,6 +64,7 @@ struct Options
   bool live = false;
   bool allow_fire = false;
   bool show = false;
+  task_ui::WindowSize window;
   bool help = false;
 };
 
@@ -78,6 +80,7 @@ void usage(int task)
             << "  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n"
             << "  --output DIR   Parent directory for a unique log and PNG run directory.\n"
             << "  --show         Show annotated frames; Esc or q exits.\n"
+            << "  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n"
             << "  --help         Show this help. Run from the project root for relative assets.\n";
 }
 
@@ -94,6 +97,7 @@ Options parse(int task, int argc, char * argv[])
     else if (arg == "--live") result.live = true;
     else if (arg == "--allow-fire") result.allow_fire = true;
     else if (arg == "--show") result.show = true;
+    else if (arg == "--window-size") result.window = task_ui::parse_window_size(value());
     else if (arg == "--video") result.video = value();
     else if (arg == "--output") result.output = value();
     else if (arg == "--frames") {
@@ -203,7 +207,8 @@ std::string armor_label(const auto_aim::Armor & armor)
 
 cv::Mat annotate(const cv::Mat & image, const std::list<auto_aim::Armor> & detections,
                  const auto_aim::AimCommand & command, const auto_aim::Solver & solver,
-                 int task, bool live, int frame)
+                 int task, bool live, int frame,
+                 const task_ui::FrameDiagnostics & diagnostics, const auto_aim::Feedback & feedback)
 {
   auto output = image.clone();
   const cv::Scalar green(0, 255, 0);
@@ -227,16 +232,22 @@ cv::Mat annotate(const cv::Mat & image, const std::list<auto_aim::Armor> & detec
     if (aim_pixel && aim_pixel->x >= 0 && aim_pixel->y >= 0 && aim_pixel->x < image.cols && aim_pixel->y < image.rows)
       cv::drawMarker(output, *aim_pixel, cv::Scalar(0, 180, 255), cv::MARKER_CROSS, 22, 2);
   }
-  const int panel_height = std::min(image.rows, 112);
-  cv::rectangle(output, cv::Rect(0, 0, image.cols, panel_height), cv::Scalar(20, 20, 20), cv::FILLED);
-  std::ostringstream first, second, third;
+  output = task_ui::add_status_panel(output);
+  std::ostringstream first, second, third, fourth, fifth;
   first << "TASK " << task << " | " << (live ? "LIVE" : "OFFLINE STATIC IMU / NO HARDWARE VALIDATION") << " | frame " << frame;
   second << std::fixed << std::setprecision(3) << "yaw=" << command.yaw << " pitch=" << command.pitch
          << " omega=" << command.omega << " control=" << command.control << " fire=" << command.fire;
   third << command.state << " / " << command.reason << " | shots=" << command.shots_confirmed;
+  fourth << "enemy=" << diagnostics.enemy << " red=" << diagnostics.red << " blue=" << diagnostics.blue
+         << " enemy_pose=" << diagnostics.enemy_solved << " task_pose=" << diagnostics.task_poses
+         << " auto=" << feedback.aim_enabled << " imu=" << diagnostics.imu_ok << " link=" << feedback.transport_ok;
+  fifth << std::fixed << std::setprecision(1) << "frame_age=" << diagnostics.age_ms << "/" << diagnostics.limit_ms
+        << "ms | " << diagnostics.hint;
   cv::putText(output, first.str(), {10, 25}, cv::FONT_HERSHEY_SIMPLEX, 0.55, cv::Scalar(0, 220, 255), 1, cv::LINE_AA);
   cv::putText(output, second.str(), {10, 55}, cv::FONT_HERSHEY_SIMPLEX, 0.55, green, 1, cv::LINE_AA);
   cv::putText(output, third.str(), {10, 85}, cv::FONT_HERSHEY_SIMPLEX, 0.55, cv::Scalar(240, 240, 240), 1, cv::LINE_AA);
+  cv::putText(output, fourth.str(), {10, 115}, cv::FONT_HERSHEY_SIMPLEX, 0.55, green, 1, cv::LINE_AA);
+  cv::putText(output, fifth.str(), {10, 145}, cv::FONT_HERSHEY_SIMPLEX, 0.55, cv::Scalar(0, 220, 255), 1, cv::LINE_AA);
   return output;
 }
 
@@ -261,7 +272,8 @@ struct RunLog
 
   void record(int frame, double time, const auto_aim::AimCommand & command,
               const auto_aim::Feedback & feedback, bool live, int detected, int solved,
-              double processing_ms, const std::string & event = "frame")
+              double processing_ms, const std::string & event = "frame",
+              const task_ui::FrameDiagnostics * diagnostics = nullptr)
   {
     nlohmann::json numeric = {
       {"time", time}, {"frame", frame}, {"cmd_yaw", command.yaw}, {"cmd_pitch", command.pitch},
@@ -273,7 +285,23 @@ struct RunLog
       {"transport_fresh", feedback.transport_ok ? 1 : 0}, {"bullet_count", feedback.bullet_count},
       {"detections", detected}, {"valid_poses", solved}, {"processing_ms", processing_ms},
       {"flight_time", command.flight_time}, {"distance", command.distance}};
+    numeric["auto_mode"] = feedback.aim_enabled ? 1 : 0;
+    if (diagnostics) {
+      numeric["red_detections"] = diagnostics->red;
+      numeric["blue_detections"] = diagnostics->blue;
+      numeric["enemy_detections"] = diagnostics->enemy_detected;
+      numeric["enemy_valid_poses"] = diagnostics->enemy_solved;
+      numeric["task_type_poses"] = diagnostics->task_poses;
+      numeric["frame_age_ms"] = diagnostics->age_ms;
+      numeric["frame_limit_ms"] = diagnostics->limit_ms;
+      numeric["imu_ok"] = diagnostics->imu_ok ? 1 : 0;
+      numeric["requested_control"] = diagnostics->requested_control ? 1 : 0;
+    }
     plotter.plot(numeric);
+    if (diagnostics) {
+      numeric["diagnostic"] = diagnostics->hint;
+      numeric["enemy_color"] = diagnostics->enemy;
+    }
     numeric["event"] = event;
     numeric["state"] = command.state;
     numeric["reason"] = command.reason;
@@ -311,6 +339,9 @@ int run_task(int task, int argc, char * argv[])
     log.stream << nlohmann::json({{"event", "metadata"}, {"task", task},
       {"config", std::filesystem::absolute(options.config).string()}, {"live", options.live},
       {"fire_armed", controller.config().allow_fire}, {"video", options.video},
+      {"enemy_color", yaml["enemy_color"].as<std::string>()},
+      {"window_width", options.window.width}, {"window_height", options.window.height},
+      {"measurement_timeout_ms", controller.config().measurement_timeout * 1000.0},
       {"notice", options.live ? "Field validation and wheel-enable confirmation required" :
         "Fixed identity IMU, file time axis; no real robot, closed-loop, or hit validation"}}).dump() << '\n';
     std::unique_ptr<io::Gimbal> gimbal;
@@ -334,6 +365,12 @@ int run_task(int task, int argc, char * argv[])
       std::cout << "OFFLINE: static identity IMU; perception/PnP diagnostics only, no hardware or hit validation. FPS=" << fps << '\n';
     }
     std::cout << "Artifacts: " << std::filesystem::absolute(log.directory) << '\n';
+    std::cout << "Enemy=" << yaml["enemy_color"].as<std::string>() << " | config=" << options.config
+              << " | fire_armed=" << controller.config().allow_fire << '\n';
+    if (options.show) {
+      cv::namedWindow("Final Project Aim", cv::WINDOW_NORMAL | cv::WINDOW_KEEPRATIO);
+      cv::resizeWindow("Final Project Aim", options.window.width, options.window.height);
+    }
     const auto epoch = Clock::now();
     int frame = 0, camera_timeouts = 0, detection_frames = 0;
     cv::Mat last_overlay;
@@ -378,10 +415,12 @@ int run_task(int task, int argc, char * argv[])
         feedback.bullet_speed = finite_value(yaml["controller"], "offline_bullet_speed", 22.0);
       }
       auto command = controller.step(observations, frame_time, now, feedback);
+      const bool requested_control = command.control;
       if (options.live) {
         if (!attitude || !gimbal->fresh(200ms)) {
           command.control = command.fire = false;
           command.reason = "imu_unavailable_or_stale";
+          feedback.transport_ok = false;
         } else if (gimbal->mode() != io::GimbalMode::AUTO_AIM) {
           // Recheck after perception/decision. The MCU must also reject commands
           // outside AUTO_AIM: a host-side check cannot eliminate a final wire-time race.
@@ -392,16 +431,26 @@ int run_task(int task, int argc, char * argv[])
         gimbal->send(command.control, task != 1 && options.allow_fire && command.fire,
                      static_cast<float>(command.yaw), static_cast<float>(command.pitch));
       } else command.fire = false;
+      auto diagnostics = task_ui::inspect_frame(detections, controller.config(), feedback, command,
+        std::chrono::duration<double, std::milli>(now - frame_time).count(), attitude.has_value());
+      diagnostics.requested_control = requested_control;
       const double processing_ms = std::chrono::duration<double, std::milli>(Clock::now() - work_start).count();
       log.record(frame, std::chrono::duration<double>(now - epoch).count(), command, feedback,
-                 options.live, static_cast<int>(detections.size()), static_cast<int>(observations.size()), processing_ms);
-      last_overlay = annotate(image, detections, command, solver, task, options.live, frame);
+                 options.live, static_cast<int>(detections.size()), static_cast<int>(observations.size()), processing_ms,
+                 "frame", &diagnostics);
+      last_overlay = annotate(image, detections, command, solver, task, options.live, frame,
+                              diagnostics, feedback);
       if (!detections.empty()) ++detection_frames;
       if (frame == 0 || frame % 30 == 0 || (!detections.empty() && detection_frames == 1)) log.snapshot(last_overlay, frame);
       if (options.show) {
         cv::imshow("Final Project Aim", last_overlay);
         const int key = cv::waitKey(1) & 0xff;
-        if (key == 27 || key == 'q') { ++frame; break; }
+        // GTK3 in Ubuntu 22.04 returns -1 for unsupported WND_PROP_VISIBLE.
+        // Do not mistake that value for a closed window and stop after one frame.
+        if (key == 27 || key == 'q') {
+          ++frame;
+          break;
+        }
       }
       ++frame;
     }

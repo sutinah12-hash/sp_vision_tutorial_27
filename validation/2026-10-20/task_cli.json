@@ -1,0 +1,499 @@
+{
+  "suite": "offline_cli_fail_closed",
+  "passed": 49,
+  "total": 49,
+  "hardware_open_requested": false,
+  "scope": "Help, invalid argument combinations, nonexistent YAML and empty local video only",
+  "cases": [
+    {
+      "task": 1,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.3853530540000065,
+      "output": "Task 1 - safe default: no camera or serial access\nUsage: task_1 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 1,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.2558526630000415,
+      "output": "Task 1 - safe default: no camera or serial access\nUsage: task_1 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.27228796000008515,
+      "output": "Task 1 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 1,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.2574187619998156,
+      "output": "Task 1 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 1,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.21785343300007298,
+      "output": "Task 1 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.23249642899963874,
+      "output": "Task 1 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 1,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.24108088100001623,
+      "output": "Task 1 failed safely: bad file: /tmp/aim-cli-test-plpa2abg/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 1,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 1.0829165719997036,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 1 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 1,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.24220175000027666,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.22636567800009288,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2305350499996166,
+      "output": "Task 1 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 1,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.21833594800000355,
+      "output": "Task 1 failed safely: Unknown option: --not-a-real-option\n"
+    },
+    {
+      "task": 1,
+      "case": "small_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6482971079999515,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 1 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 1,
+      "case": "bad_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.20944694700028776,
+      "output": "Task 1 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    },
+    {
+      "task": 1,
+      "case": "zero_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.23532841099995494,
+      "output": "Task 1 failed safely: --window-size bounds: width 320..3840, height 240..2160\n"
+    },
+    {
+      "task": 1,
+      "case": "huge_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.23470702000031451,
+      "output": "Task 1 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    },
+    {
+      "task": 1,
+      "case": "task1_can_never_arm",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.2159790969999449,
+      "output": "Task 1 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 2,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.2353311299998495,
+      "output": "Task 2 - safe default: no camera or serial access\nUsage: task_2 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 2,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.2144275540003946,
+      "output": "Task 2 - safe default: no camera or serial access\nUsage: task_2 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.21615897599986056,
+      "output": "Task 2 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 2,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.2253511389999403,
+      "output": "Task 2 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 2,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.2187676560001819,
+      "output": "Task 2 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.290122798000084,
+      "output": "Task 2 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 2,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.22895677099995737,
+      "output": "Task 2 failed safely: bad file: /tmp/aim-cli-test-plpa2abg/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 2,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.5979614200000469,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 2 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 2,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2145975430003091,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.21580037699959576,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2404070579996187,
+      "output": "Task 2 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 2,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.2263576750001448,
+      "output": "Task 2 failed safely: Unknown option: --not-a-real-option\n"
+    },
+    {
+      "task": 2,
+      "case": "small_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6110330010001235,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 2 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 2,
+      "case": "bad_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.22990167899979497,
+      "output": "Task 2 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    },
+    {
+      "task": 2,
+      "case": "zero_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.24246848599977966,
+      "output": "Task 2 failed safely: --window-size bounds: width 320..3840, height 240..2160\n"
+    },
+    {
+      "task": 2,
+      "case": "huge_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.22560396900007618,
+      "output": "Task 2 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    },
+    {
+      "task": 3,
+      "case": "no_arguments_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "Usage:",
+      "seconds": 0.2090374869999323,
+      "output": "Task 3 - safe default: no camera or serial access\nUsage: task_3 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 3,
+      "case": "explicit_help",
+      "passed": true,
+      "returncode": 0,
+      "expected_returncode": 0,
+      "expected_text": "safe default",
+      "seconds": 0.22704354799998328,
+      "output": "Task 3 - safe default: no camera or serial access\nUsage: task_3 CONFIG (--video FILE | --live) [options]\n  --video FILE   Decode a local recording, YOLO/PnP with STATIC IDENTITY IMU.\n                 Not closed-loop, pose-time, ballistic, or hit validation.\n  --live         Explicitly open the configured camera and gimbal serial port.\n  --allow-fire   Separately arm task 2/3; ONLY under supervised field procedure.\n                 Task 1 can never fire. This flag is invalid with --video.\n  --frames N     Stop after N decoded/captured frames (default: until EOF/exit).\n  --output DIR   Parent directory for a unique log and PNG run directory.\n  --show         Show annotated frames; Esc or q exits.\n  --window-size WIDTHxHEIGHT  Resizable preview, default 960x600; does not resize detection input.\n  --help         Show this help. Run from the project root for relative assets.\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_mode",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.23401631700016878,
+      "output": "Task 3 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 3,
+      "case": "conflicting_modes",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Choose exactly one",
+      "seconds": 0.21924494299992148,
+      "output": "Task 3 failed safely: Choose exactly one of --live or --video FILE\n"
+    },
+    {
+      "task": 3,
+      "case": "offline_fire_forbidden",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--allow-fire",
+      "seconds": 0.2262615250001545,
+      "output": "Task 3 failed safely: --allow-fire is permitted only for live task 2 or task 3\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_config_argument",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "configuration path is required",
+      "seconds": 0.21421039599999858,
+      "output": "Task 3 failed safely: A YAML configuration path is required\n"
+    },
+    {
+      "task": 3,
+      "case": "missing_config_file",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "failed safely",
+      "seconds": 0.2305074349997085,
+      "output": "Task 3 failed safely: bad file: /tmp/aim-cli-test-plpa2abg/definitely_missing_configuration.yaml\n"
+    },
+    {
+      "task": 3,
+      "case": "empty_video",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.6099976979999155,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 3 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 3,
+      "case": "zero_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.21808294400034356,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "negative_frames",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.21552678899979583,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "nonnumeric_frame_suffix",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "positive integer",
+      "seconds": 0.2242280500004199,
+      "output": "Task 3 failed safely: --frames must be a positive integer\n"
+    },
+    {
+      "task": 3,
+      "case": "unknown_flag",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Unknown option",
+      "seconds": 0.21504365300006612,
+      "output": "Task 3 failed safely: Unknown option: --not-a-real-option\n"
+    },
+    {
+      "task": 3,
+      "case": "small_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "Cannot decode video",
+      "seconds": 0.632582132999687,
+      "output": "[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (2075) handleMessage OpenCV | GStreamer warning: Embedded video playback halted; module typefind reported: Stream contains no data.\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (1053) open OpenCV | GStreamer warning: unable to start pipeline\n[ WARN:0] global ./modules/videoio/src/cap_gstreamer.cpp (616) isPipelinePlaying OpenCV | GStreamer warning: GStreamer: pipeline have not been created\n[ERROR:0] global ./modules/videoio/src/cap.cpp (164) open VIDEOIO(CV_IMAGES): raised OpenCV exception:\n\nOpenCV(4.5.4) ./modules/videoio/src/cap_images.cpp:253: error: (-5:Bad argument) CAP_IMAGES: can't find starting number (in the name of file): /tmp/aim-cli-test-plpa2abg/empty video.avi in function 'icvExtractPattern'\n\n\nTask 3 failed safely: Cannot decode video: /tmp/aim-cli-test-plpa2abg/empty video.avi\n"
+    },
+    {
+      "task": 3,
+      "case": "bad_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.24794361099975504,
+      "output": "Task 3 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    },
+    {
+      "task": 3,
+      "case": "zero_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.21616733600012594,
+      "output": "Task 3 failed safely: --window-size bounds: width 320..3840, height 240..2160\n"
+    },
+    {
+      "task": 3,
+      "case": "huge_preview",
+      "passed": true,
+      "returncode": 1,
+      "expected_returncode": 1,
+      "expected_text": "--window-size",
+      "seconds": 0.2366384880001533,
+      "output": "Task 3 failed safely: --window-size must be WIDTHxHEIGHT, e.g. 960x600\n"
+    }
+  ]
+}

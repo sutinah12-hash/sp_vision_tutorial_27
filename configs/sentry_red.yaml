@@ -1,0 +1,66 @@
+# RED TARGET profile for task 1 and task 2 (also task 3 only if confirmed red).
+# Select the correct physical camera calibration with the supervisor first.
+# Original sentry.yaml calibration, rotation, offsets and limits are unchanged.
+enemy_color: "red"
+rotation_angle: 180
+
+#####-----神经网络参数-----#####
+yolo_name: yolov5
+yolov5_model_path: assets/yolov5.xml
+device: GPU
+min_confidence: 0.8
+use_traditional: false
+use_roi: false
+roi:
+  x: 460
+  y: 200
+  width: 600
+  height: 600
+
+threshold: 100
+
+yaw_offset: 2 # degree -2.5
+pitch_offset: 6.5 # degree 2
+
+camera_name: "hikrobot"
+exposure_ms: 5.0
+gain: 16.9
+vid_pid: "2bdf:0001"
+
+#  1  0  0
+#  0  1  0
+#  0  0  1
+R_gimbal2imubody: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+
+# 重投影误差: 0.1083px
+camera_matrix: [2392.5209987505368, 0, 748.01150314539757, 0, 2400.0935468424304, 492.85220755571686, 0, 0, 1]
+distort_coeffs: [-0.033965682188523728, 0.22067232776537457, -0.0031883914151515291, 0.0011871466323144101, 0]
+
+
+# 相机同理想情况的偏角: yaw0.28 pitch-8.85 roll-2.49 degree
+# 标定板到世界坐标系原点的水平距离: 1.53 m
+# 标定板同竖直摆放时的偏角: yaw100.80 pitch2.17 roll-2.06 degree
+R_camera2gimbal: [0.0017953813929354055, -0.15386777101456939, 0.98808981658990014, -0.9990735744256628, -0.042761346848673949, -0.0048435627400816488, 0.04299731956742895, -0.98716572887164966, -0.15380199690290414]
+t_camera2gimbal: [0.11245198218973133, 0.016955489261152895, 0.080193991211778851]
+
+#####-----gimbal参数-----#####
+com_port: "/dev/gimbal"
+
+# Official intrinsics/extrinsics/offsets above are preserved, not newly calibrated.
+# Confirm image resolution, camera mount, axis signs and physical pitch limits on site.
+# --live is required for hardware. Fire also requires --allow-fire (task 2/3 only).
+# The supplied RX protocol has no wheel-enable bit: supervisor confirmation is required.
+controller:
+  pitch_limit_deg: 20.0
+  yaw_rate_limit: 6.0
+  pitch_rate_limit: 2.0
+  measurement_timeout: 0.12
+  reset_timeout: 0.45
+  execution_delay: 0.025
+  max_prediction: 0.65
+  fire_angle_tolerance: 0.008
+  max_facing_angle: 0.65
+  settle_time: 1.0
+  stage_change_threshold: 0.8
+  acknowledgement_timeout: 0.5
+  offline_bullet_speed: 22.0

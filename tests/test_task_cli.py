@@ -48,6 +48,10 @@ def main():
                 ("negative_frames", [str(config), "--video", str(empty), "--frames", "-2"], 1, "positive integer"),
                 ("nonnumeric_frame_suffix", [str(config), "--video", str(empty), "--frames", "90junk"], 1, "positive integer"),
                 ("unknown_flag", [str(config), "--not-a-real-option"], 1, "Unknown option"),
+                ("small_preview", [str(config), "--video", str(empty), "--window-size", "800x500", "--output", str(output)], 1, "Cannot decode video"),
+                ("bad_preview", [str(config), "--video", str(empty), "--window-size", "960x600junk"], 1, "--window-size"),
+                ("zero_preview", [str(config), "--video", str(empty), "--window-size", "0x600"], 1, "--window-size"),
+                ("huge_preview", [str(config), "--video", str(empty), "--window-size", "999999999999x600"], 1, "--window-size"),
             ]
             if task == 1:
                 cases.append(("task1_can_never_arm", [str(missing), "--live", "--allow-fire"], 1, "--allow-fire"))

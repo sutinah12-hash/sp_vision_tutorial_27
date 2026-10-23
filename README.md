@@ -1,335 +1,75 @@
 # final_project_aim
 
-同济 SuperPower 自瞄大作业实现，基于官方同名分支模板。
-本分支与课程作业所在的 `main` 分支分开；上游模板仍保留历史。
+同济 SuperPower 课程大作业，提交分支为 `final_project_aim`，不修改课程作业所在的 `main`。
 
-**当前验证范围是 Ubuntu 22.04 构建、自动化测试、离线录像和合成闭环仿真，不是实机考核通过证明。**
-演示和日志中的合成结果均标注 `SYNTHETIC INPUT / NOT HARDWARE RESULT`。
+**当前不是任务二、三的修复交付。** 本轮只精简说明并核验离线日志、图像显示测试；没有修改自动瞄准、发射或安全限制，也没有连接机器人。
+历史完整回归为 22/24，通过记录不能代替实机验收；两个中速扰动案例仍失败。
+详细结果保留在 [上次验证记录](validation/2026-10-20-pnpfix/README.md)。
 
-窗口尺寸及完整视野验证见 [首次部署记录](validation/2026-10-20/README.md)。
-本次定位修复、原始接口核对及未通过项目见 [定位修复验证记录](validation/2026-10-20-pnpfix/README.md)。
-**当前交付是任务一定位修复包，不代表任务二、三的全部问题已经修复。**
+以下是 Windows → Ubuntu 22.04 虚拟机 → VS Code 终端的**离线验证**流程，不启动相机、串口、云台或发射。
+每个代码块按顺序执行；某一步报错就先停止，不继续粘贴后续命令。
 
-## 现场快速开始：编译 → 运行
+## 1. Windows PowerShell：上传已有压缩包
 
-当前换车后的现场配置是 **standard 标定、蓝色目标**，使用 `configs/standard.yaml`。
-`standard_red.yaml` / `sentry_red.yaml` 保留给相应机型的红色目标；颜色和标定分别确认。
-三个程序直接通过终端运行，不额外增加“只观察”步骤。
-以下命令一行一条复制，不要复制提示符、额外反斜杠或网页链接格式。
+这个文件是已有的任务一定位修复包，**不是本轮新生成的任务二、三修复包**。
+先确认虚拟机 IP 仍为 `192.168.30.129`，再执行：
 
-### 第一步：进入项目，准备可执行程序
+```powershell
+Test-Path -LiteralPath 'D:\Users\zhaoruijie\Downloads\zhaoruijie_aim_ubuntu22_20261020_pnpfix.tar.gz'
+ssh zrj@192.168.30.129 'mkdir -p /home/zrj/Downloads'
+scp 'D:\Users\zhaoruijie\Downloads\zhaoruijie_aim_ubuntu22_20261020_pnpfix.tar.gz' zrj@192.168.30.129:/home/zrj/Downloads/
+```
 
-如果使用配套的预编译包，先将它传到机器人桌面，在 Ubuntu 终端执行：
+第一条应输出 `True`；SSH/SCP 要求密码时输入虚拟机账户密码，输入过程不显示字符。
+
+## 2. Ubuntu 虚拟机终端：解压到新目录
 
 ```bash
-cd /home/rm/Desktop
-mkdir zhaoruijie_pnpfix
-tar -xzf zhaoruijie_aim_ubuntu22_20261020_pnpfix.tar.gz -C zhaoruijie_pnpfix
-cd /home/rm/Desktop/zhaoruijie_pnpfix/zhaoruijie-final_project_aim
-bash scripts/check_runtime.sh bin
-BIN=./bin
+cd /home/zrj/Downloads
+mkdir zhaoruijie_offline_check
+tar -xzf zhaoruijie_aim_ubuntu22_20261020_pnpfix.tar.gz -C zhaoruijie_offline_check
+cd /home/zrj/Downloads/zhaoruijie_offline_check/zhaoruijie-final_project_aim
+sha256sum -c MANIFEST.sha256
+code .
 ```
 
-若 `mkdir` 提示目录已存在，先停止并换新的位置，避免覆盖已有修改和日志。
-预编译包已含三个任务的 Linux 可执行程序；检查通过后可以跳过重新编译。
-它面向 Ubuntu 22.04 x86_64，仍依赖机器人已有的 OpenVINO 2024.6、OpenCV 4.5、
-MVS 完整运行环境等，并非任意 Linux 都能直接运行。
-包内 `PACKAGE_INFO.json` 记录源码提交、构建环境及校验信息。
+`mkdir` 若提示目录已存在，停止并换一个新目录名，后面的路径也要一起修改；不要覆盖已有源码和日志。
+校验结果应全部为 `OK`。若 `code` 命令不存在，在 VS Code 的“文件 → 打开文件夹”中选择上述项目目录。
+压缩包中的说明来自旧提交；以 GitHub 本分支的 README 为当前说明。
 
-若考核需要你逐条编译，或者预编译依赖不兼容，在项目根目录执行：
+## 3. VS Code：打开终端并编译离线检查
+
+选择菜单“终端 → 新建终端”，依次执行：
 
 ```bash
-cmake -S . -B build-local -DCMAKE_BUILD_TYPE=Release -DFPA_BUILD_HARDWARE=ON -DBUILD_TESTING=ON
-cmake --build build-local -j2
-ctest --test-dir build-local --output-on-failure
-BIN=./build-local
+cd /home/zrj/Downloads/zhaoruijie_offline_check/zhaoruijie-final_project_aim
+cmake -S . -B build-offline-check -DCMAKE_BUILD_TYPE=Release -DFPA_BUILD_HARDWARE=OFF -DBUILD_TESTING=ON
+cmake --build build-offline-check --target task_diagnostics_tests -j2
+ctest --test-dir build-offline-check --output-on-failure -R '^(task_diagnostics_tests|log_summary_tests)$'
 ```
 
-也可用 `bash scripts/build_tasks.sh build-local` 完成这三步。
-脚本会在存在时加载 `/opt/intel/openvino_2024.6.0/setupvars.sh`，不安装或升级系统软件。
-不同电脑应使用新的构建目录，不复制虚拟机的 CMake 缓存。
-如果依赖缺失，请让负责人确认已有环境，不替换考核电脑的系统库。
-如果你继续使用旧目录 `/home/rm/Desktop/sp_vision_tutorial_27-final_project_aim`，
-先把更新的源码放好，再在该目录执行上述编译命令。
+2026-10-23 已在现有虚拟机源码上验证上述编译、测试命令：`2/2` 通过。这里只检查显示、窗口参数、诊断信息和日志工具，**不是三个任务的完整验收**。
+显示测试逐像素检查原图和四边四角都保留；这不等于相机标定或实车跟随已经正确。
 
-### 第二步：一次性选对标定和目标颜色
+需要的现有开发环境：CMake、C++17 编译器、OpenCV、Eigen3、yaml-cpp、fmt、spdlog、nlohmann-json、Python3。
+关闭硬件构建后不需要 MVS 或 OpenVINO。若依赖缺失，保留报错；不要在考核电脑上自行替换系统库。
+不要复制另一台电脑的 CMake 构建目录；不同电脑重新配置、编译。
 
-让现场负责人确认这辆车使用哪套相机标定。**颜色相同不代表相机标定相同。**
+## 4. 查看已有日志
 
-- standard 标定、蓝色目标（当前现场）：`CFG=configs/standard.yaml`。
-- standard 标定、红色目标：`CFG=configs/standard_red.yaml`。
-- sentry 标定、蓝色目标：`CFG=configs/sentry.yaml`。
-- sentry 标定、红色目标：`CFG=configs/sentry_red.yaml`。
-
-例如，当前现场已确认 standard 标定、蓝色目标时执行：
+在上述项目根目录执行，读取随源码保存的历史离线日志：
 
 ```bash
-CFG=configs/standard.yaml
-printf '程序目录=%s\n配置=%s\n' "$BIN" "$CFG"
-ls -l /dev/gimbal
-lsusb
+python3 tools/summarize_log.py validation/2026-10-20-pnpfix/video_telemetry.jsonl
 ```
 
-两个 `_red` 配置都为红色，分别保留对应机型的相机内参、畸变、安装外参、旋转、曝光和控制限制。
-`standard.yaml` 和 `sentry.yaml` 当前均为蓝色；看到红板检测框不代表控制器会跟随红板。
-不要凭电脑名猜标定，也不要为改变敌方颜色而换另一机型标定。
-相机、串口应已连接，其他程序不占用设备；现场负责人确认可进行云台测试后再运行。
-**新开终端时，要重新进入项目目录，并设置 `BIN`、`CFG`。**
+查看自己的旧运行日志时，将最后一个参数替换成实际的 `telemetry.jsonl` 文件或包含它的目录。
+传目录时工具选择其中最新的日志，并打印实际读取路径。日志中的命令不证明机器人执行成功或命中。
 
-### 任务 1：装甲板跟随（当前为蓝色）
+## 仍未解决
 
-1. 完成上面两步后直接运行：
+- 任务二：两个中速扰动回归失败；阶段识别和回执处理仍有已记录的问题。
+- 任务三：计时起点与现场流程尚未对齐，既有仿真也不代表全部考核目标完成。
+- 本 README 不包含实车自动瞄准、发射启动或减弱安全检查的操作流程。
 
-```bash
-"$BIN/task_1" "$CFG" --live --show --output artifacts/task1_live
-```
-
-2. 按现场规程进入自瞄档位，将与 `enemy_color` 一致的装甲板放入相机视野。正常时能看到闭合四点框和目标标签；
-   有效跟随时 `control=1`、`reason=follow_only`，俯仰受限时可能为 `pitch_limited`。
-   **任务 1 永不开火**，不需要也不能添加 `--allow-fire`。
-3. 现场已有的 Plotter 可接收本机 UDP 9870 的 `cmd_yaw`、`cmd_pitch`（弧度）。
-   跟随范围与实际运动效果须在车上核验。
-4. 图像窗口获得焦点后按 Q/Esc，或在所属终端 Ctrl+C 停止；等退出日志出现后按现场规程恢复安全档位。
-   查看刚才的运行结果：
-
-```bash
-python3 tools/summarize_log.py artifacts/task1_live
-```
-
-任务一使用 `free_armor` 定位模式：通过四点、正深度、距离合理性和原有 5 px 重投影误差检查后，
-直接使用 PnP 的自由姿态与位置，不要求目标保持整车模型的固定 15° 倾角和零横滚。
-任务二、三仍使用 `vehicle_model`，保留其几何约束。
-“3 米手持、yaw 跨越 ±π、俯仰 ±18°”只是测试样例，不是任务一要求、使用条件或完整能力边界。
-程序没有固定 3 米筛选；实际可用范围取决于目标成像、角点质量和标定，云台物理限制仍需遵守。
-
-#### 连续转圈与电控角度约定
-
-视觉方位使用最短角差，不在 yaw 方向设置 ±180° 的机械限位。
-沿用上游 `atan2(y,x)` 的**绝对弧度角**约定，输出规范化到 `(-π, π]`，
-不是角度制，也不是累计圈数。跨边界时先求最短角差，再限速及规范化，
-因此 `+179° → -179°` 是向前约 2°，不是反向转 358°。
-没有新增需要学生选择的 `yaw_output` 协议开关。
-左右方向及正负标定偏置均有超过两圈的纯内存回归测试，
-但这不能替代串口接口核验及实车 360° 跟随复测，也不代表单相机可以同时看见全周。
-
-### 任务二、三的发射排查口径
-
-本次没有以任意放大容差、绕过通信失联停发等方式换取发射。
-先查看日志中的实际 `reason`：`fire_not_armed` 是未显式授权；
-`estimator_not_converged` 是估计未就绪；`gimbal_not_aligned` 是实际/指令角未到达目标；
-`waiting_shot_acknowledgement` / `shot_acknowledgement_fault` 是单发回执或计数协议未满足。
-其中角度容差、稳定时间等属于现场可核验参数，不是作业条文；
-应结合真实角误差、发射回执延迟和负责人确认调整，不能仅凭“没发弹”判断应去掉哪一项。
-当前协议还缺少摩擦轮使能和明确阶段事件；这些接口问题需继续核对，不承诺已完成实机发射考核。
-
-### 任务 2：车辆目标跟踪、估速与切板
-
-1. 使用已确认颜色和标定的 `CFG`（当前为 standard、蓝色），先运行不发射的跟踪程序：
-
-```bash
-"$BIN/task_2" "$CFG" --live --show --output artifacts/task2_live
-```
-
-2. 在自瞄档位下查看跟随、`estimated_omega`、`omega_variance` 和 `stage`；
-   Plotter 同时接收命令角与估计转速。这个命令会控制云台，但不发射。
-   任务 2 接受车辆装甲板，不接受前哨或基地类型。
-3. Q/Esc 或 Ctrl+C 停止后汇总：
-
-```bash
-python3 tools/summarize_log.py artifacts/task2_live
-```
-
-4. 正式发射前须先与负责人对齐摩擦轮状态、单包单发和子弹计数语义、低/中速阶段事件。
-   当前模板缺少明确阶段事件，自动阶段判别不能可靠覆盖 4.4→5.0、5→5、+5→-5。
-   这些接口条件未解决时，只完成不发射测试，不能宣称正式计分流程通过。
-   确认完成且现场允许后，用以下命令进入正式测试：
-
-```bash
-"$BIN/task_2" "$CFG" --live --allow-fire --show --output artifacts/task2_assessment
-```
-
-程序每阶段最多 10 个单发命令、最高 5 Hz。正式测试内不重启程序或人为丢目标来重置额度。
-按考核规则核对低速 3–5 rad/s、中速 5–9 rad/s 的估速与命中结果，停止后读取：
-
-```bash
-python3 tools/summarize_log.py artifacts/task2_assessment
-```
-
-### 任务 3：前哨中部三块装甲板
-
-1. 先确认前哨颜色。**只有前哨颜色与当前 CFG 一致且使用同一标定时**，沿用：
-
-```bash
-TASK3_CFG="$CFG"
-"$BIN/task_3" "$TASK3_CFG" --live --show --output artifacts/task3_live
-```
-
-   若颜色不同，使用正确标定的独立配置修改 `enemy_color`，不要因此更换机型标定。
-   此命令会控制云台但不发射。目标须被识别为 `outpost` 并通过中部板姿态检查。
-2. 检查旋转方向、约 ±2.5 rad/s 的估计、不同高度板的连续跟踪与 Plotter 输出。
-   Q/Esc 或 Ctrl+C 停止后查看：
-
-```bash
-python3 tools/summarize_log.py artifacts/task3_live
-```
-
-3. 正式发射前与负责人对齐弹速、执行延迟、摩擦轮/弹数接口和 30 秒窗口起点。
-   程序当前以首个单发命令为起点；若官方起点不同，须先对齐。
-   条件确认且现场允许后运行：
-
-```bash
-"$BIN/task_3" "$TASK3_CFG" --live --allow-fire --show --output artifacts/task3_assessment
-```
-
-最高 12 Hz，首发后 30 秒停止新增发射命令。实际试射不超出课程允许的 3 次。
-仿真中存在窗口伤害仅 600–720、未清除 1500 血量的场景，不承诺实机必定清空前哨。
-停止后保存日志供现场核对：
-
-```bash
-python3 tools/summarize_log.py artifacts/task3_assessment
-```
-
-### 窗口与完整视野
-
-默认窗口请求 960×600，可以拖动缩放。需要更小时，在任一运行命令后加：
-
-```text
---window-size 800x500
-```
-
-保持画面比例，比例不同时留空边，不裁切、不拉伸。只改显示窗口，
-**不改变送入 YOLO/PnP 的图像大小、关键点坐标或相机内参**。
-状态栏在原图上方新增 166 像素画布，不遮住原图顶部；保存 PNG 也保留完整原图区域。
-测试逐像素比较原图与加状态栏后的图像区域，检查四边和四角都在。
-检测框和目标文字本身仍叠加在图像上。窗口外框的实际大小还受桌面缩放影响。
-
-### 不跟随时看什么
-
-`reason` 保留控制器原始判断，`diagnostic` 解释当前帧，多个问题也可能同时存在：
-
-- `enemy_color_mismatch`：有检测但没有目标颜色，先检查窗口中的 `enemy` 和检测标签。
-- `enemy_pnp_rejected`：目标颜色对但 PnP 未通过，检查角点、模糊和实际标定。
-- `enemy_model_rejected`：相机 PnP 已通过，但任务二、三的整车模型不匹配；不再统称为 PnP 失败。
-- `pose_rejections`：日志中的详细原因计数，例如 `invalid_quad`、`pnp_reprojection`、`vehicle_model_reprojection`。
-- `wrong_armor_type`：目标类型与任务不符。
-- `frame_too_old`：采集到决策的时间超过默认 120 ms；检查计算负载与积压，不直接放宽超时。
-- `imu_missing` / `telemetry_stale`：姿态或通信反馈不新鲜。
-- `mode_not_auto`：串口实际上报的档位不是 AUTO。
-- `no_detections`：当前帧没有检测，检查曝光、遮挡和目标位置。
-
-一条命令即可读取指定任务目录里的最新日志，无需拼接长路径或复杂管道：
-
-```bash
-python3 tools/summarize_log.py artifacts/task1_live
-```
-
-工具打印实际读取的文件路径、原因计数、有效观测帧数及耗时；旧日志缺少的新字段标为未知。
-每次运行的 PNG 和 JSONL 在独立的 `artifacts/.../task_N_时间戳/` 目录，保留它们用于复盘。
-正常退出发送停控停发命令；断电/进程崩溃时仍依赖电控的独立失联保护。
-
-## 构建与自检
-
-依赖：CMake、C++17 编译器、OpenCV、Eigen3、yaml-cpp、fmt、spdlog、
-nlohmann-json、Python3。实机/录像程序另外依赖海康 MVS、libusb 和
-OpenVINO 2024.6；仿真与核心测试可关闭硬件构建，不需要相机或串口。
-
-在本仓库根目录：
-
-```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DFPA_BUILD_HARDWARE=ON
-cmake --build build -j2
-ctest --test-dir build --output-on-failure
-```
-
-仅构建模拟器：
-
-```bash
-cmake -S . -B build-sim -DCMAKE_BUILD_TYPE=Release -DFPA_BUILD_HARDWARE=OFF
-cmake --build build-sim -j2
-ctest --test-dir build-sim --output-on-failure
-```
-
-## 可安全复现的演示
-
-```bash
-./build/aim_simulator --scenario follow --duration 15 --output artifacts/follow
-./build/aim_simulator --scenario medium --speed 9 --output artifacts/medium9
-./build/aim_simulator --scenario outpost --speed 2.5 --duration 35 --output artifacts/outpost
-python3 sim/run_suite.py --binary build/aim_simulator
-```
-
-每次输出四点投影图、跟踪曲线、指标 JSON、逐帧 CSV 与逐发日志。
-完整场景、计分窗口及物理假设见 [仿真运行说明](sim/README.md)。
-头部姿态解算与控制器使用同一套生产 C++，不向控制器注入真实板号、真实中心或真实转速。
-图像检测类别在仿真中是已知的，因此必须另做真实录像的 YOLO 验证。
-
-已有本地录像时：
-
-```bash
-./build/task_1 configs/offline_cpu.yaml --video /absolute/path/video.avi --frames 90 --output artifacts/perception
-./build/task_2 configs/offline_cpu.yaml --video /absolute/path/video.avi --frames 90 --output artifacts/perception
-./build/task_3 configs/offline_cpu.yaml --video /absolute/path/video.avi --frames 90 --output artifacts/perception
-```
-
-可加 `--show` 在已登录图形桌面的终端显示图像，按 Q/Esc 退出。
-录像模式使用固定单位 IMU，只验证解码、识别、PnP 与程序流程；不验证动态外参或命中率。
-`offline_cpu.yaml` 只是模板 GPU 配置的 CPU 变体，**不是录像或新相机的重新标定**。
-
-## 三个任务入口
-
-- `task_1`：装甲板视线跟随，yaw 跨 ±π 使用短路径、pitch 与指令变化率受限，永不开火。
-- `task_2`：车辆 EKF、切板、未来到达位置与弹道求解；中速使用同一估计高度组的正面等待策略。
-  每阶段最多 10 个单发命令，5 Hz 上限；确认超时或异常计数锁存禁发，不重试。
-- `task_3`：三块不同高度的前哨板，半径 0.2765 m，高度相对初始板估计，过滤顶部板。
-  12 Hz 是上限而不是保证射速；首发后 30 秒停止新增发射命令。
-- 三任务均向 `tools::Plotter` 的默认本机 UDP 9870 端口输出数值命令角度；
-  任务 2/3 额外输出 `estimated_omega`、观测年龄、状态、确认数及阶段。
-  可同时检查本地 JSONL，不能仅凭图形窗口判断命中。
-
-## 现场验证前的阻断项
-
-1. 默认不接触硬件。只有显式 `--live` 才打开相机/串口；发射则仅任务 2/3 可另加
-   `--allow-fire`。此次虚拟机验证不执行有效 live 调用；
-   用户此前已在实机看到图像和检测，但不能将其视为跟随、命中或本次新版实机通过证明。
-2. 模板没有摩擦轮启用位或明确的考核阶段事件。当前第二阶段自动识别要求已确认
-   第一阶段 10 发，且转速绝对值变化至少 0.8 rad/s 并稳定；**4.4→5.0、5→5、
-   +5→-5 等情况不能据此可靠识别**。必须向考核管理员确认接口与流程，
-   不得用丢目标或模式抖动重置弹数冒充解决。
-3. 30 秒窗口暂以控制器首个单发命令为起点。若考核计时起点另有定义，
-   必须先对齐开始信号；仿真只把到达时间在窗口内的碰撞计为命中。
-4. 检查真实相机分辨率/内参/畸变、相机安装外参、IMU 时间、轴向符号、
-   云台机械限位、弹速、执行延迟、串口字节布局、单包单发和子弹计数语义。
-   原模板标定值与默认延迟没有在考核机器人上验证。
-5. 当前预测使用无阻力弹道，未标定真实出弹点偏移、空气阻力或机构间隙。
-   合成击中有限板面不意味着现场相同命中率；前哨血量不得由理想几何推断。
-6. 电控必须独立拒绝非 AUTO 模式命令，并在主机失联时停控停发。
-   主机的新鲜度和模式二次检查不能代替电控互锁。按课程要求由负责人监督实机操作，
-   不改变考核机器环境，也不超出允许的试射次数。
-
-完整数值证据和截图放在 `validation/`；运行时新产物放在被 Git 忽略的 `artifacts/`。
-个人讲解、学习笔记和用户提供的原始参考录屏不在提交内容中。
-
----
-
-## 原课程仓库说明
-
-# sp_vision_tutorial_27
-同济大学SuperPower战队2027赛季算法组招新仓库
-
-Lecture 1:Hello SP Vision  
-Lecture 2:Hello C++&&OOP  
-Lecture 3:Hello Modern C++  
-Lecture4:  
-自瞄：Hello Armor&&PnP
-导航雷达：Hello ROS2  
-Lecture5:   
-自瞄：Hello Kalman&&Target
-导航雷达：Hello SP Nav
-
-
-后续课程视频将会全部上传至战队Bilibili官方账号：[TJ-SuperPower战队](https://space.bilibili.com/651837546)
-
------------
-##### 注意：本仓库main分支为算法组自瞄方向招新使用，nav分支为算法组导航方向招新使用，请各位同学在进行作业提交等操作时注意区分
-
-##### 关于大作业代码：final_project_aim分支为自瞄方向大作业 
+验证证据保留在 `validation/`，运行产物写入 Git 忽略的 `artifacts/`；个人讲解不随本分支提交。

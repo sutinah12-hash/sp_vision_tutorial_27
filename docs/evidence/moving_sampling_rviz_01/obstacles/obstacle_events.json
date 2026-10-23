@@ -1,0 +1,56 @@
+[
+  {
+    "time_s": 59.29688603199611,
+    "robot": 3,
+    "phase": 1,
+    "target_requested_m": [
+      8.85,
+      6.15
+    ],
+    "target_pixel_quantized_m": [
+      8.85,
+      6.1450000000000005
+    ],
+    "r1_xy": [
+      10.777817110048105,
+      7.31356213138094
+    ],
+    "robot_xy": [
+      9.34,
+      3.92
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      890,
+      587
+    ]
+  },
+  {
+    "time_s": 64.96537247700326,
+    "robot": 3,
+    "phase": 2,
+    "target_requested_m": [
+      9.4,
+      3.95
+    ],
+    "target_pixel_quantized_m": [
+      9.405,
+      3.9550000000000014
+    ],
+    "r1_xy": [
+      9.286649748715298,
+      6.955303062308312
+    ],
+    "robot_xy": [
+      8.840582479848422,
+      6.0452077544197405
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      927,
+      733
+    ]
+  }
+]

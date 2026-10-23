@@ -1,0 +1,27 @@
+{
+  "git_commit": "7c57d2be020dfa6828a0f82a969da038cb272f1d",
+  "git_status": "",
+  "arguments": {
+    "controller": "sampling",
+    "no_smoothing": false,
+    "out": "results/moving_sampling_rviz_01",
+    "timeout": 360.0,
+    "headless": false,
+    "auto_goal": false,
+    "dynamic_obstacles": true,
+    "fast_mpc": false,
+    "mpc_max_acceleration": null,
+    "mpc_braking_acceleration": null,
+    "mpc_lateral_acceleration": null,
+    "pid_max_speed": null,
+    "pid_max_acceleration": null,
+    "pid_braking_acceleration": null,
+    "pid_lateral_acceleration": null,
+    "pid_kp": null,
+    "pid_ki": null,
+    "pid_kd": null
+  },
+  "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.35",
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "started_utc": "2026-10-23T14:42:40Z"
+}

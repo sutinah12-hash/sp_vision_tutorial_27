@@ -1,0 +1,28 @@
+{
+  "trigger": "one xdotool click on the actual RViz FixedGoal panel button",
+  "rviz_window": "0x01a00106",
+  "sim_window": "0x0200000e",
+  "button_pixel_xy": [
+    270,
+    878
+  ],
+  "rviz_geometry": {
+    "WINDOW": 27263238,
+    "X": 10,
+    "Y": 122,
+    "WIDTH": 1600,
+    "HEIGHT": 1016,
+    "SCREEN": 0
+  },
+  "sim_geometry": {
+    "WINDOW": 33554446,
+    "X": 1751,
+    "Y": 115,
+    "WIDTH": 1600,
+    "HEIGHT": 1000,
+    "SCREEN": 0
+  },
+  "approx_click_offset_in_video_s": 2.01064661500277,
+  "layout": "RViz 1600x1016 and original simulator 1600x1000 on non-overlapping areas",
+  "recording": "continuous native window capture; no time stretching or frame substitution"
+}

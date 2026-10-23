@@ -1,0 +1,21 @@
+{
+  "evidence_integrity": "PASS",
+  "tested_source_revision": "7c57d2b",
+  "scenario": "two_position_triggered_encounters_v3",
+  "navigation_results": {"MPC": "PASS", "PID": "PASS", "Sampling": "FAIL", "Fast MPC": "PASS"},
+  "complete_dynamic_scenarios": 3,
+  "sampling_note": "R3 encounter followed by action abort at 79.8556473255 s; R2 not triggered; observed through 360 s.",
+  "native_video_full_decodes_passed": 4,
+  "geometry_tests_passed": 3,
+  "colcon_tests": {"tests": 21, "errors": 0, "failures": 0, "skipped": 0},
+  "unchanged_src_since": "6a32794",
+  "all_eight_trials_recomputed": true,
+  "changed_documentation_links_checked": true,
+  "video_sha256_matches_vm_original": {
+    "moving_mpc_rviz_01": "f9892a160009256c4887b7ea47d6759abd130efc988146035d200848e13ecceb",
+    "moving_pid_rviz_01": "7fdd21d8647185ce47ad6375c45afdacfd280060e27dad5726efd93696047254",
+    "moving_sampling_rviz_01": "b7fa4f3c58d51a4ebdfd4d103bdd46d51820a372ea448a75a53fc4576bb277c7",
+    "moving_fast_mpc_rviz_01": "77a8c6d4cf4fefdda724b3c4cd17f11ddd104e9f3e8eaafdca1e04dc0f8343c5"
+  },
+  "safety_scope": "Arrival and sampled route interaction are measured separately. No claim of zero body contact."
+}

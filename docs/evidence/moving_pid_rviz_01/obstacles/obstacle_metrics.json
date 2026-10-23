@@ -1,0 +1,51 @@
+{
+  "scenario_id": "two_position_triggered_encounters_v3",
+  "goal_messages": 1,
+  "error": null,
+  "sample_count": 2094,
+  "robots": {
+    "R2": {
+      "start_xy": [
+        3.9,
+        7.2
+      ],
+      "final_xy": [
+        3.9044857127662107,
+        7.150051325848533
+      ],
+      "travel_distance_m": 4.266052005855783,
+      "max_displacement_m": 1.8831782086522548,
+      "minimum_r1_center_distance_m": 0.6452162013317643,
+      "minimum_moving_r1_center_distance_m": 0.6452162013317643,
+      "closest_time_s": 118.9673927440017,
+      "moving_route_incursion_samples": 41,
+      "near_r1_moving_incursion_samples": 41,
+      "first_near_r1_incursion_time_s": 116.77015768099227,
+      "final_phase": 4
+    },
+    "R3": {
+      "start_xy": [
+        9.34,
+        3.92
+      ],
+      "final_xy": [
+        9.421942803356496,
+        3.9829233306720577
+      ],
+      "travel_distance_m": 4.4322965245695505,
+      "max_displacement_m": 2.236328120306482,
+      "minimum_r1_center_distance_m": 0.7335713272334737,
+      "minimum_moving_r1_center_distance_m": 1.3934071888069608,
+      "closest_time_s": 98.96754282800248,
+      "moving_route_incursion_samples": 45,
+      "near_r1_moving_incursion_samples": 23,
+      "first_near_r1_incursion_time_s": 83.96781059699424,
+      "final_phase": 3
+    }
+  },
+  "position_source": "Simulator TF, matched by shared header timestamp (no Gaussian noise); R1 translated to map by (0.9,0.9)",
+  "separation_note": "Sampled center distances, not collision counts. Square chassis is 0.50 m per side; 0.707107 m is the orientation-independent non-overlap bound. A smaller distance alone does not establish a collision.",
+  "max_sample_gap_s": 0.5993092319986317,
+  "max_tf_age_s": 0.15700378200563136,
+  "scenario_completed": true
+}

@@ -1,0 +1,54 @@
+[INFO] [1792766562.018763087] [dynamic_obstacle_experiment]: Dynamic obstacle recorder ready; waiting for one RViz goal.
+[INFO] [1792766636.746185455] [dynamic_obstacle_experiment]: R3 phase 1, target [8.85, 6.15], t=59.30s
+[INFO] [1792766642.414848097] [dynamic_obstacle_experiment]: R3 phase 2, target [9.4, 3.95], t=64.97s
+{
+  "scenario_id": "two_position_triggered_encounters_v3",
+  "goal_messages": 1,
+  "error": null,
+  "sample_count": 3624,
+  "robots": {
+    "R2": {
+      "start_xy": [
+        3.9,
+        7.2
+      ],
+      "final_xy": [
+        3.9,
+        7.2
+      ],
+      "travel_distance_m": 0.0,
+      "max_displacement_m": 0.0,
+      "minimum_r1_center_distance_m": 4.466566177076059,
+      "minimum_moving_r1_center_distance_m": null,
+      "closest_time_s": 13.674810384007287,
+      "moving_route_incursion_samples": 0,
+      "near_r1_moving_incursion_samples": 0,
+      "first_near_r1_incursion_time_s": null,
+      "final_phase": 0
+    },
+    "R3": {
+      "start_xy": [
+        9.34,
+        3.92
+      ],
+      "final_xy": [
+        9.42869768006288,
+        3.9747122042432266
+      ],
+      "travel_distance_m": 4.49938568727449,
+      "max_displacement_m": 2.2595547782756698,
+      "minimum_r1_center_distance_m": 0.6637089460734865,
+      "minimum_moving_r1_center_distance_m": 0.6637089460734865,
+      "closest_time_s": 66.17493660000036,
+      "moving_route_incursion_samples": 50,
+      "near_r1_moving_incursion_samples": 33,
+      "first_near_r1_incursion_time_s": 63.47486123800627,
+      "final_phase": 3
+    }
+  },
+  "position_source": "Simulator TF, matched by shared header timestamp (no Gaussian noise); R1 translated to map by (0.9,0.9)",
+  "separation_note": "Sampled center distances, not collision counts. Square chassis is 0.50 m per side; 0.707107 m is the orientation-independent non-overlap bound. A smaller distance alone does not establish a collision.",
+  "max_sample_gap_s": 0.6003161339904182,
+  "max_tf_age_s": 0.13411114198970608,
+  "scenario_completed": false
+}

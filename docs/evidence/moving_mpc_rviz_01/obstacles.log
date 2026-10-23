@@ -1,0 +1,57 @@
+[INFO] [1792766124.388087999] [dynamic_obstacle_experiment]: Dynamic obstacle recorder ready; waiting for one RViz goal.
+[INFO] [1792766195.316227378] [dynamic_obstacle_experiment]: R3 phase 1, target [8.85, 6.15], t=55.47s
+[INFO] [1792766200.289118166] [dynamic_obstacle_experiment]: R3 phase 2, target [9.4, 3.95], t=60.44s
+[INFO] [1792766220.696083779] [dynamic_obstacle_experiment]: R2 phase 1, target [5.8, 7.3], t=80.85s
+[INFO] [1792766227.278248518] [dynamic_obstacle_experiment]: R2 phase 2, target [4.8, 7.55], t=87.43s
+[INFO] [1792766232.375190538] [dynamic_obstacle_experiment]: R2 phase 3, target [3.9, 7.2], t=92.53s
+{
+  "scenario_id": "two_position_triggered_encounters_v3",
+  "goal_messages": 1,
+  "error": null,
+  "sample_count": 1502,
+  "robots": {
+    "R2": {
+      "start_xy": [
+        3.9,
+        7.2
+      ],
+      "final_xy": [
+        3.8532236868491703,
+        7.193150602667065
+      ],
+      "travel_distance_m": 4.809265742629935,
+      "max_displacement_m": 1.9964151113013293,
+      "minimum_r1_center_distance_m": 0.5207785996726751,
+      "minimum_moving_r1_center_distance_m": 0.5207785996726751,
+      "closest_time_s": 87.15389457700076,
+      "moving_route_incursion_samples": 79,
+      "near_r1_moving_incursion_samples": 79,
+      "first_near_r1_incursion_time_s": 83.85303275799379,
+      "final_phase": 4
+    },
+    "R3": {
+      "start_xy": [
+        9.34,
+        3.92
+      ],
+      "final_xy": [
+        9.419415384083052,
+        3.9872585455363456
+      ],
+      "travel_distance_m": 4.510210889632764,
+      "max_displacement_m": 2.274347655792374,
+      "minimum_r1_center_distance_m": 0.6898756785134311,
+      "minimum_moving_r1_center_distance_m": 0.7040917780298674,
+      "closest_time_s": 61.352789265001775,
+      "moving_route_incursion_samples": 43,
+      "near_r1_moving_incursion_samples": 30,
+      "first_near_r1_incursion_time_s": 59.15346044200123,
+      "final_phase": 3
+    }
+  },
+  "position_source": "Simulator TF, matched by shared header timestamp (no Gaussian noise); R1 translated to map by (0.9,0.9)",
+  "separation_note": "Sampled center distances, not collision counts. Square chassis is 0.50 m per side; 0.707107 m is the orientation-independent non-overlap bound. A smaller distance alone does not establish a collision.",
+  "max_sample_gap_s": 0.5998726449906826,
+  "max_tf_age_s": 0.1300966130074812,
+  "scenario_completed": true
+}

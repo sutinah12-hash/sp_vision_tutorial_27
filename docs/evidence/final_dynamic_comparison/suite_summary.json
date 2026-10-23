@@ -1,0 +1,30 @@
+[
+  {
+    "controller": "mpc",
+    "directory": "results/moving_mpc_rviz_01",
+    "navigation": "PASS",
+    "action_time_s": 148.62441788100114,
+    "scene_complete": true
+  },
+  {
+    "controller": "pid",
+    "directory": "results/moving_pid_rviz_01",
+    "navigation": "PASS",
+    "action_time_s": 208.5545028300112,
+    "scene_complete": true
+  },
+  {
+    "controller": "sampling",
+    "directory": "results/moving_sampling_rviz_01",
+    "navigation": "FAIL",
+    "action_time_s": null,
+    "scene_complete": false
+  },
+  {
+    "controller": "fast_mpc",
+    "directory": "results/moving_fast_mpc_rviz_01",
+    "navigation": "PASS",
+    "action_time_s": 146.30534228299803,
+    "scene_complete": true
+  }
+]

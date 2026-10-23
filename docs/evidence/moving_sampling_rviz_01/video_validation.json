@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "full_decode": "no errors",
+  "codec": "h264",
+  "width": 1600,
+  "height": 1016,
+  "frame_rate": "10/1",
+  "duration_s": 368.7,
+  "file_size_bytes": 12232353,
+  "encounter_frame_time_s": 68.18425210900023,
+  "encounter_robot": "R3",
+  "frame_note": "Unedited native video frame near the measured closest active-obstacle approach; video-to-goal offset is approximate."
+}

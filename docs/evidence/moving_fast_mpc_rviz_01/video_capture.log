@@ -1,0 +1,5 @@
+[x11grab @ 0x55a68fa226c0] Stream #0: not enough frames to estimate rate; consider increasing probesize
+[x11grab @ 0x55a68fa226c0] Cannot get the image data event_error: response_type:0 error_code:8 sequence:7830 resource_id:37748736 minor_code:4 major_code:130.
+[x11grab @ 0x55a68fa226c0] Continuing without shared memory.
+[x11grab @ 0x55a68fa226c0] Cannot get the image data event_error: response_type:0 error_code:8 sequence:7831 resource_id:27263238 minor_code:0 major_code:73.
+:0: Permission denied

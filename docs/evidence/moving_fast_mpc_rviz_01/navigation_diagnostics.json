@@ -1,0 +1,7 @@
+{
+  "action_status": 4,
+  "abort_time_after_goal_s": null,
+  "blocked_start_log_count": 6,
+  "navigation_failure_logged": false,
+  "note": "Abort timing is derived from ROS log timestamps, not the recording timeout."
+}

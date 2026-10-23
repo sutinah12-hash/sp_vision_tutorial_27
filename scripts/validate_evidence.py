@@ -7,6 +7,7 @@ import subprocess
 import xml.etree.ElementTree as ET
 
 import numpy as np
+from plot_dynamic_results import verify_dynamic
 
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -54,20 +55,49 @@ def main():
             errors.append(error)
         assert abs(np.sqrt(np.mean(np.square(errors)))-metrics['tracking_rmse_m'])<1e-8
         results[directory.parent.name]=metrics['result']
-    expected_trials={
+    stationary_trials={
         'final_visible_mpc_rviz_01',
         'final_visible_pid_rviz_02',
         'final_visible_sampling_rviz_01',
         'final_visible_fast_mpc_rviz_01',
     }
-    assert set(results)==expected_trials, (
-        f'Expected exactly the four final RViz trials, got {sorted(results)}'
+    moving_trials={
+        'moving_mpc_rviz_01', 'moving_pid_rviz_01',
+        'moving_sampling_rviz_01', 'moving_fast_mpc_rviz_01',
+    }
+    assert set(results)==stationary_trials|moving_trials, (
+        f'Expected four stationary and four moving RViz trials, got {sorted(results)}'
     )
-    assert set(results.values())=={'PASS'}, 'Every retained final RViz trial must pass'
+    assert all(results[name]=='PASS' for name in stationary_trials)
+    dynamic_results={}
+    common_scenario=None
+    dynamic_commits=set()
+    for name in sorted(moving_trials):
+        trial=ROOT/'docs/evidence'/name
+        obstacle,scenario,_,_=verify_dynamic(trial)
+        if common_scenario is None:
+            common_scenario=scenario
+        assert scenario==common_scenario, 'Dynamic scene differs across controllers'
+        provenance=json.loads((trial/'provenance.json').read_text())
+        dynamic_commits.add(provenance['git_commit'])
+        assert provenance['arguments']['dynamic_obstacles']
+        assert not provenance['arguments']['auto_goal']
+        gui=json.loads((trial/'gui_trigger.json').read_text())
+        assert gui['sim_geometry']['X'] >= gui['rviz_geometry']['X']+gui['rviz_geometry']['WIDTH']
+        assert (gui['rviz_geometry']['WIDTH'],gui['rviz_geometry']['HEIGHT'])==(1600,1016)
+        video=json.loads((trial/'video_validation.json').read_text())
+        assert video['result']=='PASS' and video['full_decode']=='no errors'
+        assert (trial/'rviz_one_click.mp4').stat().st_size==video['file_size_bytes']
+        dynamic_results[name]={'navigation':results[name],
+                              'scenario_completed':obstacle['scenario_completed']}
+    assert len(dynamic_commits)==1, 'Dynamic tests must share a clean tested revision'
     print(json.dumps({'result':'PASS','evidence_trials':results,
+                      'dynamic_scenarios':dynamic_results,
                       'checks':['ASCII filenames','UTF-8 documentation','Python AST','XML parse',
                                 'clean tested revisions','one goal and fixed endpoints','command limits',
-                                'arrival criteria','raw trajectory and RMSE recomputation']},indent=2))
+                                'arrival criteria','raw trajectory and RMSE recomputation',
+                                'shared-stamp TF and distance recomputation','actual route incursions',
+                                'identical dynamic scenario','native video metadata and non-overlap']},indent=2))
 
 
 if __name__=='__main__':

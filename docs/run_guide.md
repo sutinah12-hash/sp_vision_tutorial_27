@@ -13,7 +13,9 @@ source install/setup.bash
 python3 scripts/run_trial.py --controller mpc --out results/my_mpc_01
 ```
 
-等待 RViz 左侧 `One-click navigation` 面板的按钮就绪，再点击一次 `Navigate once: (14.100, 14.100)`。主办方原有的 `2D Goal Pose` 工具没有删除，固定实验使用按钮只是为了让每轮目标坐标完全一致。不要拖动机器人、使用 `2D Pose Estimate`、手动发布速度或重复发目标。程序完成后会停止自己启动的节点，结果保存在 `results/my_mpc_01/data/`。同名目录不可重复使用，这是为防止覆盖上次记录；下一次用 `my_mpc_02`。
+等待 RViz 左侧 `One-click navigation` 面板的按钮就绪，再点击一次 `Navigate once: (14.100, 14.100)`。主办方原有的 `2D Goal Pose` 工具没有删除，固定实验使用按钮只是为了让每轮目标坐标完全一致。不要拖动 R1、使用 `2D Pose Estimate`、手动发布速度或重复发目标。程序完成后会停止自己启动的节点，结果保存在 `results/my_mpc_01/data/`。同名目录不可重复使用，这是为防止覆盖上次记录；下一次用 `my_mpc_02`。
+
+以上是 R2/R3 保持静止的基线流程。新增移动场景使用 `scripts/run_dynamic_trial.py`，它自动点击一次真实 RViz 按钮，并通过原版右键目标驱动 R2/R3 行驶；**不要再手工点击目标**。完整四组指令、桌面布局与恢复步骤见 [moving obstacle experiments](dynamic_obstacles.md)。
 
 主办方 RViz 原有的 Grid、全局/局部 Map、Path、LocalPath、规划 Marker、TF、动态障碍 MarkerArray、PointCloud2 和控制器 Marker 都已保留。附加显示中，橙黄色线是原始 A*，绿色线是平滑参考路径，蓝色线是实测执行轨迹，粉色线是预测轨迹，青色 R1、绿色 R2、红色 R3 是三台机器人的实时车体和朝向，红绿坐标轴是本车姿态，红色箭头是目标。
 

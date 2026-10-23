@@ -1,0 +1,47 @@
+{
+  "id": "two_position_triggered_encounters_v3",
+  "R3": {
+    "trigger_box": [
+      9.6,
+      10.8,
+      6.8,
+      7.9
+    ],
+    "outbound": [
+      8.85,
+      6.15
+    ],
+    "return": [
+      9.4,
+      3.95
+    ],
+    "return_when": "R3.y >= 6.0 and distance(R1,R3) <= 1.9 m"
+  },
+  "R2": {
+    "trigger_box": [
+      5.15,
+      6.5,
+      5.5,
+      6.7
+    ],
+    "outbound": [
+      5.8,
+      7.3
+    ],
+    "return": [
+      3.9,
+      7.2
+    ],
+    "clearance_waypoint": [
+      4.8,
+      7.55
+    ],
+    "return_when": "R2.x >= 5.65; use clearance waypoint before returning"
+  },
+  "sample_hz": 10,
+  "maximum_tf_age_s": 0.5,
+  "movement_speed_threshold_mps": 0.05,
+  "route_incursion_distance_m": 0.35,
+  "encounter_distance_m": 2.0,
+  "source": "Existing SimGui right-button target; fixed official 30 Hz dynamics"
+}

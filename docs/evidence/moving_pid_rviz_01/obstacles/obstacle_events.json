@@ -1,0 +1,137 @@
+[
+  {
+    "time_s": 79.86455955100246,
+    "robot": 3,
+    "phase": 1,
+    "target_requested_m": [
+      8.85,
+      6.15
+    ],
+    "target_pixel_quantized_m": [
+      8.85,
+      6.1450000000000005
+    ],
+    "r1_xy": [
+      10.790910863232751,
+      7.350716664650152
+    ],
+    "robot_xy": [
+      9.34,
+      3.92
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      890,
+      587
+    ]
+  },
+  {
+    "time_s": 84.85095543900388,
+    "robot": 3,
+    "phase": 2,
+    "target_requested_m": [
+      9.4,
+      3.95
+    ],
+    "target_pixel_quantized_m": [
+      9.405,
+      3.9550000000000014
+    ],
+    "r1_xy": [
+      9.73098418546065,
+      7.305545718997237
+    ],
+    "robot_xy": [
+      8.856379100595056,
+      6.022669458438788
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      927,
+      733
+    ]
+  },
+  {
+    "time_s": 113.75663635699311,
+    "robot": 2,
+    "phase": 1,
+    "target_requested_m": [
+      5.8,
+      7.3
+    ],
+    "target_pixel_quantized_m": [
+      5.805000000000001,
+      7.300000000000001
+    ],
+    "r1_xy": [
+      5.657314954272475,
+      5.5197647469390345
+    ],
+    "robot_xy": [
+      3.9,
+      7.2
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      687,
+      510
+    ]
+  },
+  {
+    "time_s": 118.04257487099676,
+    "robot": 2,
+    "phase": 2,
+    "target_requested_m": [
+      4.8,
+      7.55
+    ],
+    "target_pixel_quantized_m": [
+      4.8,
+      7.555
+    ],
+    "r1_xy": [
+      5.696063435865183,
+      6.452722579565776
+    ],
+    "robot_xy": [
+      5.661380003955093,
+      7.3035321931691675
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      620,
+      493
+    ]
+  },
+  {
+    "time_s": 120.52594609800144,
+    "robot": 2,
+    "phase": 3,
+    "target_requested_m": [
+      3.9,
+      7.2
+    ],
+    "target_pixel_quantized_m": [
+      3.9,
+      7.195
+    ],
+    "r1_xy": [
+      5.605507996406478,
+      6.750215703823964
+    ],
+    "robot_xy": [
+      4.93790685348223,
+      7.5332984588719984
+    ],
+    "method": "xdotool physical right click in existing simulator GUI",
+    "window_id": "0x0200000e",
+    "pixel_xy": [
+      560,
+      517
+    ]
+  }
+]

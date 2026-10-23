@@ -1,8 +1,10 @@
 # Evidence index
 
-当前提交只保留四段能够清楚看到 R1、R2、R3 的最终 RViz 录像，以及构建、动力学和仿真等价性检查。录像均来自 VMware Ubuntu 22.04 的实际 RViz 窗口。
+当前保留四段静止障碍基线、四段移动障碍录像，以及构建、动力学和仿真等价性检查。录像均来自 VMware Ubuntu 22.04 的实际 RViz 窗口。
 
-## Final RViz trials
+## Stationary-obstacle baseline
+
+下面四轮中 R2、R3 停在初始位置，不能用来证明移动障碍避让。
 
 - `final_visible_mpc_rviz_01`：默认 MPC，PASS，96.38 s，终点误差 0.84 cm，跟踪 RMSE 10.60 cm，最小墙距 0.60 m，视频 104.9 s。
 - `final_visible_pid_rviz_02`：调优 PID，PASS，161.31 s，终点误差 0.99 cm，跟踪 RMSE 11.06 cm，最小墙距 0.55 m，视频 171.4 s。
@@ -14,6 +16,19 @@
 青色 R1、绿色 R2、红色 R3 的车体、朝向和标签来自 `/robots` 的只读可视化，不参与规划、控制或碰撞计算。每个试验目录保存 MP4、20 秒实际画面、`metrics.json`、`samples.csv`、参考路径、控制计算时间、启动日志和来源记录。四段 MP4 均已完整解码检查。
 
 `final_visible_comparison/` 保存由四轮 `metrics.json` 重新生成的对比图与 JSON。详细说明见 [RViz controller videos](../video_comparison.md)。
+
+## Moving-obstacle experiments
+
+- [Default MPC](moving_mpc_rviz_01/rviz_one_click.mp4)
+- [PID](moving_pid_rviz_01/rviz_one_click.mp4)
+- [Sampling](moving_sampling_rviz_01/rviz_one_click.mp4)
+- [Fast MPC](moving_fast_mpc_rviz_01/rviz_one_click.mp4)
+
+四轮使用同一 `two_position_triggered_encounters_v3` 场景和干净源码 `7c57d2b`。MPC、PID、Fast MPC 分别在 148.62 s、208.55 s、146.31 s 到达；Sampling 在约 79.86 s action 中止，R2 未触发，失败录像保留至观察上限。
+
+`obstacles/` 保留共享时间戳配对的 TF、障碍目标事件、运动与距离复算；`data/` 保留 R1 到达评测。每个目录另含 MP4、`native_encounter.png`、三车轨迹图、录像完整解码结果和窗口几何信息。三组完成场景、一组失败，不混写为四组避障成功。
+
+`final_dynamic_comparison/` 汇总静止/移动两类结果。时间差包含不同负载下的虚拟机调度影响；到达 PASS 与无接触验证分开解释。详见 [动态实验说明](../dynamic_obstacles.md)。
 
 ## Other checks
 

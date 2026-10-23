@@ -28,7 +28,11 @@ def main():
         duration = float(probe['format']['duration'])
         if metrics['action_time_s'] is not None:
             assert duration>metrics['action_time_s']+4
-        frame_time = obstacle['robots']['R2']['closest_time_s']+gui['approx_click_offset_in_video_s']
+        active = {name:row for name,row in obstacle['robots'].items()
+                  if row['near_r1_moving_incursion_samples']>0}
+        assert active, 'No actual moving route interaction recorded'
+        chosen = min(active,key=lambda name:active[name]['minimum_r1_center_distance_m'])
+        frame_time = active[chosen]['closest_time_s']+gui['approx_click_offset_in_video_s']
         assert 0<frame_time<duration
         subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-n','-ss',str(frame_time),
                         '-i',str(video),'-frames:v','1',str(directory/'native_encounter.png')],check=True)
@@ -36,7 +40,8 @@ def main():
                 'width':stream['width'],'height':stream['height'],'frame_rate':stream['r_frame_rate'],
                 'duration_s':duration,'file_size_bytes':int(probe['format']['size']),
                 'encounter_frame_time_s':frame_time,
-                'frame_note':'Unedited native video frame near the measured closest R1-R2 approach; '
+                'encounter_robot':chosen,
+                'frame_note':'Unedited native video frame near the measured closest active-obstacle approach; '
                              'video-to-goal offset is approximate.'}
         (directory/'video_validation.json').write_text(json.dumps(report,indent=2)+'\n')
         print(directory.name,json.dumps(report),flush=True)

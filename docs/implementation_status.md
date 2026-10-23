@@ -38,4 +38,6 @@
 
 9 个包编译通过，`colcon test-result` 汇总 21 项检查，0 errors、0 failures、0 skipped。覆盖控制器数学、采样收敛、坐标转换和 A* 平滑安全性；这不等于全部实际场景的安全证明。
 
-真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。三机器人清晰显示后的四轮 GUI 汇总位于 `evidence/final_visible_comparison/summary.json`。PID 在正式录像前另完成两轮自动单目标回归；最终提交只保留四段 GUI 验收证据。
+真实导航的逐轮结果、计时、轨迹和起终点检查保存在 `docs/evidence/`。原先 R2/R3 静止的四轮 GUI 汇总位于 `evidence/final_visible_comparison/summary.json`。PID 在正式录像前另完成两轮自动单目标回归。
+
+新增四轮移动障碍实验共用位置触发场景，由原版右键目标驱动 R2/R3，无仿真器或控制器源码改动。三车 TF 按共享消息时间戳配对采样；完整录像、原始轨迹、实际运动与路线交互检查另列在 `evidence/moving_*`，与静止组分开报告。场景几何新增三项检查，证据校验扩展为八轮。到达成功不作为零接触证明，说明见 [dynamic experiments](dynamic_obstacles.md)。

@@ -16,7 +16,8 @@ class DynamicExperimentTests(unittest.TestCase):
         self.assertAlmostEqual(distance_to_path(np.array([-1.,0.]),path), 1.)
 
     def test_trigger_boxes(self):
-        self.assertTrue(in_box([12.2,7.1],SCENARIO['R3']['trigger_box']))
+        self.assertTrue(in_box([10.8,7.1],SCENARIO['R3']['trigger_box']))
+        self.assertFalse(in_box([12.2,7.1],SCENARIO['R3']['trigger_box']))
         self.assertFalse(in_box([10.8,4.],SCENARIO['R3']['trigger_box']))
         self.assertFalse(in_box([5.7,2.],SCENARIO['R2']['trigger_box']))
         self.assertTrue(in_box([5.7,5.6],SCENARIO['R2']['trigger_box']))

@@ -21,10 +21,10 @@ from tf2_msgs.msg import TFMessage
 from visualization_msgs.msg import Marker, MarkerArray
 
 SCENARIO = {
-    'id': 'two_position_triggered_encounters_v2',
-    'R3': {'trigger_box': [10.0, 12.2, 6.8, 7.9],
+    'id': 'two_position_triggered_encounters_v3',
+    'R3': {'trigger_box': [9.6, 10.8, 6.8, 7.9],
            'outbound': [8.85, 6.15], 'return': [9.4, 3.95],
-           'return_when': 'R3.y >= 6.0'},
+           'return_when': 'R3.y >= 6.0 and distance(R1,R3) <= 1.9 m'},
     'R2': {'trigger_box': [5.15, 6.5, 5.5, 6.7],
            'outbound': [5.8, 7.3], 'return': [3.9, 7.2],
            'clearance_waypoint': [4.8, 7.55],
@@ -66,6 +66,9 @@ class Scenario(Node):
         self.goal_count = 0
         self.poses = {}
         self.ages = {}
+        self.pending_tf = {}
+        self.frame_stamp = -1
+        self.last_recorded_stamp = -1
         self.phases = {2: 0, 3: 0}
         self.events = []
         self.rows = []
@@ -106,8 +109,21 @@ class Scenario(Node):
                 continue
             p = transform.transform.translation
             offset = .9 if robot == 1 else 0.0
-            self.poses[robot] = np.array([p.x+offset, p.y+offset])
-            self.ages[robot] = now
+            stamp = transform.header.stamp.sec*10**9 + transform.header.stamp.nanosec
+            if stamp <= self.frame_stamp:
+                continue
+            bucket = self.pending_tf.setdefault(stamp, {})
+            bucket[robot] = (np.array([p.x+offset, p.y+offset]), now)
+            # All three transforms share the stamp set by the official odometry callback.
+            # Do not pair a newly received R1 pose with an old obstacle pose.
+            if len(bucket) == 3:
+                self.poses = {k:bucket[k][0] for k in (1,2,3)}
+                self.ages = {k:bucket[k][1] for k in (1,2,3)}
+                self.frame_stamp = stamp
+                self.pending_tf = {s:b for s,b in self.pending_tf.items() if s>stamp}
+            if len(self.pending_tf)>64:
+                oldest = min(self.pending_tf)
+                del self.pending_tf[oldest]
 
     def set_target(self, robot, target, phase):
         if self.window is None:
@@ -145,17 +161,20 @@ class Scenario(Node):
         ages = [now-self.ages[k] for k in (1, 2, 3)]
         if max(ages) > SCENARIO['maximum_tf_age_s']:
             return
+        if self.frame_stamp == self.last_recorded_stamp:
+            return
+        self.last_recorded_stamp = self.frame_stamp
         p1, p2, p3 = [self.poses[k] for k in (1, 2, 3)]
         self.rows.append([now-self.start, *p1, *p2, *p3,
                           np.linalg.norm(p1-p2), np.linalg.norm(p1-p3),
-                          self.phases[2], self.phases[3], *ages])
+                          self.phases[2], self.phases[3], *ages, self.frame_stamp])
         for k in (2, 3):
             if not self.trails[k] or np.linalg.norm(self.poses[k]-self.trails[k][-1]) > .02:
                 self.trails[k].append(self.poses[k].copy())
         try:
             if self.phases[3] == 0 and in_box(p1, SCENARIO['R3']['trigger_box']):
                 self.set_target(3, SCENARIO['R3']['outbound'], 1)
-            elif self.phases[3] == 1 and p3[1] >= 6.0:
+            elif self.phases[3] == 1 and p3[1] >= 6.0 and np.linalg.norm(p1-p3)<=1.9:
                 self.set_target(3, SCENARIO['R3']['return'], 2)
             elif self.phases[3] == 2 and np.linalg.norm(p3-SCENARIO['R3']['return']) < .12:
                 self.phases[3] = 3
@@ -196,7 +215,7 @@ class Scenario(Node):
     def save(self):
         header = ['time_s','r1_x_m','r1_y_m','r2_x_m','r2_y_m','r3_x_m','r3_y_m',
                   'r1_r2_center_distance_m','r1_r3_center_distance_m','r2_phase','r3_phase',
-                  'r1_tf_age_s','r2_tf_age_s','r3_tf_age_s']
+                  'r1_tf_age_s','r2_tf_age_s','r3_tf_age_s','shared_tf_stamp_ns']
         with (self.out/'obstacle_samples.csv').open('w', newline='') as stream:
             writer = csv.writer(stream)
             writer.writerow(header)
@@ -207,7 +226,8 @@ class Scenario(Node):
         data = np.array(self.rows)
         result = {'scenario_id': SCENARIO['id'], 'goal_messages': self.goal_count,
                   'error': self.error, 'sample_count': len(self.rows), 'robots': {},
-                  'position_source': 'Simulator TF (no Gaussian noise); R1 translated to map by (0.9,0.9)',
+                  'position_source': 'Simulator TF, matched by shared header timestamp (no Gaussian noise); '
+                                     'R1 translated to map by (0.9,0.9)',
                   'separation_note': 'Sampled center distances, not collision counts. '
                     'Square chassis is 0.50 m per side; 0.707107 m is the orientation-independent '
                     'non-overlap bound. A smaller distance alone does not establish a collision.'}

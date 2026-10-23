@@ -7,7 +7,6 @@ The same position-triggered scenario is used for all four controller configurati
 import argparse
 import csv
 import json
-import math
 from pathlib import Path
 import subprocess
 import time
@@ -22,13 +21,14 @@ from tf2_msgs.msg import TFMessage
 from visualization_msgs.msg import Marker, MarkerArray
 
 SCENARIO = {
-    'id': 'two_position_triggered_encounters_v1',
+    'id': 'two_position_triggered_encounters_v2',
     'R3': {'trigger_box': [10.0, 12.2, 6.8, 7.9],
            'outbound': [8.85, 6.15], 'return': [9.4, 3.8],
            'return_when': 'R3.y >= 6.0'},
     'R2': {'trigger_box': [5.15, 6.5, 5.5, 6.7],
            'outbound': [5.8, 7.3], 'return': [3.9, 7.2],
-           'return_when': 'R2.x >= 5.65'},
+           'clearance_waypoint': [4.8, 7.55],
+           'return_when': 'R2.x >= 5.65; use clearance waypoint before returning'},
     'sample_hz': 10, 'maximum_tf_age_s': 0.5,
     'movement_speed_threshold_mps': 0.05,
     'route_incursion_distance_m': 0.35, 'encounter_distance_m': 2.0,
@@ -75,7 +75,7 @@ class Scenario(Node):
         self.window = None
         self.create_subscription(TFMessage, '/tf', self.on_tf, qos_profile_sensor_data)
         self.create_subscription(PoseStamped, '/goal_pose', self.on_goal, 10)
-        self.create_subscription(RosPath, '/global_path', self.on_path, 10)
+        self.path_sub = self.create_subscription(RosPath, '/global_path', self.on_path, 10)
         self.marker_pub = self.create_publisher(MarkerArray, '/dynamic_obstacles/markers', 10)
         self.create_timer(0.1, self.tick)
         self.create_timer(0.5, self.show_trails)
@@ -90,6 +90,8 @@ class Scenario(Node):
     def on_path(self, message):
         if self.start is not None and self.reference is None and message.poses:
             self.reference = np.array([[p.pose.position.x, p.pose.position.y] for p in message.poses])
+            # The frozen path is needed only once; avoid deserializing all later replans.
+            self.destroy_subscription(self.path_sub)
 
     def on_tf(self, message):
         now = time.monotonic()
@@ -160,9 +162,11 @@ class Scenario(Node):
             if self.phases[2] == 0 and self.phases[3] > 0 and in_box(p1, SCENARIO['R2']['trigger_box']):
                 self.set_target(2, SCENARIO['R2']['outbound'], 1)
             elif self.phases[2] == 1 and p2[0] >= 5.65:
-                self.set_target(2, SCENARIO['R2']['return'], 2)
-            elif self.phases[2] == 2 and np.linalg.norm(p2-SCENARIO['R2']['return']) < .12:
-                self.phases[2] = 3
+                self.set_target(2, SCENARIO['R2']['clearance_waypoint'], 2)
+            elif self.phases[2] == 2 and np.linalg.norm(p2-SCENARIO['R2']['clearance_waypoint']) < .15:
+                self.set_target(2, SCENARIO['R2']['return'], 3)
+            elif self.phases[2] == 3 and np.linalg.norm(p2-SCENARIO['R2']['return']) < .12:
+                self.phases[2] = 4
         except Exception as exc:
             self.error = str(exc)
             self.get_logger().error(self.error)
@@ -235,7 +239,8 @@ class Scenario(Node):
         result['scenario_completed'] = (self.error is None and self.goal_count == 1 and
             len(result['robots']) == 2 and all(
                 row['max_displacement_m'] >= 1.0 and row['near_r1_moving_incursion_samples'] >= 1 and
-                row['final_phase'] == 3 for row in result['robots'].values()))
+                row['final_phase'] == (4 if name == 'R2' else 3)
+                for name, row in result['robots'].items()))
         (self.out/'obstacle_metrics.json').write_text(json.dumps(result, indent=2)+'\n')
         print(json.dumps(result, indent=2), flush=True)
 

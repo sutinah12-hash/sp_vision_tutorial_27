@@ -25,7 +25,7 @@ def main():
     parser.add_argument('--controller', choices=['mpc','pid','sampling'], default='mpc')
     parser.add_argument('--fast-mpc', action='store_true')
     parser.add_argument('--out', required=True, type=Path)
-    parser.add_argument('--timeout', type=float, default=240.)
+    parser.add_argument('--timeout', type=float, default=360.)
     args = parser.parse_args()
     if args.out.exists() or any(windows()):
         parser.error('Use a new output directory and stop the previous experiment first')
@@ -57,7 +57,8 @@ def main():
             raise RuntimeError('GUI/recorders not ready within 60 seconds')
         subprocess.run(['wmctrl','-ir',rviz[0],'-b','remove,maximized_vert,maximized_horz'],check=True)
         subprocess.run(['wmctrl','-ir',rviz[0],'-e','0,0,40,1600,1016'],check=True)
-        subprocess.run(['wmctrl','-ir',sim[0],'-e','0,1750,40,1600,1000'],check=True)
+        # Its right edge may be off-screen; all R2/R3 target pixels remain visible.
+        subprocess.run(['wmctrl','-ir',sim[0],'-e','0,1610,40,1600,1000'],check=True)
         time.sleep(2)
         subprocess.run(['wmctrl','-ia',rviz[0]],check=True)
         # Reset is RViz's display-cache reset, not a simulator reset.

@@ -33,7 +33,7 @@ def main():
         args.save.parent.mkdir(parents=True, exist_ok=True)
         with args.save.open('x') as stream:
             json.dump({'connector': connector, 'mode': current, 'scale': logical[0][2]}, stream, indent=2)
-        desired = next(mode[0] for mode in modes if mode[1:3] == (4096, 2160))
+        desired = next(mode[0] for mode in modes if mode[1:3] == (2560, 1600))
         scale = 1.0
     layout = [(0, 0, scale, 0, True, [(connector, desired, {})])]
     params = GLib.Variant('(uua(iiduba(ssa{sv}))a{sv})',

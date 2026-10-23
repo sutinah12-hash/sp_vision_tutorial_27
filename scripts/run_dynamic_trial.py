@@ -11,7 +11,10 @@ import time
 
 
 def windows():
-    lines = subprocess.check_output(['wmctrl', '-l'], text=True).splitlines()
+    listing = subprocess.run(['wmctrl', '-l'], text=True, capture_output=True)
+    if listing.returncode and listing.stderr.strip():
+        raise RuntimeError(listing.stderr.strip())
+    lines = listing.stdout.splitlines()
     rviz = [line.split()[0] for line in lines if ' - RViz' in line]
     sim = [line.split()[0] for line in lines if 'SP Nav Sim' in line]
     return rviz, sim

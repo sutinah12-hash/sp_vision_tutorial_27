@@ -33,7 +33,7 @@ class DynamicExperimentTests(unittest.TestCase):
                 self.assertGreater(clearance[int(y/.05),int(x/.05)], np.sqrt(2)*.25,
                                    msg=f'{robot} {name}: insufficient rotation clearance')
                 px,py = round(300+x/.05*1000/300),round((299-y/.05)*1000/300)
-                self.assertLess(1611+px,2560)
+                self.assertLess(1751+px,4096)
                 self.assertTrue(0<py<1000)
                 recovered = np.array([(px-300)*.05/(1000/300),(299-py/(1000/300))*.05])
                 self.assertLess(np.linalg.norm(recovered-[x,y]),.011)

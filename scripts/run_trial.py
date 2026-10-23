@@ -22,6 +22,8 @@ def stop(process):
 
 
 def main():
+    signal.signal(signal.SIGINT, signal.default_int_handler)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--controller', choices=['mpc', 'pid', 'sampling'], default='mpc')
     parser.add_argument('--no-smoothing', action='store_true')

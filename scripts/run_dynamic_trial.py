@@ -23,6 +23,8 @@ def windows():
 
 
 def main():
+    signal.signal(signal.SIGINT, signal.default_int_handler)
+    signal.signal(signal.SIGTERM, signal.default_int_handler)
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--controller', choices=['mpc','pid','sampling'], default='mpc')
     parser.add_argument('--fast-mpc', action='store_true')
@@ -59,9 +61,17 @@ def main():
             raise RuntimeError('GUI/recorders not ready within 60 seconds')
         subprocess.run(['wmctrl','-ir',rviz[0],'-b','remove,maximized_vert,maximized_horz'],check=True)
         subprocess.run(['wmctrl','-ir',rviz[0],'-e','0,0,40,1600,1016'],check=True)
-        # Its right edge may be off-screen; all R2/R3 target pixels remain visible.
-        subprocess.run(['wmctrl','-ir',sim[0],'-e','0,1610,40,1600,1000'],check=True)
+        subprocess.run(['wmctrl','-ir',sim[0],'-e','0,1750,40,1600,1000'],check=True)
         time.sleep(2)
+        geometries = []
+        for window in (rviz[0], sim[0]):
+            text = subprocess.check_output(['xdotool','getwindowgeometry','--shell',window],text=True)
+            geometries.append({k:int(v) for k,v in (line.split('=',1) for line in text.splitlines())})
+        rgeo,sgeo = geometries
+        if ((rgeo['WIDTH'],rgeo['HEIGHT']) != (1600,1016)
+            or (sgeo['WIDTH'],sgeo['HEIGHT']) != (1600,1000)
+            or sgeo['X'] < rgeo['X']+rgeo['WIDTH']):
+            raise RuntimeError('Windows overlap or were resized; use experiment_desktop.py before recording')
         subprocess.run(['wmctrl','-ia',rviz[0]],check=True)
         # Reset is RViz's display-cache reset, not a simulator reset.
         subprocess.run(['xdotool','mousemove','--window',rviz[0],'25','1002','click','1'],check=True)
@@ -81,6 +91,7 @@ def main():
         (args.out/'gui_trigger.json').write_text(json.dumps({
             'trigger': 'one xdotool click on the actual RViz FixedGoal panel button',
             'rviz_window':rviz[0], 'sim_window':sim[0], 'button_pixel_xy':[270,878],
+            'rviz_geometry':rgeo, 'sim_geometry':sgeo,
             'approx_click_offset_in_video_s':clicked-record_start,
             'layout':'RViz 1600x1016 and original simulator 1600x1000 on non-overlapping areas',
             'recording':'continuous native window capture; no time stretching or frame substitution',

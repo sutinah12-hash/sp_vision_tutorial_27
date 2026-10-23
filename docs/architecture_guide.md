@@ -37,6 +37,99 @@ sp_nav_sim: motion, collision and three robots
 
 它是一个闭环：控制器根据当前位置算速度，仿真器执行速度并产生新的位置，下一次控制周期再用新位置修正指令。只有 `RViz → 行为树 → 规划器 → 控制器 → 仿真器 → 反馈` 全链路接通，机器人才能到达。
 
+## 1.1 从命令到进程：实际启动顺序
+
+运行命令是：
+
+```bash
+source /opt/ros/humble/setup.bash
+source install/setup.bash
+ros2 launch sp_nav_bringup project.launch.py controller:=mpc rviz:=true
+```
+
+`project.launch.py` 本身不计算导航，它只组合三个启动动作：
+
+1. 启动 `tf2_ros/static_transform_publisher`，发布 `base_link → livox_frame` 的静态 TF；
+2. include `sp_nav_sim/launch/sim_robot.launch.py`，读取 `sp_nav_sim/config/sim_robot.yaml`，启动 `sp_nav_sim` 包的 `sim_robot` 可执行程序；
+3. include `sp_nav_bringup/launch/sp_nav.launch.py`，读取 `sp_nav_bringup/config/nav_params.yaml`，启动地图、规划、控制、行为树和 RViz 节点。
+
+ROS 2 launch 会并行拉起这些节点，所以不能把进程启动的先后当成严格的业务顺序。业务上的依赖是：地图先发布代价地图，规划器收到代价地图后才能响应 `make_plan`，控制器收到路径和 TF 后才能计算速度，行为树则负责把这些服务和话题串起来。
+
+`sp_nav.launch.py` 的 `OpaqueFunction(nodes)` 先读取 `controller`、`smoothing` 以及速度/加速度覆盖值，再创建以下节点：
+
+- `esdf_map_publisher`：静态地图和 ESDF/全局代价地图；
+- `planner_server`：A* 插件服务器；
+- `controller_node`：控制器插件服务器；
+- `sp_decision_node`：上层任务行为树；
+- `nav_interface_node`：下层 NavigateToPose action 和导航行为树；
+- `robot_marker_publisher`、`rviz2`：仅在 `rviz:=true` 时启动，用于显示三台机器人和导航过程。
+
+因此，`controller:=mpc` 并不是启动另一个主程序，而是把 `controller_server.plugin_name/plugin_type` 覆盖为 `MpcController`；`pid` 和 `sampling` 只替换这个插件选择。`mpc_max_speed:=2.0` 之类的实验参数也在这里覆盖 YAML，仿真器的 `v_max` 仍来自另一份 `sim_robot.yaml`。
+
+## 1.2 每个可执行程序的 `main()` 和构造函数
+
+### 仿真器：`sp_nav_sim/sp_nav_sim/sim_robot_node.py`
+
+入口是文件末尾的 `main()`：调用 `rclpy.init()`，构造 `SimRobotNode()`，创建 `MultiThreadedExecutor`，再启动 ROS 回调线程。主线程持续执行 `node.gui.tick(...)`。
+
+`SimRobotNode.__init__()` 的调用顺序是：
+
+1. `super().__init__('sim_robot_node')` 创建 ROS 节点；
+2. `declare_parameter()` 声明并读取 `sim_robot.yaml` 中的地图、频率、速度、加速度、初始位置和话题参数；
+3. `load_sim_map()` 读取 PGM/YAML 地图；
+4. 用主机器人参数构造 `self.sentry = SimRobot(...)`；
+5. 根据 `robot_ids/init_xs/init_ys/tf_child_frame_ids` 构造另外两台 `SimRobot`；
+6. 创建里程计、TF、局部代价地图、`/robots` 等发布器和 `/sentry/cmd_vel` 订阅器；
+7. 创建 `SimGui`。
+
+`SimRobot.step()` 是物理更新入口。它读取最新速度命令，经过速度/加速度限制和碰撞线段检查后，用固定 `dt=1/publish_hz` 更新位置；`SimGui.tick()` 每轮先调用所有机器人的 `step()`，再绘制界面。
+
+### 地图节点：`sp_map_server/src/esdf_map_publisher.cpp`
+
+`main()` 创建 `EsdfMapPublisher` 后 `rclcpp::spin(node)`。构造函数读取 `map_yaml`、`robot_radius`、`margin`、`d_safe` 和 `w`，加载静态地图，创建 `/global_costmap`、`/esdf` 等发布器，并按 `publish_rate_hz` 定时发布。规划器和局部地图节点通过这些话题获得环境信息。
+
+### 规划器：`sp_global_planner/src/main.cpp` 和 `planner_server.cpp`
+
+`main()` 的顺序是 `rclcpp::init()` → `make_shared<PlannerServer>()` → `node->init()` → `rclcpp::spin()`。
+
+`PlannerServer` 构造函数读取 `costmap_topic`、`local_costmap_topic`、`path_topic`、`plugin_name` 和 `plugin_type`，创建代价地图订阅器、`make_plan` 服务、`/goal_pose` 订阅器和路径发布器。`init()` 调用 `loadPlugin()`，由 pluginlib 实例化 `sp_global_planner/AStarPlanner`，随后调用插件的 `configure()`。
+
+收到 `make_plan` 请求后，`onPlanRequest()` 复制当前代价地图，调用 `planner_->createPlan(start, goal)`，发布 `/global_path` 并返回服务结果。`AStarPlanner::createPlan()` 先发布 `/global_path_raw`，再进行安全平滑；平滑结果不安全时返回原始路径。
+
+### 控制器：`sp_controller_server/src/controller_node.cpp` 和 `controller_server.cpp`
+
+`main()` 的顺序是 `rclcpp::init()` → 构造 `ControllerServer` → `node->init()` → `rclcpp::spin()`。
+
+构造函数读取 `/global_path`、`/Odometry`、TF、`/sentry/cmd_vel` 和 `control_frequency`，创建路径/里程计订阅器、速度发布器、`/set_control_enable` 服务和控制定时器。`init()` 通过 pluginlib 加载 YAML 指定的控制器，并调用插件的 `configure()`。
+
+路径到达 `onLocalPath()` 时，服务器调用插件 `setPlan()`；里程计到达 `onOdometry()` 时保存速度并用 TF 把车体系速度转换到 `map` 坐标。50 Hz 的 `controlLoop()` 每次读取最新路径、通过 TF 获取当前位姿，然后调用 `computeVelocityCommands()`，最后将输出转换/发布到 `/sentry/cmd_vel`。控制未使能时，服务器发布零速度。
+
+### 下层导航接口：`sp_nav_bt/src/nav_interface_node.cpp`
+
+`main()` 构造 `NavInterfaceNode`，调用 `init_engine()` 后 spin。构造函数读取 `default_bt_xml` 和 `bt_plugins`，创建 TF buffer/listener。`init_engine()` 加载 `default_nav_with_fallback.xml` 和插件库，再创建 `/navigate_to_pose` action server。
+
+收到 action goal 后，`handle_accepted()` 启动 `execute_tree()` 线程；线程把原始目标写入 BT blackboard，调用 `NavBTEngine::run()`。下层 BT 通常依次执行：获取当前位姿 → 调用 `make_plan` → 设置控制使能 → 等待 `NavStateTrack` 判断到达。成功时调用 action `succeed()`，失败或取消时分别调用 `abort()`/`canceled()`。
+
+### 上层决策：`sp_decision/src/decision_main.cpp`
+
+`main()` 先创建 Qt `QApplication`，再 `rclcpp::init()`、构造 `DecisionNode`。构造函数只检查 `tree_files`、`bt_plugins` 和 `tick_rate_hz` 参数。随后创建 `DecisionEngine` 和 `BlackboardBridge`，加载 `click_nav.xml` 及插件，启动 ROS executor 和 Qt GUI。收到 `/goal_pose` 后，上层 BT 的 `NavToPose` 节点把目标封装成 `/navigate_to_pose` action 请求；它不计算路径，也不发布速度。
+
+## 1.3 一次点击后的消息顺序
+
+1. RViz 固定目标面板发布一次 `/goal_pose`。
+2. `BlackboardBridge` 和上层 `click_nav.xml` 接收目标；`NavToPose` 调用 `/navigate_to_pose`。
+3. `nav_interface_node` 接收 action，启动下层 BT。
+4. 下层 `ComputePathService` 调用 `planner_server/make_plan`。
+5. `planner_server` 读取 `/global_costmap`，A* 发布 `/global_path_raw` 和 `/global_path`。
+6. `controller_server` 收到 `/global_path`，调用插件 `setPlan()`；同时从 `/Odometry` 和 TF 获取状态。
+7. 控制循环调用 `computeVelocityCommands()`，向 `/sentry/cmd_vel` 发布速度。
+8. `sim_robot_node` 执行速度、检查碰撞、更新 R1，并发布 `/Odometry`、TF、局部代价地图和 `/robots`。
+9. 新的里程计回到控制器，形成闭环；`NavStateTrack` 发现到达后，下层 BT 返回成功，上层 action 返回成功。
+
+### 读代码时的建议顺序
+
+先看 `project.launch.py` 和 `sp_nav.launch.py`，确定节点与参数来源；再看每个包的 `main()`，确认构造函数和 `spin()`；最后沿 `/goal_pose → /navigate_to_pose → make_plan → /global_path → computeVelocityCommands → /sentry/cmd_vel → /Odometry` 搜索回调函数。这样比从某个控制器类直接往外猜调用关系更快。
+
 ## 2. What each layer does
 
 ### RViz and goal input

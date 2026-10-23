@@ -12,6 +12,8 @@ import time
 
 def windows():
     listing = subprocess.run(['wmctrl', '-l'], text=True, capture_output=True)
+    if listing.returncode and 'BadWindow' in listing.stderr:
+        return [], []  # A startup splash window disappeared during enumeration.
     if listing.returncode and listing.stderr.strip():
         raise RuntimeError(listing.stderr.strip())
     lines = listing.stdout.splitlines()

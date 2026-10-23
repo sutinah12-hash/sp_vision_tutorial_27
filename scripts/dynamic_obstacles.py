@@ -23,7 +23,7 @@ from visualization_msgs.msg import Marker, MarkerArray
 SCENARIO = {
     'id': 'two_position_triggered_encounters_v2',
     'R3': {'trigger_box': [10.0, 12.2, 6.8, 7.9],
-           'outbound': [8.85, 6.15], 'return': [9.4, 3.8],
+           'outbound': [8.85, 6.15], 'return': [9.4, 3.95],
            'return_when': 'R3.y >= 6.0'},
     'R2': {'trigger_box': [5.15, 6.5, 5.5, 6.7],
            'outbound': [5.8, 7.3], 'return': [3.9, 7.2],

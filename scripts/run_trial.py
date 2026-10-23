@@ -29,6 +29,8 @@ def main():
     parser.add_argument('--timeout', type=float, default=240)
     parser.add_argument('--headless', action='store_true')
     parser.add_argument('--auto-goal', action='store_true')
+    parser.add_argument('--dynamic-obstacles', action='store_true',
+                        help='Use existing simulator right clicks for the R2/R3 encounter scenario')
     parser.add_argument('--fast-mpc', action='store_true', help='Experimental MPC speed limit of 2.0 m/s')
     parser.add_argument('--mpc-max-acceleration', type=float)
     parser.add_argument('--mpc-braking-acceleration', type=float)
@@ -41,6 +43,8 @@ def main():
     parser.add_argument('--pid-ki', type=float)
     parser.add_argument('--pid-kd', type=float)
     args = parser.parse_args()
+    if args.dynamic_obstacles and args.headless:
+        parser.error('The moving-obstacle scenario uses the real simulator GUI')
     out = Path(args.out).expanduser().resolve()
     out.mkdir(parents=True, exist_ok=False)
     workspace = Path(__file__).resolve().parents[1]
@@ -107,11 +111,18 @@ def main():
                                   start_new_session=True)
         recorder = subprocess.Popen(recorder_cmd, env=env, stdout=recorder_log, stderr=subprocess.STDOUT,
                                     start_new_session=True)
+        obstacle_log = (out/'obstacles.log').open('w') if args.dynamic_obstacles else None
+        obstacles = subprocess.Popen(
+            [sys.executable, str(workspace/'scripts/dynamic_obstacles.py'), '--out', str(out/'data')],
+            env=env, stdout=obstacle_log, stderr=subprocess.STDOUT, start_new_session=True
+        ) if args.dynamic_obstacles else None
         try:
             deadline = time.monotonic() + args.timeout + 90
             while recorder.poll() is None:
                 if launch.poll() is not None:
                     raise RuntimeError('Navigation launch exited; inspect launch.log')
+                if obstacles is not None and obstacles.poll() is not None:
+                    raise RuntimeError('Dynamic obstacle helper exited; inspect obstacles.log')
                 if 'process has died' in (out / 'launch.log').read_text(errors='replace'):
                     raise RuntimeError('A navigation node died; inspect launch.log')
                 if time.monotonic() > deadline:
@@ -120,6 +131,9 @@ def main():
             result = recorder.returncode
         finally:
             stop(recorder)
+            if obstacles is not None:
+                stop(obstacles)
+                obstacle_log.close()
             stop(launch)
     metrics = out / 'data' / 'metrics.json'
     print(metrics.read_text() if metrics.exists() else (out / 'recorder.log').read_text())

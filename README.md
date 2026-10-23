@@ -6,7 +6,7 @@ Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。保留课程�
 
 [原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md) · [架构与面试讲解](docs/architecture_guide.md) · [MPC 详细讲解](docs/mpc_explained.md) · [三种控制方法](docs/controller_methods.md) · [开发与验证记录](docs/implementation_status.md)
 
-**当前四段实录：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_02/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段均在 VMware 的真实 RViz 窗口连续录制，通过同一个精确目标按钮只发布一次 `(14.1, 14.1)`；画面中可直接看到 R1、R2、R3 的彩色车体、朝向和标签。
+**最终录像：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_02/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段都使用同一 RViz 固定目标按钮和一次目标消息，画面包含 R1、R2、R3。
 
 [四种控制配置的录像与指标](docs/video_comparison.md)：地图、三台机器人、代价地图参数、起终点和 RViz 显示完全一致。
 
@@ -43,7 +43,7 @@ colcon test --base-paths src --executor sequential
 colcon test-result --verbose
 ```
 
-## 3. How the project works
+## 3. Overview
 
 `RViz 单次目标 → 上层决策 BT → NavigateToPose action → 下层导航 BT → A* / controller plugin → 仿真反馈`
 
@@ -55,7 +55,7 @@ colcon test-result --verbose
 - `/mpc_prediction` / `/executed_path`：预测轨迹 / 测得的执行轨迹。
 - `/controller_compute_ms`：控制回调自身计算耗时，不等于全系统 CPU 使用率。
 
-配置集中在 `src/sp_nav_bringup/config/nav_params.yaml`；一键组合启动在 `project.launch.py`。代价地图的 `robot_radius=0.25`、`margin=0.05`、`d_safe=0.70`、`w=12.0` 和 `unknown_as_obstacle=false` 与主办方仿真配置一致。控制器实现 `configure`、`setPlan`、`computeVelocityCommands`，通过 pluginlib 注册，不改只读接口。完整数据流见 [architecture guide](docs/architecture_guide.md)。
+配置集中在 `src/sp_nav_bringup/config/nav_params.yaml`，仿真参数在 `src/sp_nav_sim/config/sim_robot.yaml`，组合启动文件是 `project.launch.py`。控制器通过 pluginlib 注册并实现 `configure`、`setPlan`、`computeVelocityCommands`。完整启动顺序和数据流见 [架构与代码讲解](docs/architecture_guide.md)。
 
 ## 4. Planner and smoothing
 

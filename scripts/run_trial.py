@@ -113,7 +113,7 @@ def main():
                                     start_new_session=True)
         obstacle_log = (out/'obstacles.log').open('w') if args.dynamic_obstacles else None
         obstacles = subprocess.Popen(
-            [sys.executable, str(workspace/'scripts/dynamic_obstacles.py'), '--out', str(out/'data')],
+            [sys.executable, str(workspace/'scripts/dynamic_obstacles.py'), '--out', str(out/'obstacles')],
             env=env, stdout=obstacle_log, stderr=subprocess.STDOUT, start_new_session=True
         ) if args.dynamic_obstacles else None
         try:

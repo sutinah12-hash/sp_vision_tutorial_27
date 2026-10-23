@@ -1,17 +1,16 @@
 # RM navigation final project
 
-Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。保留课程的双层行为树，补齐工程配置，实现 PID、带输入延迟补偿的线性 MPC，以及独立的平滑采样预测实验控制器。
+Ubuntu 22.04 / ROS 2 Humble 下的固定迷宫单次点击导航。实现 PID、带输入延迟补偿的线性 MPC，以及独立的平滑采样预测实验控制器。
 
 作者账号：`sutinah12-hash`。提交分支：`nav`。官方来源：[TongjiSuperPower/sp_vision_tutorial_27 / final_project_nav](https://github.com/TongjiSuperPower/sp_vision_tutorial_27/tree/final_project_nav)，本次核对版本 `05c33fc8aa6695e76bcff310b42f8fdfe276e1cb`。
 
-[原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md) · [架构与面试讲解](docs/architecture_guide.md) · [MPC 详细讲解](docs/mpc_explained.md) · [三种控制方法](docs/controller_methods.md) · [开发与验证记录](docs/implementation_status.md)
+[原始作业要求](docs/assignment.md) · [运行步骤](docs/run_guide.md)  · [三种控制方法](docs/controller_methods.md) · [开发与验证记录](docs/implementation_status.md)
 
 **最终录像：**[默认 MPC](docs/evidence/final_visible_mpc_rviz_01/rviz_one_click.mp4) · [PID](docs/evidence/final_visible_pid_rviz_02/rviz_one_click.mp4) · [Sampling](docs/evidence/final_visible_sampling_rviz_01/rviz_one_click.mp4) · [Fast MPC](docs/evidence/final_visible_fast_mpc_rviz_01/rviz_one_click.mp4)。四段都使用同一 RViz 固定目标按钮和一次目标消息，画面包含 R1、R2、R3。
 
 [四种控制配置的录像与指标](docs/video_comparison.md)：地图、三台机器人、代价地图参数、起终点和 RViz 显示完全一致。
 
-**快速 MPC 参数实验：**速度上限 2.0 m/s、最大加速度 2.0 m/s²、制动加速度 1.2 m/s²、横向加速度 1.0 m/s²。完整 RViz 单击试验用时 **90.37 s**，终点误差 **0.91 cm**，最小墙距 **0.55 m**。它只改学生控制器参数，作为速度优先实验单独保留。
-
+**快速 MPC 参数实验：**速度上限 2.0 m/s、最大加速度 2.0 m/s²、制动加速度 1.2 m/s²、横向加速度 1.0 m/s²。完整 RViz 单击试验用时 **90.37 s**，终点误差 **0.91 cm**，最小墙距 **0.55 m**。
 ## 1. Task and compliance
 
 固定起点 `(0.900, 0.900)`，固定终点 `(14.100, 14.100)`。一次目标通过上层 `click_nav.xml` 触发导航 action，再由下层 `default_nav_with_fallback.xml` 调用 A* 和控制器。没有绕过双层行为树，没有人工发布速度，没有拖动机器人或途中改目标。
@@ -121,7 +120,7 @@ p[k+1] = p[k] + dt*v[k+1]
 
 ## 7. Reproduce and extend
 
-自动重复回归（不替代 GUI 单次点击验收）：
+自动重复回归：
 
 ```bash
 python3 scripts/run_trial.py --controller mpc --headless --auto-goal --out results/test_mpc_01
@@ -131,6 +130,4 @@ python3 scripts/run_trial.py --controller mpc --no-smoothing --headless --auto-g
 python3 scripts/verify_sampling_equivalence.py --out results/test_equivalence_01
 ```
 
-每轮 `provenance.json` 记录提交号、工作区状态、参数与开始时间。`build/`、`install/`、`log/`、完整开发期 `results/` 均忽略；只将经检查的最终证据复制到 `docs/evidence/`。不提交凭据、代理订阅或无关个人文件。
-
-后续可以研究更完整的非线性模型、带障碍代价的采样控制或自适应辨识，但尚未实现的内容不算当前成果。当前优化器不直接约束所有障碍，不能用于未经额外安全验证的真实车自主驾驶。
+每轮 `provenance.json` 记录提交号、工作区状态、参数与开始时间。`build/`、`install/`、`log/`、完整开发期 `results/` 均忽略；只将经检查的最终证据复制到 `docs/evidence/`。
